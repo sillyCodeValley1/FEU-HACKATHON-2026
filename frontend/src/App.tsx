@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Bot, CircuitBoard, ShoppingCart, List, Zap, Cpu, Settings, MessageSquare, Send, Activity, Info, Folder, Archive, Plus, ArrowLeft, Trash2, Box } from 'lucide-react';
+import React, { useState, useMemo } from 'react';
+import { Bot, CircuitBoard, ShoppingCart, List, Zap, Cpu, Settings, MessageSquare, Send, Activity, Info, Folder, Archive, Plus, ArrowLeft, Trash2, Box, Menu, X, ChevronRight, ChevronDown } from 'lucide-react';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
@@ -12,6 +12,8 @@ interface Message {
   id: string;
   role: 'user' | 'assistant';
   content: string;
+  bom?: any[];
+  plan?: any[];
 }
 
 interface Project {
@@ -38,12 +40,18 @@ export default function App() {
   const [projectTab, setProjectTab] = useState<'chat' | 'plan'>('chat');
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(true);
 
   // Modal state
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [newProjName, setNewProjName] = useState('');
 
   const currentProject = projects.find(p => p.id === activeProjectId);
+  
+  // Recent projects derived from projects list (could sort by a timestamp in a real app)
+  const recentProjects = useMemo(() => {
+    return [...projects].reverse().slice(0, 5);
+  }, [projects]);
 
   const handleCreateProject = (e: React.FormEvent) => {
     e.preventDefault();
@@ -106,7 +114,9 @@ export default function App() {
       const assistantMessage: Message = {
         id: (Date.now() + 1).toString(),
         role: 'assistant',
-        content: data.reply
+        content: data.reply,
+        bom: data.bom,
+        plan: data.plan
       };
       
       setProjects(prev => prev.map(p => {
@@ -139,16 +149,37 @@ export default function App() {
 
   return (
     <div className="flex h-screen bg-bg-dark text-text-main font-sans overflow-hidden">
+      {/* Sidebar Toggle Button for small screens or when collapsed */}
+      {!sidebarOpen && (
+        <button 
+          onClick={() => setSidebarOpen(true)}
+          className="absolute top-4 left-4 z-50 p-2 bg-bg-panel border border-border-dark rounded-md text-text-muted hover:text-white transition-colors"
+        >
+          <Menu size={20} />
+        </button>
+      )}
+
       {/* Sidebar */}
-      <aside className="w-64 bg-bg-sidebar border-r border-border-dark flex flex-col transition-all shrink-0">
-        <div className="p-4 flex items-center gap-2 border-b border-border-dark">
-          <div className="w-8 h-8 rounded bg-primary/20 flex items-center justify-center text-primary">
-            <CircuitBoard size={20} />
+      <aside className={cn(
+        "bg-bg-sidebar border-r border-border-dark flex flex-col transition-all duration-300 shrink-0 relative",
+        sidebarOpen ? "w-64" : "w-0 -translate-x-full overflow-hidden"
+      )}>
+        <div className="p-4 flex items-center justify-between border-b border-border-dark whitespace-nowrap">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 rounded bg-primary/20 flex items-center justify-center text-primary shrink-0">
+              <CircuitBoard size={20} />
+            </div>
+            <h1 className="text-xl font-bold tracking-tight text-white">CircuitPal<span className="text-primary">.AI</span></h1>
           </div>
-          <h1 className="text-xl font-bold tracking-tight text-white">CircuitPal<span className="text-primary">.AI</span></h1>
+          <button 
+            onClick={() => setSidebarOpen(false)}
+            className="text-text-muted hover:text-white p-1 rounded-md transition-colors"
+          >
+            <X size={18} />
+          </button>
         </div>
         
-        <nav className="flex-1 p-3 space-y-1 overflow-y-auto">
+        <nav className="flex-1 p-3 space-y-1 overflow-y-auto overflow-x-hidden w-64">
           <div className="text-xs font-semibold text-text-muted mb-2 px-3 mt-2 uppercase tracking-wider">Workspace</div>
           <SidebarItem 
             icon={<Folder size={18} />} 
@@ -169,10 +200,29 @@ export default function App() {
             onClick={() => { setActiveProjectId(null); setGlobalView('catalog'); }} 
           />
           
+          {recentProjects.length > 0 && (
+            <div className="mt-6 mb-1">
+              <div className="text-xs font-semibold text-text-muted mb-2 px-3 uppercase tracking-wider flex items-center gap-1">
+                Recent Projects
+              </div>
+              <div className="space-y-0.5">
+                {recentProjects.map(rp => (
+                  <SidebarItem 
+                    key={rp.id}
+                    icon={<div className="w-2 h-2 rounded-full bg-primary/50" />} 
+                    label={rp.name} 
+                    active={activeProjectId === rp.id} 
+                    onClick={() => { setActiveProjectId(rp.id); setProjectTab('chat'); }} 
+                  />
+                ))}
+              </div>
+            </div>
+          )}
+          
           {activeProjectId && currentProject && (
             <>
               <div className="text-xs font-semibold text-text-muted mb-2 px-3 mt-6 uppercase tracking-wider line-clamp-1">
-                Active: {currentProject.name}
+                Active Project
               </div>
               <SidebarItem 
                 icon={<MessageSquare size={18} />} 
@@ -190,7 +240,7 @@ export default function App() {
           )}
         </nav>
 
-        <div className="p-3 border-t border-border-dark">
+        <div className="p-3 border-t border-border-dark w-64">
           <SidebarItem icon={<Settings size={18} />} label="Settings" />
         </div>
       </aside>
@@ -235,6 +285,52 @@ export default function App() {
                           <div className={cn("p-4 rounded-2xl", msg.role === 'user' ? "bg-bg-panel border border-border-dark rounded-tr-sm text-white" : "bg-transparent")}>
                             <p className="whitespace-pre-wrap leading-relaxed">{msg.content}</p>
                           </div>
+                          
+                          {/* Inline BOM directly in chat */}
+                          {msg.bom && msg.bom.length > 0 && (
+                            <div className="bg-bg-panel border border-border-dark rounded-xl p-4 w-full mt-2 shadow-lg">
+                              <div className="flex items-center gap-2 mb-3 text-sm font-semibold text-white">
+                                <ShoppingCart size={16} className="text-primary" />
+                                Suggested Components ({msg.bom.length})
+                              </div>
+                              <div className="flex flex-wrap gap-2">
+                                {msg.bom.map((item, idx) => {
+                                  const inInventory = inventory.find(i => i.name.toLowerCase() === item.name.toLowerCase());
+                                  return (
+                                    <span key={idx} className={cn("px-3 py-1 bg-bg-dark border rounded-full text-xs flex items-center gap-2", inInventory ? "border-green-500/50" : "border-border-dark")}>
+                                      {item.name} 
+                                      <span className="text-primary font-mono">${item.price}</span>
+                                      {inInventory && <span className="w-1.5 h-1.5 rounded-full bg-green-500 ml-1" title="In Inventory"></span>}
+                                    </span>
+                                  )
+                                })}
+                              </div>
+                            </div>
+                          )}
+                          
+                          {/* Inline Plan directly in chat */}
+                          {msg.plan && msg.plan.length > 0 && (
+                            <div className="bg-bg-panel border border-border-dark rounded-xl p-4 w-full mt-2 shadow-lg">
+                              <div className="flex items-center gap-2 mb-3 text-sm font-semibold text-white">
+                                <Activity size={16} className="text-primary" />
+                                Project Roadmap
+                              </div>
+                              <div className="space-y-2">
+                                {msg.plan.slice(0, 2).map((step, idx) => (
+                                  <div key={idx} className="flex gap-3 text-sm">
+                                    <span className="text-primary font-mono">{idx + 1}.</span>
+                                    <div>
+                                      <p className="font-medium text-gray-300">{step.phase}</p>
+                                      <p className="text-xs text-text-muted">{step.details}</p>
+                                    </div>
+                                  </div>
+                                ))}
+                              </div>
+                              <button onClick={() => setProjectTab('plan')} className="mt-4 text-xs text-primary hover:underline flex items-center gap-1">
+                                View Full Plan <ChevronRight size={12} />
+                              </button>
+                            </div>
+                          )}
                         </div>
                       </div>
                     ))}
