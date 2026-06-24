@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Bot, CircuitBoard, ShoppingCart, List, Zap, Cpu, Settings, MessageSquare, Send, Activity, Info } from 'lucide-react';
+import { Bot, CircuitBoard, ShoppingCart, List, Zap, Cpu, Settings, MessageSquare, Send, Activity, Info, Folder, Archive, Plus, ArrowLeft, Trash2, Box } from 'lucide-react';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
@@ -12,32 +12,86 @@ interface Message {
   id: string;
   role: 'user' | 'assistant';
   content: string;
-  bom?: any[];
-  plan?: any[];
+}
+
+interface Project {
+  id: string;
+  name: string;
+  description: string;
+  messages: Message[];
+  bom: any[];
+  plan: any[];
+}
+
+interface InventoryItem {
+  id: string;
+  name: string;
+  quantity: number;
 }
 
 export default function App() {
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: '1',
-      role: 'assistant',
-      content: 'Hello! I am CircuitPal AI. What electronics project would you like to build today?'
-    }
-  ]);
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [activeProjectId, setActiveProjectId] = useState<string | null>(null);
+  const [globalView, setGlobalView] = useState<'projects' | 'inventory' | 'catalog'>('projects');
+  
+  const [inventory, setInventory] = useState<InventoryItem[]>([]);
+  const [projectTab, setProjectTab] = useState<'chat' | 'plan'>('chat');
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [activeTab, setActiveTab] = useState<'chat' | 'bom' | 'plan' | 'catalog'>('chat');
 
-  // We'll keep track of the latest BOM and Plan for the dashboard tabs
-  const latestBom = messages.slice().reverse().find(m => m.bom)?.bom || [];
-  const latestPlan = messages.slice().reverse().find(m => m.plan)?.plan || [];
+  // Modal state
+  const [showCreateModal, setShowCreateModal] = useState(false);
+  const [newProjName, setNewProjName] = useState('');
+
+  const currentProject = projects.find(p => p.id === activeProjectId);
+
+  const handleCreateProject = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newProjName.trim()) return;
+    
+    const newProj: Project = {
+      id: Date.now().toString(),
+      name: newProjName,
+      description: 'A new electronics project.',
+      messages: [
+        {
+          id: '1',
+          role: 'assistant',
+          content: `Project "${newProjName}" initialized! What would you like to build? Describe your idea and I will generate the components and a step-by-step plan.`
+        }
+      ],
+      bom: [],
+      plan: []
+    };
+    
+    setProjects(prev => [...prev, newProj]);
+    setShowCreateModal(false);
+    setNewProjName('');
+    setActiveProjectId(newProj.id);
+    setProjectTab('chat');
+  };
+
+  const handleDeleteProject = (id: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    setProjects(prev => prev.filter(p => p.id !== id));
+    if (activeProjectId === id) setActiveProjectId(null);
+  };
 
   const handleSend = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!input.trim()) return;
+    if (!input.trim() || !activeProjectId) return;
 
     const userMessage: Message = { id: Date.now().toString(), role: 'user', content: input };
-    setMessages(prev => [...prev, userMessage]);
+    
+    // Optimistic update
+    setProjects(prev => prev.map(p => {
+      if (p.id === activeProjectId) {
+        return { ...p, messages: [...p.messages, userMessage] };
+      }
+      return p;
+    }));
+    
+    const sentInput = input;
     setInput('');
     setIsLoading(true);
 
@@ -45,25 +99,39 @@ export default function App() {
       const res = await fetch('http://localhost:3001/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: userMessage.content })
+        body: JSON.stringify({ message: sentInput })
       });
       const data = await res.json();
       
       const assistantMessage: Message = {
         id: (Date.now() + 1).toString(),
         role: 'assistant',
-        content: data.reply,
-        bom: data.bom,
-        plan: data.plan
+        content: data.reply
       };
-      setMessages(prev => [...prev, assistantMessage]);
+      
+      setProjects(prev => prev.map(p => {
+        if (p.id === activeProjectId) {
+          return {
+            ...p,
+            messages: [...p.messages, assistantMessage],
+            // Update BOM and Plan if the AI returned new ones
+            bom: data.bom && data.bom.length > 0 ? data.bom : p.bom,
+            plan: data.plan && data.plan.length > 0 ? data.plan : p.plan
+          };
+        }
+        return p;
+      }));
     } catch (error) {
       console.error('Error fetching response:', error);
-      setMessages(prev => [...prev, {
-        id: (Date.now() + 1).toString(),
-        role: 'assistant',
-        content: 'Error: Could not reach the CircuitPal AI backend.'
-      }]);
+      setProjects(prev => prev.map(p => {
+        if (p.id === activeProjectId) {
+          return {
+            ...p,
+            messages: [...p.messages, { id: Date.now().toString(), role: 'assistant', content: 'Error: Could not reach the CircuitPal AI backend.' }]
+          };
+        }
+        return p;
+      }));
     } finally {
       setIsLoading(false);
     }
@@ -72,7 +140,7 @@ export default function App() {
   return (
     <div className="flex h-screen bg-bg-dark text-text-main font-sans overflow-hidden">
       {/* Sidebar */}
-      <aside className="w-64 bg-bg-sidebar border-r border-border-dark flex flex-col transition-all">
+      <aside className="w-64 bg-bg-sidebar border-r border-border-dark flex flex-col transition-all shrink-0">
         <div className="p-4 flex items-center gap-2 border-b border-border-dark">
           <div className="w-8 h-8 rounded bg-primary/20 flex items-center justify-center text-primary">
             <CircuitBoard size={20} />
@@ -81,10 +149,45 @@ export default function App() {
         </div>
         
         <nav className="flex-1 p-3 space-y-1 overflow-y-auto">
-          <SidebarItem icon={<MessageSquare size={18} />} label="AI Chat" active={activeTab === 'chat'} onClick={() => setActiveTab('chat')} />
-          <SidebarItem icon={<List size={18} />} label="Bill of Materials" active={activeTab === 'bom'} onClick={() => setActiveTab('bom')} badge={latestBom.length > 0 ? latestBom.length : undefined} />
-          <SidebarItem icon={<Activity size={18} />} label="Project Plan" active={activeTab === 'plan'} onClick={() => setActiveTab('plan')} badge={latestPlan.length > 0 ? latestPlan.length : undefined} />
-          <SidebarItem icon={<Cpu size={18} />} label="Component Catalog" active={activeTab === 'catalog'} onClick={() => setActiveTab('catalog')} />
+          <div className="text-xs font-semibold text-text-muted mb-2 px-3 mt-2 uppercase tracking-wider">Workspace</div>
+          <SidebarItem 
+            icon={<Folder size={18} />} 
+            label="My Projects" 
+            active={!activeProjectId && globalView === 'projects'} 
+            onClick={() => { setActiveProjectId(null); setGlobalView('projects'); }} 
+          />
+          <SidebarItem 
+            icon={<Archive size={18} />} 
+            label="My Inventory" 
+            active={!activeProjectId && globalView === 'inventory'} 
+            onClick={() => { setActiveProjectId(null); setGlobalView('inventory'); }} 
+          />
+          <SidebarItem 
+            icon={<Cpu size={18} />} 
+            label="Component Catalog" 
+            active={!activeProjectId && globalView === 'catalog'} 
+            onClick={() => { setActiveProjectId(null); setGlobalView('catalog'); }} 
+          />
+          
+          {activeProjectId && currentProject && (
+            <>
+              <div className="text-xs font-semibold text-text-muted mb-2 px-3 mt-6 uppercase tracking-wider line-clamp-1">
+                Active: {currentProject.name}
+              </div>
+              <SidebarItem 
+                icon={<MessageSquare size={18} />} 
+                label="Copilot & BOM" 
+                active={projectTab === 'chat'} 
+                onClick={() => setProjectTab('chat')} 
+              />
+              <SidebarItem 
+                icon={<Activity size={18} />} 
+                label="Project Plan" 
+                active={projectTab === 'plan'} 
+                onClick={() => setProjectTab('plan')} 
+              />
+            </>
+          )}
         </nav>
 
         <div className="p-3 border-t border-border-dark">
@@ -94,195 +197,276 @@ export default function App() {
 
       {/* Main Content */}
       <main className="flex-1 flex flex-col h-full relative">
-        {activeTab === 'chat' && (
-          <div className="flex-1 flex flex-col h-full">
-            {/* Header */}
-            <header className="h-14 border-b border-border-dark flex items-center px-6 bg-bg-dark/80 backdrop-blur-sm sticky top-0 z-10">
-              <h2 className="text-lg font-semibold flex items-center gap-2">
-                <Bot className="text-primary" size={20} />
-                Project Copilot
-              </h2>
+        {activeProjectId && currentProject ? (
+          // PROJECT DETAIL VIEW
+          <div className="flex-1 flex flex-col h-full overflow-hidden">
+            {/* Project Header */}
+            <header className="h-14 border-b border-border-dark flex items-center justify-between px-6 bg-bg-dark/80 backdrop-blur-sm z-10 shrink-0">
+              <div className="flex items-center gap-4">
+                <button onClick={() => setActiveProjectId(null)} className="text-text-muted hover:text-white transition-colors p-1 rounded-md hover:bg-white/5">
+                  <ArrowLeft size={18} />
+                </button>
+                <h2 className="text-lg font-semibold flex items-center gap-2 text-white">
+                  {currentProject.name}
+                </h2>
+              </div>
+              <div className="flex bg-bg-panel p-1 rounded-lg">
+                <button onClick={() => setProjectTab('chat')} className={cn("px-4 py-1.5 text-xs font-medium rounded-md transition-colors", projectTab === 'chat' ? "bg-bg-dark text-white shadow-sm" : "text-text-muted hover:text-white")}>
+                  Copilot
+                </button>
+                <button onClick={() => setProjectTab('plan')} className={cn("px-4 py-1.5 text-xs font-medium rounded-md transition-colors", projectTab === 'plan' ? "bg-bg-dark text-white shadow-sm" : "text-text-muted hover:text-white")}>
+                  Plan
+                </button>
+              </div>
             </header>
 
-            {/* Chat Messages */}
-            <div className="flex-1 overflow-y-auto p-6 space-y-6 scroll-smooth">
-              {messages.map(msg => (
-                <div key={msg.id} className={cn("flex gap-4 max-w-4xl mx-auto", msg.role === 'user' ? "flex-row-reverse" : "flex-row")}>
-                  <div className={cn("w-8 h-8 rounded-full flex items-center justify-center shrink-0", msg.role === 'user' ? "bg-gray-700" : "bg-primary/20 text-primary")}>
-                    {msg.role === 'user' ? <Zap size={16} /> : <Bot size={18} />}
-                  </div>
-                  <div className={cn("flex flex-col gap-2 max-w-[80%]", msg.role === 'user' ? "items-end" : "items-start")}>
-                    <div className={cn("p-4 rounded-2xl", msg.role === 'user' ? "bg-bg-panel border border-border-dark rounded-tr-sm" : "bg-transparent")}>
-                      <p className="whitespace-pre-wrap leading-relaxed">{msg.content}</p>
-                    </div>
-                    
-                    {msg.bom && msg.bom.length > 0 && (
-                      <div className="bg-bg-panel border border-border-dark rounded-xl p-4 w-full mt-2 shadow-lg">
-                        <div className="flex items-center gap-2 mb-3 text-sm font-semibold text-white">
-                          <ShoppingCart size={16} className="text-primary" />
-                          Suggested Components ({msg.bom.length})
+            {/* Project Tabs */}
+            {projectTab === 'chat' && (
+              <div className="flex-1 flex overflow-hidden">
+                {/* Chat Area */}
+                <div className="flex-1 flex flex-col">
+                  <div className="flex-1 overflow-y-auto p-6 space-y-6 scroll-smooth">
+                    {currentProject.messages.map(msg => (
+                      <div key={msg.id} className={cn("flex gap-4 max-w-3xl mx-auto w-full", msg.role === 'user' ? "flex-row-reverse" : "flex-row")}>
+                        <div className={cn("w-8 h-8 rounded-full flex items-center justify-center shrink-0", msg.role === 'user' ? "bg-gray-700" : "bg-primary/20 text-primary")}>
+                          {msg.role === 'user' ? <Zap size={16} /> : <Bot size={18} />}
                         </div>
-                        <div className="flex flex-wrap gap-2">
-                          {msg.bom.map((item, idx) => (
-                            <span key={idx} className="px-3 py-1 bg-bg-dark border border-border-dark rounded-full text-xs flex items-center gap-2">
-                              {item.name} <span className="text-primary">${item.price}</span>
-                            </span>
-                          ))}
-                        </div>
-                        <button onClick={() => setActiveTab('bom')} className="mt-4 text-xs text-primary hover:underline flex items-center gap-1">
-                          View Full BOM <Zap size={12} />
-                        </button>
-                      </div>
-                    )}
-
-                    {msg.plan && msg.plan.length > 0 && (
-                      <div className="bg-bg-panel border border-border-dark rounded-xl p-4 w-full mt-2 shadow-lg">
-                        <div className="flex items-center gap-2 mb-3 text-sm font-semibold text-white">
-                          <Activity size={16} className="text-primary" />
-                          Project Roadmap
-                        </div>
-                        <div className="space-y-2">
-                          {msg.plan.slice(0, 2).map((step, idx) => (
-                            <div key={idx} className="flex gap-3 text-sm">
-                              <span className="text-primary font-mono">{idx + 1}.</span>
-                              <div>
-                                <p className="font-medium text-gray-300">{step.phase}</p>
-                                <p className="text-xs text-text-muted">{step.details}</p>
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                        <button onClick={() => setActiveTab('plan')} className="mt-4 text-xs text-primary hover:underline flex items-center gap-1">
-                          View Full Plan <Zap size={12} />
-                        </button>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              ))}
-              {isLoading && (
-                <div className="flex gap-4 max-w-4xl mx-auto">
-                   <div className="w-8 h-8 rounded-full bg-primary/20 text-primary flex items-center justify-center shrink-0">
-                    <Bot size={18} />
-                  </div>
-                  <div className="p-4 flex gap-1 items-center">
-                    <div className="w-2 h-2 rounded-full bg-primary/60 animate-bounce" style={{ animationDelay: '0ms' }} />
-                    <div className="w-2 h-2 rounded-full bg-primary/60 animate-bounce" style={{ animationDelay: '150ms' }} />
-                    <div className="w-2 h-2 rounded-full bg-primary/60 animate-bounce" style={{ animationDelay: '300ms' }} />
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* Input Area */}
-            <div className="p-4 border-t border-border-dark bg-bg-dark">
-              <form onSubmit={handleSend} className="max-w-4xl mx-auto relative flex items-center">
-                <input 
-                  type="text" 
-                  value={input}
-                  onChange={e => setInput(e.target.value)}
-                  placeholder="Describe the electronics project you want to build..." 
-                  className="w-full bg-bg-panel border border-border-dark rounded-xl py-4 pl-4 pr-12 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary transition-all text-sm placeholder:text-text-muted shadow-sm"
-                />
-                <button 
-                  type="submit" 
-                  disabled={!input.trim() || isLoading}
-                  className="absolute right-2 p-2 bg-primary hover:bg-primary-dark disabled:bg-gray-700 disabled:text-gray-500 text-white rounded-lg transition-colors flex items-center justify-center"
-                >
-                  <Send size={18} className={cn(input.trim() ? "translate-x-[-1px] translate-y-[1px]" : "")} />
-                </button>
-              </form>
-              <div className="text-center mt-3 text-xs text-text-muted flex items-center justify-center gap-1">
-                <Info size={12} /> CircuitPal AI can make mistakes. Verify component compatibility before purchasing.
-              </div>
-            </div>
-          </div>
-        )}
-
-        {activeTab === 'bom' && (
-          <div className="flex-1 flex flex-col h-full overflow-y-auto p-8 max-w-5xl mx-auto w-full">
-            <h2 className="text-2xl font-bold mb-2 text-white">Bill of Materials (BOM)</h2>
-            <p className="text-text-muted mb-8">Auto-generated list of required components for your latest project.</p>
-            
-            {latestBom.length === 0 ? (
-              <div className="text-center py-20 border border-dashed border-border-dark rounded-xl bg-bg-panel/50">
-                <ShoppingCart className="mx-auto text-text-muted mb-4" size={48} />
-                <p className="text-lg">No BOM generated yet.</p>
-                <p className="text-sm text-text-muted mt-2">Chat with the AI to generate a project and parts list.</p>
-              </div>
-            ) : (
-              <div className="bg-bg-panel border border-border-dark rounded-xl overflow-hidden shadow-xl">
-                <table className="w-full text-left border-collapse">
-                  <thead>
-                    <tr className="bg-bg-dark border-b border-border-dark">
-                      <th className="p-4 font-medium text-sm text-text-muted">Part Name</th>
-                      <th className="p-4 font-medium text-sm text-text-muted">Category</th>
-                      <th className="p-4 font-medium text-sm text-text-muted text-right">Price (Est.)</th>
-                      <th className="p-4 font-medium text-sm text-text-muted text-center">Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {latestBom.map((item, idx) => (
-                      <tr key={idx} className="border-b border-border-dark/50 hover:bg-white/5 transition-colors">
-                        <td className="p-4 font-medium text-white flex items-center gap-3">
-                          <div className="w-8 h-8 rounded bg-bg-dark flex items-center justify-center">
-                            <Cpu size={16} className="text-primary" />
+                        <div className={cn("flex flex-col gap-2 max-w-[85%]", msg.role === 'user' ? "items-end" : "items-start")}>
+                          <div className={cn("p-4 rounded-2xl", msg.role === 'user' ? "bg-bg-panel border border-border-dark rounded-tr-sm text-white" : "bg-transparent")}>
+                            <p className="whitespace-pre-wrap leading-relaxed">{msg.content}</p>
                           </div>
-                          {item.name}
-                        </td>
-                        <td className="p-4 text-sm"><span className="px-2 py-1 bg-bg-dark rounded-md text-xs border border-border-dark">{item.category}</span></td>
-                        <td className="p-4 text-right text-primary font-mono">${item.price.toFixed(2)}</td>
-                        <td className="p-4 text-center">
-                          <button className="text-xs bg-primary/10 text-primary hover:bg-primary/20 px-3 py-1.5 rounded-lg transition-colors">Add to Cart</button>
-                        </td>
-                      </tr>
+                        </div>
+                      </div>
                     ))}
-                  </tbody>
-                  <tfoot>
-                    <tr className="bg-bg-dark">
-                      <td colSpan={2} className="p-4 text-right font-semibold">Total Estimated Cost:</td>
-                      <td className="p-4 text-right font-bold text-white text-lg font-mono">
-                        ${latestBom.reduce((acc, item) => acc + item.price, 0).toFixed(2)}
-                      </td>
-                      <td></td>
-                    </tr>
-                  </tfoot>
-                </table>
-              </div>
-            )}
-          </div>
-        )}
+                    {isLoading && (
+                      <div className="flex gap-4 max-w-3xl mx-auto w-full">
+                        <div className="w-8 h-8 rounded-full bg-primary/20 text-primary flex items-center justify-center shrink-0">
+                          <Bot size={18} />
+                        </div>
+                        <div className="p-4 flex gap-1 items-center">
+                          <div className="w-2 h-2 rounded-full bg-primary/60 animate-bounce" style={{ animationDelay: '0ms' }} />
+                          <div className="w-2 h-2 rounded-full bg-primary/60 animate-bounce" style={{ animationDelay: '150ms' }} />
+                          <div className="w-2 h-2 rounded-full bg-primary/60 animate-bounce" style={{ animationDelay: '300ms' }} />
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                  
+                  {/* Chat Input */}
+                  <div className="p-4 border-t border-border-dark bg-bg-dark">
+                    <form onSubmit={handleSend} className="max-w-3xl mx-auto relative flex items-center">
+                      <input 
+                        type="text" 
+                        value={input}
+                        onChange={e => setInput(e.target.value)}
+                        placeholder="Ask the copilot to add features or adjust components..." 
+                        className="w-full bg-bg-panel border border-border-dark rounded-xl py-4 pl-4 pr-12 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary transition-all text-sm placeholder:text-text-muted shadow-sm"
+                      />
+                      <button 
+                        type="submit" 
+                        disabled={!input.trim() || isLoading}
+                        className="absolute right-2 p-2 bg-primary hover:bg-primary-dark disabled:bg-gray-700 disabled:text-gray-500 text-white rounded-lg transition-colors flex items-center justify-center"
+                      >
+                        <Send size={18} className={cn(input.trim() ? "translate-x-[-1px] translate-y-[1px]" : "")} />
+                      </button>
+                    </form>
+                  </div>
+                </div>
 
-        {activeTab === 'plan' && (
-          <div className="flex-1 flex flex-col h-full overflow-y-auto p-8 max-w-4xl mx-auto w-full">
-            <h2 className="text-2xl font-bold mb-2 text-white">Project Planner</h2>
-            <p className="text-text-muted mb-8">Step-by-step roadmap for building your hardware project.</p>
-            
-            {latestPlan.length === 0 ? (
-              <div className="text-center py-20 border border-dashed border-border-dark rounded-xl bg-bg-panel/50">
-                <Activity className="mx-auto text-text-muted mb-4" size={48} />
-                <p className="text-lg">No plan generated yet.</p>
-              </div>
-            ) : (
-              <div className="relative border-l border-border-dark ml-4 space-y-8 pb-8">
-                {latestPlan.map((step, idx) => (
-                  <div key={idx} className="relative pl-8">
-                    <div className="absolute -left-3 top-0.5 w-6 h-6 rounded-full bg-bg-dark border-2 border-primary flex items-center justify-center text-[10px] font-bold text-primary">
-                      {idx + 1}
-                    </div>
-                    <div className="bg-bg-panel border border-border-dark rounded-xl p-5 shadow-sm hover:border-primary/50 transition-colors">
-                      <h3 className="text-lg font-semibold text-white mb-2">{step.phase}</h3>
-                      <p className="text-text-muted leading-relaxed">{step.details}</p>
+                {/* BOM Side Panel */}
+                <div className="w-80 bg-bg-sidebar border-l border-border-dark flex flex-col shrink-0">
+                  <div className="p-4 border-b border-border-dark flex items-center gap-2 bg-bg-dark/50">
+                    <List size={18} className="text-primary"/>
+                    <h3 className="font-semibold text-white">Bill of Materials</h3>
+                    <div className="ml-auto bg-primary/20 text-primary text-xs px-2 py-0.5 rounded-full font-bold">
+                      {currentProject.bom.length} items
                     </div>
                   </div>
-                ))}
+                  <div className="flex-1 overflow-y-auto p-4 space-y-3">
+                    {currentProject.bom.length === 0 ? (
+                      <div className="text-center mt-10">
+                        <Box className="mx-auto text-text-muted mb-3 opacity-50" size={32} />
+                        <p className="text-sm text-text-muted">BOM is empty.</p>
+                        <p className="text-xs text-text-muted mt-1 opacity-70">Describe your project to generate parts.</p>
+                      </div>
+                    ) : (
+                      currentProject.bom.map((item, idx) => {
+                        const inInventory = inventory.find(i => i.name.toLowerCase() === item.name.toLowerCase());
+                        return (
+                          <div key={idx} className="bg-bg-panel border border-border-dark rounded-lg p-3 shadow-sm relative overflow-hidden">
+                            {inInventory && (
+                              <div className="absolute top-0 right-0 bg-green-500/20 text-green-400 text-[9px] font-bold px-2 py-0.5 rounded-bl-lg">
+                                In Inventory
+                              </div>
+                            )}
+                            <div className="text-xs text-primary mb-1 font-medium">{item.category}</div>
+                            <div className="font-semibold text-sm text-white leading-tight">{item.name}</div>
+                            <div className="mt-3 flex items-center justify-between">
+                              <div className="text-xs text-text-muted line-clamp-1 flex-1 mr-2">{item.description}</div>
+                              <div className="font-mono text-sm text-primary font-bold">${item.price.toFixed(2)}</div>
+                            </div>
+                          </div>
+                        )
+                      })
+                    )}
+                  </div>
+                  {currentProject.bom.length > 0 && (
+                    <div className="p-4 border-t border-border-dark bg-bg-panel shrink-0">
+                      <div className="flex justify-between items-center mb-4">
+                        <span className="text-sm text-text-muted font-medium">Total Est. Cost</span>
+                        <span className="font-mono text-white font-bold text-lg">
+                          ${currentProject.bom.reduce((acc, i) => acc + i.price, 0).toFixed(2)}
+                        </span>
+                      </div>
+                      <button className="w-full bg-primary hover:bg-primary-dark text-white rounded-lg py-2.5 text-sm font-medium transition-colors flex items-center justify-center gap-2 shadow-lg shadow-primary/20">
+                        <ShoppingCart size={16} /> Check Availability
+                      </button>
+                    </div>
+                  )}
+                </div>
               </div>
+            )}
+
+            {projectTab === 'plan' && (
+              <div className="flex-1 flex flex-col h-full overflow-y-auto p-8 max-w-4xl mx-auto w-full">
+                <h2 className="text-2xl font-bold mb-2 text-white">Project Planner</h2>
+                <p className="text-text-muted mb-8">Step-by-step roadmap for building "{currentProject.name}".</p>
+                
+                {currentProject.plan.length === 0 ? (
+                  <div className="text-center py-20 border border-dashed border-border-dark rounded-xl bg-bg-panel/50">
+                    <Activity className="mx-auto text-text-muted mb-4" size={48} />
+                    <p className="text-lg">No plan generated yet.</p>
+                    <p className="text-sm text-text-muted mt-2">Chat with the copilot to generate a roadmap.</p>
+                  </div>
+                ) : (
+                  <div className="relative border-l border-border-dark ml-4 space-y-8 pb-8">
+                    {currentProject.plan.map((step, idx) => (
+                      <div key={idx} className="relative pl-8">
+                        <div className="absolute -left-3 top-0.5 w-6 h-6 rounded-full bg-bg-dark border-2 border-primary flex items-center justify-center text-[10px] font-bold text-primary">
+                          {idx + 1}
+                        </div>
+                        <div className="bg-bg-panel border border-border-dark rounded-xl p-5 shadow-sm hover:border-primary/50 transition-colors">
+                          <h3 className="text-lg font-semibold text-white mb-2">{step.phase}</h3>
+                          <p className="text-text-muted leading-relaxed">{step.details}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        ) : (
+          // GLOBAL VIEWS
+          <div className="flex-1 flex flex-col h-full overflow-y-auto">
+            {globalView === 'projects' && (
+              <div className="p-8 max-w-6xl mx-auto w-full">
+                <div className="flex justify-between items-center mb-8">
+                  <div>
+                    <h2 className="text-2xl font-bold text-white mb-1">My Projects</h2>
+                    <p className="text-text-muted">Manage your hardware builds and ideas.</p>
+                  </div>
+                  <button 
+                    onClick={() => setShowCreateModal(true)}
+                    className="bg-primary hover:bg-primary-dark text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-2 shadow-lg shadow-primary/20"
+                  >
+                    <Plus size={18} /> New Project
+                  </button>
+                </div>
+
+                {projects.length === 0 ? (
+                  <div className="text-center py-20 border border-dashed border-border-dark rounded-xl bg-bg-panel/50 flex flex-col items-center">
+                    <Folder className="text-text-muted mb-4" size={48} />
+                    <p className="text-lg font-medium text-white mb-2">No projects yet</p>
+                    <p className="text-sm text-text-muted mb-6">Create your first project to get AI assistance, BOM generation, and planning.</p>
+                    <button 
+                      onClick={() => setShowCreateModal(true)}
+                      className="bg-bg-dark border border-border-dark hover:border-primary/50 text-white px-6 py-2.5 rounded-lg text-sm font-medium transition-all"
+                    >
+                      Start Building
+                    </button>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                    {projects.map(p => (
+                      <div 
+                        key={p.id} 
+                        onClick={() => { setActiveProjectId(p.id); setProjectTab('chat'); }}
+                        className="bg-bg-panel border border-border-dark rounded-xl p-5 cursor-pointer hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5 transition-all group flex flex-col h-48"
+                      >
+                        <div className="flex justify-between items-start mb-3">
+                          <div className="w-10 h-10 rounded-lg bg-bg-dark flex items-center justify-center text-primary border border-border-dark group-hover:bg-primary/10 transition-colors">
+                            <Cpu size={20} />
+                          </div>
+                          <button 
+                            onClick={(e) => handleDeleteProject(p.id, e)}
+                            className="text-text-muted hover:text-red-400 p-1.5 rounded-md hover:bg-bg-dark transition-colors opacity-0 group-hover:opacity-100"
+                          >
+                            <Trash2 size={16} />
+                          </button>
+                        </div>
+                        <h3 className="font-bold text-lg text-white mb-1 line-clamp-1">{p.name}</h3>
+                        <p className="text-sm text-text-muted line-clamp-2 mb-4 flex-1">{p.description}</p>
+                        <div className="flex items-center gap-3 text-xs font-medium text-text-muted pt-4 border-t border-border-dark/50">
+                          <div className="flex items-center gap-1.5"><List size={14}/> {p.bom.length} Parts</div>
+                          <div className="flex items-center gap-1.5"><Activity size={14}/> {p.plan.length} Steps</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+
+            {globalView === 'inventory' && (
+              <InventoryView inventory={inventory} setInventory={setInventory} />
+            )}
+
+            {globalView === 'catalog' && (
+              <CatalogView />
             )}
           </div>
         )}
 
-        {activeTab === 'catalog' && (
-          <CatalogView />
+        {/* Create Project Modal */}
+        {showCreateModal && (
+          <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-in fade-in duration-200">
+            <div className="bg-bg-panel border border-border-dark rounded-2xl w-full max-w-md shadow-2xl overflow-hidden">
+              <div className="p-6 border-b border-border-dark">
+                <h3 className="text-xl font-bold text-white">Create New Project</h3>
+                <p className="text-sm text-text-muted mt-1">Give your hardware project a name to get started.</p>
+              </div>
+              <form onSubmit={handleCreateProject} className="p-6">
+                <div className="mb-6">
+                  <label className="block text-sm font-medium text-text-muted mb-2">Project Name</label>
+                  <input 
+                    type="text" 
+                    value={newProjName}
+                    onChange={e => setNewProjName(e.target.value)}
+                    placeholder="e.g. Smart Plant Monitor, Robot Arm..."
+                    className="w-full bg-bg-dark border border-border-dark rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all"
+                    autoFocus
+                  />
+                </div>
+                <div className="flex justify-end gap-3">
+                  <button 
+                    type="button" 
+                    onClick={() => setShowCreateModal(false)}
+                    className="px-4 py-2.5 rounded-lg text-sm font-medium text-text-muted hover:text-white hover:bg-white/5 transition-colors"
+                  >
+                    Cancel
+                  </button>
+                  <button 
+                    type="submit" 
+                    disabled={!newProjName.trim()}
+                    className="bg-primary hover:bg-primary-dark disabled:opacity-50 disabled:cursor-not-allowed text-white px-6 py-2.5 rounded-lg text-sm font-medium transition-colors shadow-lg shadow-primary/20"
+                  >
+                    Create Project
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
         )}
       </main>
     </div>
@@ -308,6 +492,122 @@ function SidebarItem({ icon, label, active, onClick, badge }: { icon: React.Reac
         </span>
       )}
     </button>
+  );
+}
+
+function InventoryView({ inventory, setInventory }: { inventory: InventoryItem[], setInventory: React.Dispatch<React.SetStateAction<InventoryItem[]>> }) {
+  const [name, setName] = useState('');
+  const [quantity, setQuantity] = useState(1);
+
+  const handleAdd = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!name.trim()) return;
+    
+    // Check if item already exists to merge quantities
+    const existingIdx = inventory.findIndex(i => i.name.toLowerCase() === name.trim().toLowerCase());
+    if (existingIdx >= 0) {
+      const newInv = [...inventory];
+      newInv[existingIdx].quantity += Number(quantity);
+      setInventory(newInv);
+    } else {
+      setInventory([...inventory, { id: Date.now().toString(), name: name.trim(), quantity: Number(quantity) }]);
+    }
+    
+    setName('');
+    setQuantity(1);
+  };
+
+  const handleRemove = (id: string) => {
+    setInventory(inventory.filter(i => i.id !== id));
+  };
+
+  return (
+    <div className="p-8 max-w-5xl mx-auto w-full">
+      <div className="mb-8">
+        <h2 className="text-2xl font-bold text-white mb-1">My Inventory</h2>
+        <p className="text-text-muted">Keep track of the components you already own. The AI will prioritize these when making recommendations.</p>
+      </div>
+
+      <div className="bg-bg-panel border border-border-dark rounded-xl p-6 mb-8 shadow-sm">
+        <h3 className="text-sm font-semibold text-white mb-4 flex items-center gap-2">
+          <Plus size={16} className="text-primary"/> Add Component to Inventory
+        </h3>
+        <form onSubmit={handleAdd} className="flex gap-4 items-end">
+          <div className="flex-1">
+            <label className="block text-xs font-medium text-text-muted mb-1.5">Component Name</label>
+            <input 
+              type="text" 
+              value={name}
+              onChange={e => setName(e.target.value)}
+              placeholder="e.g. Arduino Uno, 10k Resistor..." 
+              className="w-full bg-bg-dark border border-border-dark rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-primary transition-colors text-white"
+            />
+          </div>
+          <div className="w-32">
+            <label className="block text-xs font-medium text-text-muted mb-1.5">Quantity</label>
+            <input 
+              type="number" 
+              min="1"
+              value={quantity}
+              onChange={e => setQuantity(Number(e.target.value))}
+              className="w-full bg-bg-dark border border-border-dark rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-primary transition-colors text-white"
+            />
+          </div>
+          <button 
+            type="submit" 
+            disabled={!name.trim()}
+            className="bg-bg-dark border border-border-dark hover:border-primary hover:text-primary disabled:opacity-50 text-white px-6 py-2.5 rounded-lg text-sm font-medium transition-colors h-[42px]"
+          >
+            Add Item
+          </button>
+        </form>
+      </div>
+
+      <div className="bg-bg-panel border border-border-dark rounded-xl overflow-hidden shadow-sm">
+        {inventory.length === 0 ? (
+          <div className="text-center py-12">
+            <Archive className="mx-auto text-border-dark mb-3" size={32} />
+            <p className="text-sm text-text-muted">Your inventory is empty.</p>
+          </div>
+        ) : (
+          <table className="w-full text-left border-collapse">
+            <thead>
+              <tr className="bg-bg-dark border-b border-border-dark">
+                <th className="p-4 font-medium text-xs text-text-muted uppercase tracking-wider">Component Name</th>
+                <th className="p-4 font-medium text-xs text-text-muted uppercase tracking-wider w-32 text-center">Quantity</th>
+                <th className="p-4 font-medium text-xs text-text-muted uppercase tracking-wider w-24 text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {inventory.map((item) => (
+                <tr key={item.id} className="border-b border-border-dark/50 hover:bg-white/5 transition-colors group">
+                  <td className="p-4 font-medium text-white flex items-center gap-3">
+                    <div className="w-8 h-8 rounded bg-bg-dark flex items-center justify-center border border-border-dark">
+                      <Box size={14} className="text-primary" />
+                    </div>
+                    {item.name}
+                  </td>
+                  <td className="p-4 text-center">
+                    <span className="inline-flex items-center justify-center bg-bg-dark border border-border-dark rounded-md px-3 py-1 text-sm font-mono text-white">
+                      {item.quantity}
+                    </span>
+                  </td>
+                  <td className="p-4 text-right">
+                    <button 
+                      onClick={() => handleRemove(item.id)}
+                      className="text-text-muted hover:text-red-400 p-2 rounded-md hover:bg-bg-dark transition-colors opacity-0 group-hover:opacity-100"
+                      title="Remove from inventory"
+                    >
+                      <Trash2 size={16} />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+      </div>
+    </div>
   );
 }
 
@@ -339,10 +639,10 @@ function CatalogView() {
   };
 
   return (
-    <div className="flex-1 flex flex-col h-full p-8 max-w-6xl mx-auto w-full">
+    <div className="p-8 max-w-6xl mx-auto w-full">
       <div className="flex justify-between items-center mb-8">
         <div>
-          <h2 className="text-2xl font-bold text-white">Component Catalog</h2>
+          <h2 className="text-2xl font-bold text-white mb-1">Component Catalog</h2>
           <p className="text-text-muted">Browse mock marketplace inventory</p>
         </div>
         <form onSubmit={handleSearch} className="flex gap-2">
@@ -351,21 +651,21 @@ function CatalogView() {
             placeholder="Search components..." 
             value={search}
             onChange={e => setSearch(e.target.value)}
-            className="bg-bg-panel border border-border-dark rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-primary w-64"
+            className="bg-bg-panel border border-border-dark rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-primary w-64 text-white"
           />
-          <button type="submit" className="bg-bg-dark border border-border-dark px-4 py-2 rounded-lg text-sm hover:bg-white/5 transition-colors">Search</button>
+          <button type="submit" className="bg-bg-dark border border-border-dark px-4 py-2 rounded-lg text-sm hover:bg-white/5 transition-colors text-white">Search</button>
         </form>
       </div>
 
       {loading ? (
-        <div className="flex-1 flex items-center justify-center">
+        <div className="flex-1 flex items-center justify-center py-20">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 overflow-y-auto pb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {items.map(item => (
             <div key={item.id} className="bg-bg-panel border border-border-dark rounded-xl p-5 flex flex-col hover:border-primary/50 transition-colors group">
-              <div className="w-full h-32 bg-bg-dark rounded-lg mb-4 flex items-center justify-center text-border-dark group-hover:text-primary/20 transition-colors">
+              <div className="w-full h-32 bg-bg-dark rounded-lg mb-4 flex items-center justify-center text-border-dark group-hover:text-primary/20 transition-colors border border-border-dark/50">
                 <Cpu size={48} />
               </div>
               <div className="text-xs text-primary font-medium mb-1">{item.category}</div>
@@ -373,13 +673,13 @@ function CatalogView() {
               <p className="text-xs text-text-muted mb-4 line-clamp-2 flex-1">{item.description}</p>
               
               <div className="flex items-center justify-between mt-auto pt-4 border-t border-border-dark/50">
-                <span className="font-mono text-lg text-white">${item.price.toFixed(2)}</span>
-                <span className="text-xs text-text-muted">{item.stock} in stock</span>
+                <span className="font-mono text-lg text-white font-bold">${item.price.toFixed(2)}</span>
+                <span className="text-xs text-text-muted font-medium bg-bg-dark px-2 py-1 rounded-md border border-border-dark">{item.stock} in stock</span>
               </div>
             </div>
           ))}
           {items.length === 0 && (
-             <div className="col-span-full text-center py-12 text-text-muted">
+             <div className="col-span-full text-center py-12 text-text-muted border border-dashed border-border-dark rounded-xl bg-bg-panel/50">
                No components found matching "{search}".
              </div>
           )}
