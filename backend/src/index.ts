@@ -130,10 +130,12 @@ Never generate the BOM based solely on catalog availability.
 Always report missing components honestly.
 `;
 
+// Define API endpoints
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', message: 'CircuitPal AI Backend is running' });
 });
 
+// Endpoint to fetch the mock catalog with optional search query
 app.get('/api/catalog', (req, res) => {
   const query = req.query.q as string;
   if (query) {
@@ -147,6 +149,7 @@ app.get('/api/catalog', (req, res) => {
   }
 });
 
+// Endpoint to handle chat requests and generate project plans
 app.post('/api/chat', async (req, res) => {
   const { message } = req.body;
   
@@ -280,6 +283,7 @@ function getMockResponse(message: string) {
   return { reply, required_components, matched_components, missing_components, project_readiness, plan };
 }
 
+// Start the server
 app.listen(port, () => {
   console.log(`Server is successfully running on port ${port}`);
 });

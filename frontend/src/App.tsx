@@ -174,7 +174,9 @@ export default function App() {
       <aside className={cn(
         "bg-bg-sidebar border-r border-border-dark flex flex-col transition-all duration-300 ease-in-out shrink-0 h-full",
         sidebarOpen ? "w-[260px] translate-x-0" : "w-0 -translate-x-full opacity-0"
-      )}>
+      )}
+      onMouseLeave={() => setSidebarOpen(false)}
+      >
         <div className="p-4 flex items-center justify-between whitespace-nowrap h-14">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded bg-primary/20 flex items-center justify-center text-primary shrink-0">
