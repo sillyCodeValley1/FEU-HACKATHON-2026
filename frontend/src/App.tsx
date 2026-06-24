@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { Bot, CircuitBoard, ShoppingCart, List, Zap, Cpu, Settings, MessageSquare, Send, Activity, Info, Folder, Archive, Plus, ArrowLeft, Trash2, Box, PanelLeftClose, PanelLeft } from 'lucide-react';
+import { Bot, CircuitBoard, ShoppingCart, List, Zap, Cpu, Settings, MessageSquare, Send, Activity, Info, Folder, Archive, Plus, ArrowLeft, Trash2, Box, PanelLeftClose, PanelLeft, ExternalLink } from 'lucide-react';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { API_BASE_URL } from './config';
@@ -14,6 +14,7 @@ interface Message {
   role: 'user' | 'assistant';
   content: string;
   bom?: any[];
+  missing_components?: any[];
   plan?: any[];
 }
 
@@ -23,6 +24,7 @@ interface Project {
   description: string;
   messages: Message[];
   bom: any[];
+  missing_components: any[];
   plan: any[];
 }
 
@@ -70,6 +72,7 @@ export default function App() {
         }
       ],
       bom: [],
+      missing_components: [],
       plan: []
     };
     
@@ -117,6 +120,7 @@ export default function App() {
         role: 'assistant',
         content: data.reply,
         bom: data.matched_components,
+        missing_components: data.missing_components,
         plan: data.plan
       };
       
@@ -127,6 +131,7 @@ export default function App() {
             messages: [...p.messages, assistantMessage],
             // Update BOM and Plan if the AI returned new ones
             bom: data.matched_components && data.matched_components.length > 0 ? data.matched_components : p.bom,
+            missing_components: data.missing_components && data.missing_components.length > 0 ? data.missing_components : p.missing_components,
             plan: data.plan && data.plan.length > 0 ? data.plan : p.plan
           };
         }
@@ -313,6 +318,37 @@ export default function App() {
                               </div>
                             </div>
                           )}
+
+                          {/* Inline Missing Components in chat */}
+                          {msg.missing_components && msg.missing_components.length > 0 && (
+                            <div className="bg-bg-panel border border-orange-500/30 rounded-xl p-4 w-full mt-2 shadow-lg">
+                              <div className="flex items-center gap-2 mb-3 text-sm font-semibold text-orange-400">
+                                <Info size={16} />
+                                External Components ({msg.missing_components.length})
+                              </div>
+                              <p className="text-xs text-text-muted mb-3">These items are not in the catalog, but you can buy them externally.</p>
+                              <div className="flex flex-col gap-2">
+                                {msg.missing_components.map((item, idx) => (
+                                  <div key={idx} className="bg-bg-dark border border-orange-500/20 rounded-lg p-3 text-xs flex flex-col gap-1.5">
+                                    <div className="flex items-center justify-between">
+                                      <span className="font-semibold text-white">{item.name}</span>
+                                      {item.purchase_link && (
+                                        <a 
+                                          href={item.purchase_link} 
+                                          target="_blank" 
+                                          rel="noreferrer" 
+                                          className="text-orange-400 hover:text-orange-300 flex items-center gap-1 font-medium transition-colors"
+                                        >
+                                          Buy <ExternalLink size={12} />
+                                        </a>
+                                      )}
+                                    </div>
+                                    <span className="text-text-muted opacity-80">{item.reason}</span>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          )}
                           
                           {/* Inline Plan directly in chat */}
                           {msg.plan && msg.plan.length > 0 && (
@@ -381,35 +417,61 @@ export default function App() {
                     <List size={18} className="text-primary"/>
                     <h3 className="font-semibold text-white">Bill of Materials</h3>
                     <div className="ml-auto bg-primary/20 text-primary text-xs px-2 py-0.5 rounded-full font-bold">
-                      {currentProject.bom.length} items
+                      {currentProject.bom.length + (currentProject.missing_components?.length || 0)} items
                     </div>
                   </div>
                   <div className="flex-1 overflow-y-auto p-4 space-y-3">
-                    {currentProject.bom.length === 0 ? (
+                    {currentProject.bom.length === 0 && (!currentProject.missing_components || currentProject.missing_components.length === 0) ? (
                       <div className="text-center mt-10">
                         <Box className="mx-auto text-text-muted mb-3 opacity-50" size={32} />
                         <p className="text-sm text-text-muted">BOM is empty.</p>
                         <p className="text-xs text-text-muted mt-1 opacity-70">Describe your project to generate parts.</p>
                       </div>
                     ) : (
-                      currentProject.bom.map((item, idx) => {
-                        const inInventory = inventory.find(i => i.name.toLowerCase() === item.name.toLowerCase());
-                        return (
-                          <div key={idx} className="bg-bg-panel border border-border-dark rounded-lg p-3 shadow-sm relative overflow-hidden">
-                            {inInventory && (
-                              <div className="absolute top-0 right-0 bg-green-500/20 text-green-400 text-[9px] font-bold px-2 py-0.5 rounded-bl-lg">
-                                In Inventory
+                      <>
+                        {currentProject.bom.map((item, idx) => {
+                          const inInventory = inventory.find(i => i.name.toLowerCase() === item.name.toLowerCase());
+                          return (
+                            <div key={idx} className="bg-bg-panel border border-border-dark rounded-lg p-3 shadow-sm relative overflow-hidden">
+                              {inInventory && (
+                                <div className="absolute top-0 right-0 bg-green-500/20 text-green-400 text-[9px] font-bold px-2 py-0.5 rounded-bl-lg">
+                                  In Inventory
+                                </div>
+                              )}
+                              <div className="text-xs text-primary mb-1 font-medium">{item.category}</div>
+                              <div className="font-semibold text-sm text-white leading-tight">{item.name}</div>
+                              <div className="mt-3 flex items-center justify-between">
+                                <div className="text-xs text-text-muted line-clamp-1 flex-1 mr-2">{item.description}</div>
+                                <div className="font-mono text-sm text-primary font-bold">₱{item.price.toFixed(2)}</div>
                               </div>
-                            )}
-                            <div className="text-xs text-primary mb-1 font-medium">{item.category}</div>
-                            <div className="font-semibold text-sm text-white leading-tight">{item.name}</div>
-                            <div className="mt-3 flex items-center justify-between">
-                              <div className="text-xs text-text-muted line-clamp-1 flex-1 mr-2">{item.description}</div>
-                              <div className="font-mono text-sm text-primary font-bold">₱{item.price.toFixed(2)}</div>
+                            </div>
+                          )
+                        })}
+
+                        {currentProject.missing_components && currentProject.missing_components.length > 0 && (
+                          <div className="pt-4 mt-4 border-t border-border-dark/50">
+                            <h4 className="text-xs font-semibold text-orange-400 mb-3 uppercase tracking-wider flex items-center gap-1.5">
+                              <Info size={14} /> External Components
+                            </h4>
+                            <div className="space-y-3">
+                              {currentProject.missing_components.map((item, idx) => (
+                                <div key={idx} className="bg-bg-dark border border-orange-500/30 rounded-lg p-3 shadow-sm relative overflow-hidden">
+                                  <div className="text-xs text-orange-400 mb-1 font-medium flex items-center justify-between">
+                                    <span>Not in catalog</span>
+                                    {item.purchase_link && (
+                                      <a href={item.purchase_link} target="_blank" rel="noreferrer" className="text-orange-400 hover:text-orange-300 flex items-center gap-1 transition-colors">
+                                        Buy <ExternalLink size={10} />
+                                      </a>
+                                    )}
+                                  </div>
+                                  <div className="font-semibold text-sm text-white leading-tight">{item.name}</div>
+                                  <div className="mt-2 text-xs text-text-muted opacity-80">{item.reason}</div>
+                                </div>
+                              ))}
                             </div>
                           </div>
-                        )
-                      })
+                        )}
+                      </>
                     )}
                   </div>
                   {currentProject.bom.length > 0 && (

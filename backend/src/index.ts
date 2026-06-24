@@ -61,7 +61,7 @@ For each component:
 * If a suitable catalog item exists: 
   * Add it to "matched_components" 
 * If no suitable catalog item exists: 
-  * Add it to "missing_components" 
+  * Add it to "missing_components" and include a "purchase_link" to an external site (e.g. Shopee, Lazada, Amazon, Adafruit) where it can be bought.
 
 Do not invent catalog items. 
 Do not claim unavailable components exist. 
@@ -106,7 +106,8 @@ Return ONLY valid JSON.
 "missing_components": [ 
 { 
 "name": "DC Gear Motor", 
-"reason": "No equivalent found in catalog" 
+"reason": "No equivalent found in catalog",
+"purchase_link": "https://www.amazon.com/s?k=dc+gear+motor"
 } 
 ], 
 "project_readiness": { 
@@ -231,7 +232,7 @@ function getMockResponse(message: string) {
     ];
     matched_components = [mockCatalog[1], mockCatalog[5], mockCatalog[6], mockCatalog[7], mockCatalog[8], mockCatalog[9]];
     missing_components = [
-      { name: 'Tubing', reason: 'No water tubing available in catalog' }
+      { name: 'Tubing', reason: 'No water tubing available in catalog', purchase_link: 'https://www.amazon.com/s?k=silicone+water+tubing' }
     ];
     project_readiness = { matched: 6, missing: 1, percentage: 85 };
     plan = [
@@ -252,8 +253,8 @@ function getMockResponse(message: string) {
     ];
     matched_components = [mockCatalog[0], mockCatalog[3], mockCatalog[4], mockCatalog[2], mockCatalog[8]];
     missing_components = [
-      { name: 'DC Gear Motors (x2)', reason: 'Not available in current catalog' },
-      { name: 'Robot Chassis', reason: 'Not available in current catalog' }
+      { name: 'DC Gear Motors (x2)', reason: 'Not available in current catalog', purchase_link: 'https://www.adafruit.com/product/3777' },
+      { name: 'Robot Chassis', reason: 'Not available in current catalog', purchase_link: 'https://www.amazon.com/s?k=robot+car+chassis' }
     ];
     project_readiness = { matched: 5, missing: 2, percentage: 71 };
     plan = [
@@ -280,5 +281,5 @@ function getMockResponse(message: string) {
 }
 
 app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+  console.log(`Server is successfully running on port ${port}`);
 });
