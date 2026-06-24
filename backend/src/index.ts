@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 
 dotenv.config();
 
@@ -10,17 +11,123 @@ const port = process.env.PORT || 3001;
 app.use(cors());
 app.use(express.json());
 
-// Mock component catalog data
+// Initialize Gemini API
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || 'dummy-key');
+
+// Mock component catalog data (Providing this to the AI as context)
 const mockCatalog = [
-  { id: '1', name: 'Arduino Uno R3', category: 'Microcontroller', price: 24.99, stock: 50, description: 'Standard microcontroller board for beginners.' },
-  { id: '2', name: 'ESP32 Development Board', category: 'Microcontroller', price: 9.99, stock: 120, description: 'Wi-Fi & Bluetooth MCU, great for IoT.' },
-  { id: '3', name: 'Ultrasonic Sensor HC-SR04', category: 'Sensor', price: 3.99, stock: 300, description: 'Distance measuring sensor.' },
-  { id: '4', name: 'L298N Motor Driver', category: 'Module', price: 5.49, stock: 85, description: 'Dual H-bridge motor driver.' },
-  { id: '5', name: '18650 Li-ion Battery 3000mAh', category: 'Power', price: 6.99, stock: 200, description: 'Rechargeable power source.' },
-  { id: '6', name: 'Soil Moisture Sensor', category: 'Sensor', price: 2.50, stock: 150, description: 'Analog soil moisture sensor for plants.' },
-  { id: '7', name: '5V Relay Module', category: 'Module', price: 3.50, stock: 200, description: '1-channel relay module for switching high power.' },
-  { id: '8', name: 'Mini Water Pump 5V', category: 'Actuator', price: 4.99, stock: 90, description: 'Submersible water pump.' }
+  { id: '1', name: 'Arduino Uno R3', category: 'Microcontroller', price: 1450.00, stock: 50, description: 'Standard microcontroller board for beginners.' },
+  { id: '2', name: 'ESP32 Development Board', category: 'Microcontroller', price: 580.00, stock: 120, description: 'Wi-Fi & Bluetooth MCU, great for IoT.' },
+  { id: '3', name: 'Ultrasonic Sensor HC-SR04', category: 'Sensor', price: 230.00, stock: 300, description: 'Distance measuring sensor.' },
+  { id: '4', name: 'L298N Motor Driver', category: 'Module', price: 320.00, stock: 85, description: 'Dual H-bridge motor driver.' },
+  { id: '5', name: '18650 Li-ion Battery 3000mAh', category: 'Power', price: 405.00, stock: 200, description: 'Rechargeable power source.' },
+  { id: '6', name: 'Soil Moisture Sensor', category: 'Sensor', price: 145.00, stock: 150, description: 'Analog soil moisture sensor for plants.' },
+  { id: '7', name: '5V Relay Module', category: 'Module', price: 205.00, stock: 200, description: '1-channel relay module for switching high power.' },
+  { id: '8', name: 'Mini Water Pump 5V', category: 'Actuator', price: 290.00, stock: 90, description: 'Submersible water pump.' },
+  { id: '9', name: 'Jumper Wires (M-M) x40', category: 'Wiring', price: 175.00, stock: 500, description: 'Male to male jumper wires for breadboards.' },
+  { id: '10', name: 'Half-Size Breadboard', category: 'Prototyping', price: 260.00, stock: 150, description: 'Standard 400 tie-point breadboard.' }
 ];
+
+const SYSTEM_PROMPT = `
+You are CircuitPal AI, a specialized electronics project planning assistant. 
+
+Your primary task is NOT to recommend products from a catalog immediately. 
+
+Follow this process exactly: 
+
+STEP 1 — Analyze the Project 
+Read the user's request and determine what they are trying to build. 
+Think like an electronics engineer. 
+Identify: 
+* Required hardware components 
+* Power requirements 
+* Sensors 
+* Actuators 
+* Controllers 
+* Communication modules 
+* Supporting components 
+
+Generate a complete Bill of Materials (BOM) based purely on engineering requirements. 
+DO NOT consider the catalog during this step. 
+DO NOT attempt to force catalog products into the BOM. 
+The BOM should represent what is actually needed to build the project. 
+
+--- 
+
+STEP 2 — Catalog Matching 
+After generating the ideal BOM: 
+Compare every required component against the Available Catalog. 
+For each component: 
+* If a suitable catalog item exists: 
+  * Add it to "matched_components" 
+* If no suitable catalog item exists: 
+  * Add it to "missing_components" 
+
+Do not invent catalog items. 
+Do not claim unavailable components exist. 
+
+--- 
+
+STEP 3 — Project Planning 
+Generate a practical build plan using the identified components. 
+Include: 
+* Hardware Acquisition 
+* Circuit Assembly 
+* Programming 
+* Testing 
+* Integration 
+
+--- 
+
+AVAILABLE CATALOG 
+${JSON.stringify(mockCatalog, null, 2)}
+
+--- 
+
+OUTPUT FORMAT 
+Return ONLY valid JSON. 
+
+{ 
+"reply": "Short project summary and explanation.", 
+"required_components": [ 
+{ 
+"name": "Arduino Uno", 
+"purpose": "Main controller" 
+} 
+], 
+"matched_components": [ 
+{ 
+"id": "1", 
+"name": "Arduino Uno R3", 
+"category": "Microcontroller", 
+"price": 1450 
+} 
+], 
+"missing_components": [ 
+{ 
+"name": "DC Gear Motor", 
+"reason": "No equivalent found in catalog" 
+} 
+], 
+"project_readiness": { 
+"matched": 5, 
+"missing": 2, 
+"percentage": 71 
+}, 
+"plan": [ 
+{ 
+"phase": "Hardware Acquisition", 
+"details": "Acquire all required components." 
+} 
+] 
+} 
+
+IMPORTANT: 
+Generate the BOM FIRST. 
+Catalog matching happens SECOND. 
+Never generate the BOM based solely on catalog availability. 
+Always report missing components honestly.
+`;
 
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', message: 'CircuitPal AI Backend is running' });
@@ -39,40 +146,138 @@ app.get('/api/catalog', (req, res) => {
   }
 });
 
-app.post('/api/chat', (req, res) => {
+app.post('/api/chat', async (req, res) => {
   const { message } = req.body;
   
-  // Basic intent parsing for mock
+  if (!process.env.GEMINI_API_KEY) {
+    console.warn("WARNING: GEMINI_API_KEY is not set. Falling back to mock response.");
+    return res.json(getMockResponse(message));
+  }
+
+  try {
+    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+    
+    const prompt = `
+    System Instruction: ${SYSTEM_PROMPT}
+    
+    User Message: ${message}
+    
+    Remember: Output ONLY valid JSON matching the schema.
+    `;
+
+    const result = await model.generateContent(prompt);
+    const responseText = result.response.text();
+    
+    // Clean up potential markdown formatting from Gemini
+    let cleanJsonStr = responseText.trim();
+    console.log(cleanJsonStr);
+    if (cleanJsonStr.startsWith('```json')) {
+      cleanJsonStr = cleanJsonStr.substring(7);
+    } else if (cleanJsonStr.startsWith('```')) {
+      cleanJsonStr = cleanJsonStr.substring(3);
+    }
+    if (cleanJsonStr.endsWith('```')) {
+      cleanJsonStr = cleanJsonStr.substring(0, cleanJsonStr.length - 3);
+    }
+    
+    const parsedResponse = JSON.parse(cleanJsonStr);
+    res.json(parsedResponse);
+    
+  } catch (error: any) {
+    console.error("Gemini API Error:", error.message || error);
+    
+    // Check if it's a 503 Service Unavailable error
+    if (error.status === 503 || (error.message && error.message.includes('503'))) {
+       console.log("Gemini API is currently experiencing high demand. Falling back to mock response.");
+       return res.json({
+         ...getMockResponse(message),
+         reply: `[API Busy - Using Mock Response] ${getMockResponse(message).reply}`
+       });
+    } 
+    else if (error.status === 429 || error.message?.includes("429")) {
+      return res.json({
+        ...getMockResponse(message),
+        reply: "[Quota Exceeded - Using Mock Response] " +
+          getMockResponse(message).reply
+      });
+    }
+
+    // Fallback to mock if API fails for other reasons
+    res.json({
+      ...getMockResponse(message),
+      reply: `[API Error - Using Mock Response] ${getMockResponse(message).reply}`
+    });
+  }
+});
+
+// Mock response generator for fallback
+function getMockResponse(message: string) {
   let reply = `I can help you build that! Here's a breakdown for your project: "${message}".`;
-  let bom: any[] = [];
+  let required_components: any[] = [];
+  let matched_components: any[] = [];
+  let missing_components: any[] = [];
+  let project_readiness = { matched: 0, missing: 0, percentage: 0 };
   let plan: any[] = [];
   
   if (message.toLowerCase().includes('plant') || message.toLowerCase().includes('water')) {
-    bom = [mockCatalog[1], mockCatalog[5], mockCatalog[6], mockCatalog[7]];
+    required_components = [
+      { name: 'Microcontroller with Wi-Fi', purpose: 'Main controller and IoT connectivity' },
+      { name: 'Soil Moisture Sensor', purpose: 'Measure plant hydration' },
+      { name: 'Relay Module', purpose: 'Control water pump power' },
+      { name: 'Mini Water Pump', purpose: 'Pump water to plant' },
+      { name: 'Tubing', purpose: 'Direct water flow' },
+      { name: 'Jumper Wires', purpose: 'Connect components' },
+      { name: 'Breadboard', purpose: 'Prototyping circuit' }
+    ];
+    matched_components = [mockCatalog[1], mockCatalog[5], mockCatalog[6], mockCatalog[7], mockCatalog[8], mockCatalog[9]];
+    missing_components = [
+      { name: 'Tubing', reason: 'No water tubing available in catalog' }
+    ];
+    project_readiness = { matched: 6, missing: 1, percentage: 85 };
     plan = [
-      { phase: 'Hardware acquisition', details: 'Order ESP32, Moisture Sensor, Relay, and Water Pump.' },
+      { phase: 'Hardware acquisition', details: 'Order ESP32, Moisture Sensor, Relay, Water Pump, Wires, and Breadboard. Source tubing locally.' },
       { phase: 'Circuit assembly', details: 'Connect Moisture Sensor to ESP32 analog pin. Connect Relay to digital pin to control the pump.' },
       { phase: 'Programming', details: 'Write code to read moisture levels and trigger relay when dry.' },
       { phase: 'Testing & Deployment', details: 'Test with a cup of water before deploying to actual plant.' }
     ];
   } else if (message.toLowerCase().includes('robot') || message.toLowerCase().includes('car')) {
-    bom = [mockCatalog[0], mockCatalog[3], mockCatalog[4], mockCatalog[2]];
+    required_components = [
+      { name: 'Microcontroller', purpose: 'Main robot brain' },
+      { name: 'Motor Driver', purpose: 'Control DC motors' },
+      { name: 'DC Gear Motors (x2)', purpose: 'Robot movement' },
+      { name: 'Robot Chassis', purpose: 'Base for components' },
+      { name: 'Ultrasonic Sensor', purpose: 'Obstacle avoidance' },
+      { name: 'Battery Pack', purpose: 'Power source' },
+      { name: 'Jumper Wires', purpose: 'Connections' }
+    ];
+    matched_components = [mockCatalog[0], mockCatalog[3], mockCatalog[4], mockCatalog[2], mockCatalog[8]];
+    missing_components = [
+      { name: 'DC Gear Motors (x2)', reason: 'Not available in current catalog' },
+      { name: 'Robot Chassis', reason: 'Not available in current catalog' }
+    ];
+    project_readiness = { matched: 5, missing: 2, percentage: 71 };
     plan = [
-      { phase: 'Hardware acquisition', details: 'Order Arduino, Motor Driver, Motors, and Battery.' },
+      { phase: 'Hardware acquisition', details: 'Order Arduino, Motor Driver, Battery, Sensor, and Wires. Need to find motors and chassis elsewhere.' },
       { phase: 'Circuit assembly', details: 'Connect motors to L298N. Connect Arduino PWM pins to L298N IN pins. Wire battery to driver.' },
       { phase: 'Programming', details: 'Write movement functions (forward, backward, turn).' },
       { phase: 'Testing', details: 'Test motor directions on blocks before placing on ground.' }
     ];
   } else {
-    bom = [mockCatalog[0]];
+    required_components = [
+      { name: 'Microcontroller', purpose: 'Base logic' },
+      { name: 'Breadboard', purpose: 'Prototyping' }
+    ];
+    matched_components = [mockCatalog[0], mockCatalog[9]];
+    missing_components = [];
+    project_readiness = { matched: 2, missing: 0, percentage: 100 };
     plan = [
       { phase: 'Planning', details: 'Define the exact requirements for your custom project.' },
-      { phase: 'Hardware acquisition', details: 'Order the base microcontroller.' }
+      { phase: 'Hardware acquisition', details: 'Order the base microcontroller and breadboard to get started.' }
     ];
   }
 
-  res.json({ reply, bom, plan });
-});
+  return { reply, required_components, matched_components, missing_components, project_readiness, plan };
+}
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

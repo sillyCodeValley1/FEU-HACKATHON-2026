@@ -1,7 +1,8 @@
 import React, { useState, useMemo } from 'react';
-import { Bot, CircuitBoard, ShoppingCart, List, Zap, Cpu, Settings, MessageSquare, Send, Activity, Info, Folder, Archive, Plus, ArrowLeft, Trash2, Box, Menu, X, ChevronRight, ChevronDown } from 'lucide-react';
+import { Bot, CircuitBoard, ShoppingCart, List, Zap, Cpu, Settings, MessageSquare, Send, Activity, Info, Folder, Archive, Plus, ArrowLeft, Trash2, Box, PanelLeftClose, PanelLeft } from 'lucide-react';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
+import { API_BASE_URL } from './config';
 
 function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -104,7 +105,7 @@ export default function App() {
     setIsLoading(true);
 
     try {
-      const res = await fetch('http://localhost:3001/api/chat', {
+      const res = await fetch(`${API_BASE_URL}/api/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: sentInput })
@@ -115,7 +116,7 @@ export default function App() {
         id: (Date.now() + 1).toString(),
         role: 'assistant',
         content: data.reply,
-        bom: data.bom,
+        bom: data.matched_components,
         plan: data.plan
       };
       
@@ -125,7 +126,7 @@ export default function App() {
             ...p,
             messages: [...p.messages, assistantMessage],
             // Update BOM and Plan if the AI returned new ones
-            bom: data.bom && data.bom.length > 0 ? data.bom : p.bom,
+            bom: data.matched_components && data.matched_components.length > 0 ? data.matched_components : p.bom,
             plan: data.plan && data.plan.length > 0 ? data.plan : p.plan
           };
         }
@@ -149,22 +150,27 @@ export default function App() {
 
   return (
     <div className="flex h-screen bg-bg-dark text-text-main font-sans overflow-hidden">
-      {/* Sidebar Toggle Button for small screens or when collapsed */}
+      {/* Sidebar Overlay for Mobile (Optional, but good for ChatGPT style) */}
       {!sidebarOpen && (
-        <button 
-          onClick={() => setSidebarOpen(true)}
-          className="absolute top-4 left-4 z-50 p-2 bg-bg-panel border border-border-dark rounded-md text-text-muted hover:text-white transition-colors"
+        <div 
+          className="fixed top-3 left-3 z-50 group"
+          onMouseEnter={() => setSidebarOpen(true)}
         >
-          <Menu size={20} />
-        </button>
+           <button 
+             onClick={() => setSidebarOpen(true)}
+             className="p-2 text-text-muted hover:text-white transition-colors rounded-lg hover:bg-white/10"
+           >
+             <PanelLeft size={20} />
+           </button>
+        </div>
       )}
 
       {/* Sidebar */}
       <aside className={cn(
-        "bg-bg-sidebar border-r border-border-dark flex flex-col transition-all duration-300 shrink-0 relative",
-        sidebarOpen ? "w-64" : "w-0 -translate-x-full overflow-hidden"
+        "bg-bg-sidebar border-r border-border-dark flex flex-col transition-all duration-300 ease-in-out shrink-0 h-full",
+        sidebarOpen ? "w-[260px] translate-x-0" : "w-0 -translate-x-full opacity-0"
       )}>
-        <div className="p-4 flex items-center justify-between border-b border-border-dark whitespace-nowrap">
+        <div className="p-4 flex items-center justify-between whitespace-nowrap h-14">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded bg-primary/20 flex items-center justify-center text-primary shrink-0">
               <CircuitBoard size={20} />
@@ -173,13 +179,13 @@ export default function App() {
           </div>
           <button 
             onClick={() => setSidebarOpen(false)}
-            className="text-text-muted hover:text-white p-1 rounded-md transition-colors"
+            className="text-text-muted hover:text-white p-1.5 rounded-lg transition-colors hover:bg-white/10"
           >
-            <X size={18} />
+            <PanelLeftClose size={18} />
           </button>
         </div>
         
-        <nav className="flex-1 p-3 space-y-1 overflow-y-auto overflow-x-hidden w-64">
+        <nav className="flex-1 p-3 space-y-1 overflow-y-auto overflow-x-hidden w-[260px]">
           <div className="text-xs font-semibold text-text-muted mb-2 px-3 mt-2 uppercase tracking-wider">Workspace</div>
           <SidebarItem 
             icon={<Folder size={18} />} 
@@ -240,7 +246,7 @@ export default function App() {
           )}
         </nav>
 
-        <div className="p-3 border-t border-border-dark w-64">
+        <div className="p-3 border-t border-border-dark w-[260px]">
           <SidebarItem icon={<Settings size={18} />} label="Settings" />
         </div>
       </aside>
@@ -299,7 +305,7 @@ export default function App() {
                                   return (
                                     <span key={idx} className={cn("px-3 py-1 bg-bg-dark border rounded-full text-xs flex items-center gap-2", inInventory ? "border-green-500/50" : "border-border-dark")}>
                                       {item.name} 
-                                      <span className="text-primary font-mono">${item.price}</span>
+                                      <span className="text-primary font-mono">₱{item.price}</span>
                                       {inInventory && <span className="w-1.5 h-1.5 rounded-full bg-green-500 ml-1" title="In Inventory"></span>}
                                     </span>
                                   )
@@ -327,7 +333,7 @@ export default function App() {
                                 ))}
                               </div>
                               <button onClick={() => setProjectTab('plan')} className="mt-4 text-xs text-primary hover:underline flex items-center gap-1">
-                                View Full Plan <ChevronRight size={12} />
+                                View Full Plan <ArrowLeft size={12} className="rotate-180" />
                               </button>
                             </div>
                           )}
@@ -399,7 +405,7 @@ export default function App() {
                             <div className="font-semibold text-sm text-white leading-tight">{item.name}</div>
                             <div className="mt-3 flex items-center justify-between">
                               <div className="text-xs text-text-muted line-clamp-1 flex-1 mr-2">{item.description}</div>
-                              <div className="font-mono text-sm text-primary font-bold">${item.price.toFixed(2)}</div>
+                              <div className="font-mono text-sm text-primary font-bold">₱{item.price.toFixed(2)}</div>
                             </div>
                           </div>
                         )
@@ -411,11 +417,11 @@ export default function App() {
                       <div className="flex justify-between items-center mb-4">
                         <span className="text-sm text-text-muted font-medium">Total Est. Cost</span>
                         <span className="font-mono text-white font-bold text-lg">
-                          ${currentProject.bom.reduce((acc, i) => acc + i.price, 0).toFixed(2)}
+                          ₱{currentProject.bom.reduce((acc, i) => acc + i.price, 0).toFixed(2)}
                         </span>
                       </div>
                       <button className="w-full bg-primary hover:bg-primary-dark text-white rounded-lg py-2.5 text-sm font-medium transition-colors flex items-center justify-center gap-2 shadow-lg shadow-primary/20">
-                        <ShoppingCart size={16} /> Check Availability
+                        <ShoppingCart size={16} /> Buy Now
                       </button>
                     </div>
                   )}
@@ -719,7 +725,7 @@ function CatalogView() {
   const fetchCatalog = async (q = '') => {
     setLoading(true);
     try {
-      const res = await fetch(`http://localhost:3001/api/catalog${q ? '?q=' + q : ''}`);
+      const res = await fetch(`${API_BASE_URL}/api/catalog${q ? '?q=' + q : ''}`);
       const data = await res.json();
       setItems(data);
     } catch (e) {
@@ -769,7 +775,7 @@ function CatalogView() {
               <p className="text-xs text-text-muted mb-4 line-clamp-2 flex-1">{item.description}</p>
               
               <div className="flex items-center justify-between mt-auto pt-4 border-t border-border-dark/50">
-                <span className="font-mono text-lg text-white font-bold">${item.price.toFixed(2)}</span>
+                <span className="font-mono text-lg text-white font-bold">₱{item.price.toFixed(2)}</span>
                 <span className="text-xs text-text-muted font-medium bg-bg-dark px-2 py-1 rounded-md border border-border-dark">{item.stock} in stock</span>
               </div>
             </div>
