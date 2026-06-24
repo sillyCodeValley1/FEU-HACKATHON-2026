@@ -541,16 +541,98 @@ export default function App() {
                 </div>
 
                 {projects.length === 0 ? (
-                  <div className="text-center py-20 border border-dashed border-border-dark rounded-xl bg-bg-panel/50 flex flex-col items-center">
-                    <Folder className="text-text-muted mb-4" size={48} />
-                    <p className="text-lg font-medium text-white mb-2">No projects yet</p>
-                    <p className="text-sm text-text-muted mb-6">Create your first project to get AI assistance, BOM generation, and planning.</p>
-                    <button 
-                      onClick={() => setShowCreateModal(true)}
-                      className="bg-bg-dark border border-border-dark hover:border-primary/50 text-white px-6 py-2.5 rounded-lg text-sm font-medium transition-all"
-                    >
-                      Start Building
-                    </button>
+                  <div className="min-h-full">
+                    {/* Hero Section */}
+                    <div className="relative overflow-hidden py-20 px-6">
+                      <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent" />
+                      <div className="max-w-6xl mx-auto relative z-10">
+                        <div className="text-center mb-12">
+                          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6 border border-primary/20">
+                            <CircuitBoard size={16} />
+                            <span>FEU Hackathon 2026 Project</span>
+                          </div>
+                          <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
+                            Build Hardware <br />
+                            <span className="text-primary">Smarter</span>
+                          </h1>
+                          <p className="text-xl text-text-muted max-w-2xl mx-auto mb-10">
+                            CircuitPal.AI helps you design, plan, and manage your electronics projects with AI-powered assistance, automatic BOM generation, and step-by-step planning.
+                          </p>
+                          <div className="flex flex-wrap gap-4 justify-center">
+                            <button 
+                              onClick={() => setShowCreateModal(true)}
+                              className="bg-primary hover:bg-primary-dark text-white px-8 py-4 rounded-xl text-lg font-semibold transition-all shadow-lg shadow-primary/30 hover:shadow-primary/40 flex items-center gap-2"
+                            >
+                              <Plus size={20} />
+                              Create Your First Project
+                            </button>
+                            <button 
+                              onClick={() => setGlobalView('catalog')}
+                              className="bg-bg-panel hover:bg-bg-dark border border-border-dark hover:border-primary/50 text-white px-8 py-4 rounded-xl text-lg font-semibold transition-all flex items-center gap-2"
+                            >
+                              <Cpu size={20} />
+                              Browse Components
+                            </button>
+                          </div>
+                        </div>
+
+                        {/* Features Grid */}
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-20">
+                          <div className="bg-bg-panel border border-border-dark rounded-2xl p-8 hover:border-primary/50 hover:shadow-xl transition-all group">
+                            <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:bg-primary/20 transition-colors">
+                              <Bot size={28} />
+                            </div>
+                            <h3 className="text-xl font-bold text-white mb-3">AI Copilot</h3>
+                            <p className="text-text-muted leading-relaxed">
+                              Describe your project idea and get instant AI-powered suggestions, component recommendations, and design guidance.
+                            </p>
+                          </div>
+
+                          <div className="bg-bg-panel border border-border-dark rounded-2xl p-8 hover:border-primary/50 hover:shadow-xl transition-all group">
+                            <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:bg-primary/20 transition-colors">
+                              <ShoppingCart size={28} />
+                            </div>
+                            <h3 className="text-xl font-bold text-white mb-3">Auto BOM Generation</h3>
+                            <p className="text-text-muted leading-relaxed">
+                              Automatic bill of materials generation with pricing, inventory checking, and external purchase links.
+                            </p>
+                          </div>
+
+                          <div className="bg-bg-panel border border-border-dark rounded-2xl p-8 hover:border-primary/50 hover:shadow-xl transition-all group">
+                            <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:bg-primary/20 transition-colors">
+                              <Activity size={28} />
+                            </div>
+                            <h3 className="text-xl font-bold text-white mb-3">Project Planning</h3>
+                            <p className="text-text-muted leading-relaxed">
+                              Step-by-step roadmaps and project plans generated automatically to guide your build process.
+                            </p>
+                          </div>
+                        </div>
+
+                        {/* Additional Features */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
+                          <div className="bg-bg-panel border border-border-dark rounded-2xl p-6 hover:border-primary/30 transition-all flex items-center gap-6">
+                            <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary shrink-0">
+                              <Archive size={24} />
+                            </div>
+                            <div>
+                              <h4 className="text-lg font-semibold text-white mb-1">Inventory Management</h4>
+                              <p className="text-text-muted text-sm">Track components you own and save money by reusing parts.</p>
+                            </div>
+                          </div>
+
+                          <div className="bg-bg-panel border border-border-dark rounded-2xl p-6 hover:border-primary/30 transition-all flex items-center gap-6">
+                            <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary shrink-0">
+                              <List size={24} />
+                            </div>
+                            <div>
+                              <h4 className="text-lg font-semibold text-white mb-1">Component Catalog</h4>
+                              <p className="text-text-muted text-sm">Browse our extensive catalog of electronic components and parts.</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 ) : (
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
