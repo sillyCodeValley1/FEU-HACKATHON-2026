@@ -33,8 +33,8 @@ export function CatalogView() {
     <div className="p-8 max-w-6xl mx-auto w-full">
       <div className="flex justify-between items-center mb-8">
         <div>
-          <h2 className="text-2xl font-bold text-white mb-1">Component Catalog</h2>
-          <p className="text-text-muted">Browse mock marketplace inventory</p>
+          <h2 className="text-2xl font-bold text-white mb-1">CircuitRocks Components</h2>
+          <p className="text-text-muted">Browse CircuitRocks's available marketplace inventory</p>
         </div>
         <form onSubmit={handleSearch} className="flex gap-2">
           <input 

@@ -18,6 +18,9 @@ export default function MainApp() {
   const [isLoading, setIsLoading] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
+  // Selected BOM items state
+  const [selectedBomItems, setSelectedBomItems] = useState<Record<string, Set<number>>>({});
+
   // Modal state
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [newProjName, setNewProjName] = useState('');
@@ -99,11 +102,22 @@ export default function MainApp() {
       
       setProjects(prev => prev.map(p => {
         if (p.id === activeProjectId) {
+          const newBom = data.matched_components && data.matched_components.length > 0 ? data.matched_components : p.bom;
+          
+          // Auto-select all new matched components
+          if (newBom !== p.bom && newBom.length > 0) {
+            setSelectedBomItems(prevSelected => {
+              const projectSelections = new Set(prevSelected[activeProjectId] || []);
+              newBom.forEach((_: any, idx: number) => projectSelections.add(idx));
+              return { ...prevSelected, [activeProjectId]: projectSelections };
+            });
+          }
+
           return {
             ...p,
             messages: [...p.messages, assistantMessage],
             // Update BOM and Plan if the AI returned new ones
-            bom: data.matched_components && data.matched_components.length > 0 ? data.matched_components : p.bom,
+            bom: newBom,
             missing_components: data.missing_components && data.missing_components.length > 0 ? data.missing_components : p.missing_components,
             plan: data.plan && data.plan.length > 0 ? data.plan : p.plan
           };
@@ -169,7 +183,7 @@ export default function MainApp() {
           />
           <SidebarItem 
             icon={<Cpu size={18} />} 
-            label="Component Catalog" 
+            label="CircuitRocks Components" 
             active={!activeProjectId && globalView === 'catalog'} 
             onClick={() => { setActiveProjectId(null); setGlobalView('catalog'); }} 
             collapsed={!sidebarOpen}
@@ -278,7 +292,18 @@ export default function MainApp() {
                                     <span key={idx} className={cn("px-3 py-1 bg-bg-dark border rounded-full text-xs flex items-center gap-2", inInventory ? "border-green-500/50" : "border-border-dark")}>
                                       {item.name} 
                                       <span className="text-primary font-mono">₱{item.price}</span>
-                                      {inInventory && <span className="w-1.5 h-1.5 rounded-full bg-green-500 ml-1" title="In Inventory"></span>}
+                                      {item.stock !== undefined && (
+                                        <span className={cn(
+                                          "text-[10px] ml-1 px-1 rounded-sm",
+                                          item.stock > 0 ? "text-green-400 bg-green-500/10" : "text-red-400 bg-red-500/10"
+                                        )}>
+                                          ({item.stock > 0 ? `${item.stock} in stock` : 'Out of stock'})
+                                        </span>
+                                      )}
+                                      {inInventory && <span className="text-[10px] text-green-400 ml-1 flex items-center gap-1" title="In Inventory">
+                                        <span className="w-1.5 h-1.5 rounded-full bg-green-500"></span>
+                                        own {inInventory.quantity}
+                                      </span>}
                                     </span>
                                   )
                                 })}
@@ -293,7 +318,7 @@ export default function MainApp() {
                                 <Info size={16} />
                                 External Components ({msg.missing_components.length})
                               </div>
-                              <p className="text-xs text-text-muted mb-3">These items are not in the catalog, but you can buy them externally.</p>
+                              <p className="text-xs text-text-muted mb-3">These items are not in CircuitRocks, but you can buy them externally.</p>
                               <div className="flex flex-col gap-2">
                                 {msg.missing_components.map((item, idx) => (
                                   <div key={idx} className="bg-bg-dark border border-orange-500/20 rounded-lg p-3 text-xs flex flex-col gap-1.5">
@@ -398,15 +423,63 @@ export default function MainApp() {
                       <>
                         {currentProject.bom.map((item, idx) => {
                           const inInventory = inventory.find(i => i.name.toLowerCase() === item.name.toLowerCase());
+                          const isSelected = selectedBomItems[currentProject.id]?.has(idx) ?? true;
+
+                          const toggleSelection = () => {
+                            setSelectedBomItems(prev => {
+                              const projectSelections = new Set(prev[currentProject.id] || new Set(currentProject.bom.map((_: any, i: number) => i)));
+                              if (projectSelections.has(idx)) {
+                                projectSelections.delete(idx);
+                              } else {
+                                projectSelections.add(idx);
+                              }
+                              return { ...prev, [currentProject.id]: projectSelections };
+                            });
+                          };
+
                           return (
-                            <div key={idx} className="bg-bg-panel border border-border-dark rounded-lg p-3 shadow-sm relative overflow-hidden">
+                            <div 
+                              key={idx} 
+                              className={cn(
+                                "bg-bg-panel border rounded-lg p-3 shadow-sm relative overflow-hidden transition-all",
+                                isSelected ? "border-primary/50" : "border-border-dark opacity-60"
+                              )}
+                            >
+                              <div className="absolute top-3 right-3 z-10">
+                                <button 
+                                  onClick={toggleSelection}
+                                  className={cn(
+                                    "w-5 h-5 rounded border flex items-center justify-center transition-colors",
+                                    isSelected 
+                                      ? "bg-primary border-primary text-white" 
+                                      : "bg-bg-dark border-border-dark text-transparent hover:border-primary/50"
+                                  )}
+                                >
+                                  <svg viewBox="0 0 24 24" fill="none" className="w-3.5 h-3.5" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                  </svg>
+                                </button>
+                              </div>
                               {inInventory && (
-                                <div className="absolute top-0 right-0 bg-green-500/20 text-green-400 text-[9px] font-bold px-2 py-0.5 rounded-bl-lg">
-                                  In Inventory
+                                <div className="absolute top-0 right-0 bg-green-500/20 text-green-400 text-[9px] font-bold px-2 py-0.5 rounded-bl-lg pr-10">
+                                  You own {inInventory.quantity}
                                 </div>
                               )}
                               <div className="text-xs text-primary mb-1 font-medium">{item.category}</div>
                               <div className="font-semibold text-sm text-white leading-tight">{item.name}</div>
+                              <div className="mt-1 text-xs text-text-muted flex items-center gap-2">
+                                <span className="text-primary/80 font-medium">CircuitRocks</span>
+                                {item.stock !== undefined && (
+                                  <span className={cn(
+                                    "px-1.5 py-0.5 rounded border text-[10px] font-medium",
+                                    item.stock > 0 
+                                      ? "bg-green-500/10 text-green-400 border-green-500/20" 
+                                      : "bg-red-500/10 text-red-400 border-red-500/20"
+                                  )}>
+                                    {item.stock > 0 ? `${item.stock} in stock` : 'Out of stock'}
+                                  </span>
+                                )}
+                              </div>
                               <div className="mt-3 flex items-center justify-between">
                                 <div className="text-xs text-text-muted line-clamp-1 flex-1 mr-2">{item.description}</div>
                                 <div className="font-mono text-sm text-primary font-bold">₱{item.price.toFixed(2)}</div>
@@ -424,7 +497,7 @@ export default function MainApp() {
                               {currentProject.missing_components.map((item, idx) => (
                                 <div key={idx} className="bg-bg-dark border border-orange-500/30 rounded-lg p-3 shadow-sm relative overflow-hidden">
                                   <div className="text-xs text-orange-400 mb-1 font-medium flex items-center justify-between">
-                                    <span>Not in catalog</span>
+                                    <span>Not in CircuitRocks</span>
                                     {item.purchase_link && (
                                       <a href={item.purchase_link} target="_blank" rel="noreferrer" className="text-orange-400 hover:text-orange-300 flex items-center gap-1 transition-colors">
                                         Buy <ExternalLink size={10} />
@@ -444,13 +517,24 @@ export default function MainApp() {
                   {currentProject.bom.length > 0 && (
                     <div className="p-4 border-t border-border-dark bg-bg-panel shrink-0">
                       <div className="flex justify-between items-center mb-4">
-                        <span className="text-sm text-text-muted font-medium">Total Est. Cost</span>
+                        <span className="text-sm text-text-muted font-medium">
+                          Total Est. Cost
+                          {selectedBomItems[currentProject.id] && selectedBomItems[currentProject.id].size !== currentProject.bom.length && (
+                            <span className="ml-1 text-xs">({selectedBomItems[currentProject.id].size} items)</span>
+                          )}
+                        </span>
                         <span className="font-mono text-white font-bold text-lg">
-                          ₱{currentProject.bom.reduce((acc, i) => acc + i.price, 0).toFixed(2)}
+                          ₱{currentProject.bom.reduce((acc, item, idx) => {
+                            const isSelected = selectedBomItems[currentProject.id]?.has(idx) ?? true;
+                            return isSelected ? acc + item.price : acc;
+                          }, 0).toFixed(2)}
                         </span>
                       </div>
-                      <button className="w-full bg-primary hover:bg-primary-dark text-white rounded-lg py-2.5 text-sm font-medium transition-colors flex items-center justify-center gap-2 shadow-lg shadow-primary/20">
-                        <ShoppingCart size={16} /> Buy Now
+                      <button 
+                        disabled={(selectedBomItems[currentProject.id]?.size === 0) && currentProject.bom.length > 0}
+                        className="w-full bg-primary hover:bg-primary-dark disabled:bg-gray-700 disabled:text-gray-400 text-white rounded-lg py-2.5 text-sm font-medium transition-colors flex items-center justify-center gap-2 shadow-lg shadow-primary/20"
+                      >
+                        <ShoppingCart size={16} /> Buy Selected
                       </button>
                     </div>
                   )}
@@ -591,8 +675,8 @@ export default function MainApp() {
                               <List size={24} />
                             </div>
                             <div>
-                              <h4 className="text-lg font-semibold text-white mb-1">Component Catalog</h4>
-                              <p className="text-text-muted text-sm">Browse our extensive catalog of electronic components and parts.</p>
+                              <h4 className="text-lg font-semibold text-white mb-1">CircuitRocks Components</h4>
+                              <p className="text-text-muted text-sm">Browse our extensive catalog of electronic components and parts from CircuitRocks.</p>
                             </div>
                           </div>
                         </div>
