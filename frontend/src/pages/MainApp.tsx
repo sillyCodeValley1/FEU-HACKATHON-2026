@@ -436,13 +436,6 @@ export default function MainApp() {
             <h1 className="text-xl font-bold tracking-tight text-white whitespace-nowrap">CircuitPal<span className="text-primary">.AI</span></h1>
           </a>
           <div className="flex items-center gap-2">
-            <button
-              onClick={() => setIsDarkMode(!isDarkMode)}
-              className="text-text-muted hover:text-white p-1.5 rounded-lg transition-colors hover:bg-white/10 shrink-0"
-              title={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
-            >
-              {isDarkMode ? <Sun size={18} /> : <Moon size={18} />}
-            </button>
             <button 
               onClick={() => setSidebarOpen(!sidebarOpen)}
               className={cn("text-text-muted hover:text-white p-1.5 rounded-lg transition-colors hover:bg-white/10 shrink-0", !sidebarOpen && "absolute right-4")}
@@ -571,13 +564,6 @@ export default function MainApp() {
                 </h2>
               </div>
               <div className="flex items-center gap-4">
-                <button
-                  onClick={() => setIsDarkMode(!isDarkMode)}
-                  className="text-text-muted hover:text-white transition-colors p-2 rounded-lg hover:bg-white/5"
-                  title={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
-                >
-                  {isDarkMode ? <Sun size={18} /> : <Moon size={18} />}
-                </button>
                 <div className="flex bg-bg-panel p-1 rounded-lg">
                   <button onClick={() => setProjectTab('chat')} className={cn("px-4 py-1.5 text-xs font-medium rounded-md transition-colors", projectTab === 'chat' ? "bg-bg-dark text-white shadow-sm" : "text-text-muted hover:text-white")}>
                     Copilot
@@ -618,33 +604,51 @@ export default function MainApp() {
                                     onClick={() => setFoldedBoms(prev => ({ ...prev, [msg.id]: !prev[msg.id] }))}
                                     className="text-text-muted hover:text-white text-xs flex items-center gap-1 transition-colors"
                                   >
-                                    {foldedBoms[msg.id] ? 'Show all' : 'Show less'}
+                                    {foldedBoms[msg.id] ? 'Show less' : `Show all (${msg.bom.length - 3} more)`}
                                   </button>
                                 )}
                               </div>
-                              <div className="flex flex-wrap gap-2">
-                                {msg.bom.slice(0, (foldedBoms[msg.id] === false || msg.bom.length <= 3) ? undefined : 3).map((item, idx) => {
-                                  const inInventory = findInInventory(item.name);
-                                  return (
-                                    <span key={idx} className={cn("px-3 py-1 bg-bg-dark border rounded-full text-xs flex items-center gap-2", inInventory ? "border-green-500/50" : "border-border-dark")}>
-                                      {item.name} 
-                                      {item.sku && <span className="font-mono text-text-muted text-[10px] ml-1">[{item.sku}]</span>}
-                                      <span className="text-primary font-mono ml-1">₱{item.price}</span>
-                                      {item.stock !== undefined && (
-                                        <span className={cn(
-                                          "text-[10px] ml-1 px-1 rounded-sm",
-                                          item.stock > 0 ? "text-green-400 bg-green-500/10" : "text-red-400 bg-red-500/10"
-                                        )}>
-                                          ({item.stock > 0 ? `${item.stock} in stock` : 'Out of stock'})
-                                        </span>
-                                      )}
-                                      {inInventory && <span className="text-[10px] text-green-400 ml-1 flex items-center gap-1" title="In Inventory">
-                                        <span className="w-1.5 h-1.5 rounded-full bg-green-500"></span>
-                                        own {inInventory.quantity}
-                                      </span>}
-                                    </span>
-                                  )
-                                })}
+                              <div className="relative">
+                                <div 
+                                  className={cn(
+                                    "flex flex-col gap-2 overflow-hidden transition-all duration-300 ease-in-out",
+                                    !foldedBoms[msg.id] && msg.bom.length > 3 ? "max-h-[110px]" : "max-h-[1000px]"
+                                  )}
+                                >
+                                  {msg.bom.slice().sort((a, b) => {
+                                    const aOwned = findInInventory(a.name) ? 1 : 0;
+                                    const bOwned = findInInventory(b.name) ? 1 : 0;
+                                    return bOwned - aOwned; // Sort owned items first
+                                  }).map((item, idx) => {
+                                    const inInventory = findInInventory(item.name);
+                                    return (
+                                      <div key={idx} className={cn("px-3 py-2 bg-bg-dark border rounded-lg text-xs flex items-center justify-between w-full gap-2", inInventory ? "border-green-500/50" : "border-border-dark")}>
+                                        <div className="flex items-center gap-2 overflow-hidden">
+                                          <span className="font-medium text-white truncate">{item.name}</span>
+                                          {item.sku && <span className="font-mono text-text-muted text-[10px] shrink-0">[{item.sku}]</span>}
+                                        </div>
+                                        <div className="flex items-center gap-2 shrink-0">
+                                          {item.stock !== undefined && (
+                                            <span className={cn(
+                                              "text-[10px] px-1.5 py-0.5 rounded-sm",
+                                              item.stock > 0 ? "text-green-400 bg-green-500/10" : "text-red-400 bg-red-500/10"
+                                            )}>
+                                              {item.stock > 0 ? `${item.stock} in stock` : 'Out of stock'}
+                                            </span>
+                                          )}
+                                          {inInventory && <span className="text-[10px] text-green-400 flex items-center gap-1 bg-green-500/10 px-1.5 py-0.5 rounded-sm" title="In Inventory">
+                                            <span className="w-1.5 h-1.5 rounded-full bg-green-500"></span>
+                                            own {inInventory.quantity}
+                                          </span>}
+                                          <span className="text-primary font-mono font-semibold ml-2">₱{item.price}</span>
+                                        </div>
+                                      </div>
+                                    )
+                                  })}
+                                </div>
+                                {!foldedBoms[msg.id] && msg.bom.length > 3 && (
+                                  <div className="absolute bottom-0 left-0 right-0 h-10 bg-gradient-to-t from-bg-panel to-transparent pointer-events-none" />
+                                )}
                               </div>
                             </div>
                           )}
