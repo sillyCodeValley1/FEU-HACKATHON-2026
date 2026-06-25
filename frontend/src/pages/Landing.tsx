@@ -1,6 +1,6 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { CircuitBoard, Zap, Cpu, ShoppingCart, List, ArrowRight, Activity, ShieldCheck, CheckCircle2, Bot, Archive, Sparkles } from 'lucide-react';
+import { CircuitBoard, Zap, Cpu, ShoppingCart, List, ArrowRight, Activity, ShieldCheck, CheckCircle2, Bot, Archive, Sparkles, Sun, Moon } from 'lucide-react';
 
 export default function Landing() {
   const handleScroll = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
@@ -13,6 +13,23 @@ export default function Landing() {
       }
     }
   };
+  
+  // Theme state
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    const saved = localStorage.getItem('theme');
+    return saved ? saved === 'dark' : true;
+  });
+
+  // Update body class when theme changes
+  useEffect(() => {
+    if (isDarkMode) {
+      document.body.classList.remove('light-mode');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.body.classList.add('light-mode');
+      localStorage.setItem('theme', 'light');
+    }
+  }, [isDarkMode]);
 
   // Intersection Observer for scroll animations
   const observerRef = useRef<IntersectionObserver | null>(null);
@@ -54,6 +71,12 @@ export default function Landing() {
         <div className="flex gap-4 items-center">
           <a href="#features" onClick={handleScroll} className="text-sm font-medium text-text-muted hover:text-white transition-colors hidden md:block">Features</a>
           <a href="#circuitrocks" onClick={handleScroll} className="text-sm font-medium text-text-muted hover:text-white transition-colors hidden md:block">Integration</a>
+          <button
+            onClick={() => setIsDarkMode(!isDarkMode)}
+            className="text-text-muted hover:text-white transition-colors p-2 rounded-lg hover:bg-white/10"
+          >
+            {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
+          </button>
           <Link
             to="/app"
             className="bg-primary hover:bg-primary-dark text-white px-5 py-2.5 rounded-lg text-sm font-medium transition-colors shadow-lg shadow-primary/20"
