@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Plus, Archive, Box, Trash2 } from 'lucide-react';
+import { Plus, Minus, Archive, Box, Trash2 } from 'lucide-react';
 import type { InventoryItem } from '../types';
 
 export function InventoryView({ inventory, setInventory }: { inventory: InventoryItem[], setInventory: React.Dispatch<React.SetStateAction<InventoryItem[]>> }) {
@@ -26,6 +26,14 @@ export function InventoryView({ inventory, setInventory }: { inventory: Inventor
 
   const handleRemove = (id: string) => {
     setInventory(inventory.filter(i => i.id !== id));
+  };
+
+  const handleIncrease = (id: string) => {
+    setInventory(inventory.map(i => i.id === id ? { ...i, quantity: i.quantity + 1 } : i));
+  };
+
+  const handleDecrease = (id: string) => {
+    setInventory(inventory.map(i => i.id === id ? { ...i, quantity: Math.max(1, i.quantity - 1) } : i));
   };
 
   return (
@@ -95,9 +103,24 @@ export function InventoryView({ inventory, setInventory }: { inventory: Inventor
                     {item.name}
                   </td>
                   <td className="p-4 text-center">
-                    <span className="inline-flex items-center justify-center bg-bg-dark border border-border-dark rounded-md px-3 py-1 text-sm font-mono text-white">
-                      {item.quantity}
-                    </span>
+                    <div className="inline-flex items-center justify-center bg-bg-dark border border-border-dark rounded-md overflow-hidden">
+                      <button 
+                        onClick={() => handleDecrease(item.id)}
+                        disabled={item.quantity <= 1}
+                        className="px-2 py-1.5 text-text-muted hover:text-white hover:bg-white/5 disabled:opacity-50 disabled:hover:bg-transparent transition-colors border-r border-border-dark"
+                      >
+                        <Minus size={14} />
+                      </button>
+                      <span className="w-10 text-center text-sm font-mono text-white">
+                        {item.quantity}
+                      </span>
+                      <button 
+                        onClick={() => handleIncrease(item.id)}
+                        className="px-2 py-1.5 text-text-muted hover:text-white hover:bg-white/5 transition-colors border-l border-border-dark"
+                      >
+                        <Plus size={14} />
+                      </button>
+                    </div>
                   </td>
                   <td className="p-4 text-right">
                     <button 
