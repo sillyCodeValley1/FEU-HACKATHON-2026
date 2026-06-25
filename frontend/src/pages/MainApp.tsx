@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { Bot, CircuitBoard, ShoppingCart, List, Zap, Cpu, Settings, MessageSquare, Send, Activity, Info, Folder, Archive, Plus, ArrowLeft, Trash2, Box, PanelLeftClose, PanelLeft, ExternalLink, Sparkles, RefreshCw, Sun, Moon } from 'lucide-react';
+import { Bot, CircuitBoard, ShoppingCart, List, Zap, Cpu, Settings, MessageSquare, Send, Activity, Info, Folder, Archive, Plus, ArrowLeft, Trash2, Box, PanelLeftClose, PanelLeft, ExternalLink, Sparkles, RefreshCw } from 'lucide-react';
 import { cn } from '../utils/cn';
 import { API_BASE_URL } from '../config';
 import type { Message, Project, InventoryItem, ProjectRecommendation } from '../types';
@@ -436,13 +436,6 @@ export default function MainApp() {
             <h1 className="text-xl font-bold tracking-tight text-white whitespace-nowrap">CircuitPal<span className="text-primary">.AI</span></h1>
           </div>
           <div className="flex items-center gap-2">
-            <button
-              onClick={() => setIsDarkMode(!isDarkMode)}
-              className="text-text-muted hover:text-white p-1.5 rounded-lg transition-colors hover:bg-white/10 shrink-0"
-              title={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
-            >
-              {isDarkMode ? <Sun size={18} /> : <Moon size={18} />}
-            </button>
             <button 
               onClick={() => setSidebarOpen(!sidebarOpen)}
               className={cn("text-text-muted hover:text-white p-1.5 rounded-lg transition-colors hover:bg-white/10 shrink-0", !sidebarOpen && "absolute right-4")}
@@ -522,18 +515,6 @@ export default function MainApp() {
         </nav>
 
         <div className="p-3 border-t border-border-dark w-full space-y-1">
-          <button
-            onClick={() => setIsDarkMode(!isDarkMode)}
-            className={cn(
-              "w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-text-muted hover:text-white hover:bg-white/10 transition-colors",
-              !sidebarOpen && "justify-center"
-            )}
-          >
-            {isDarkMode ? <Sun size={18} /> : <Moon size={18} />}
-            {sidebarOpen && (
-              <span>{isDarkMode ? "Light Mode" : "Dark Mode"}</span>
-            )}
-          </button>
           <SidebarItem icon={<Settings size={18} />} label="Settings" collapsed={!sidebarOpen} />
         </div>
       </aside>
@@ -553,22 +534,13 @@ export default function MainApp() {
                   {currentProject.name}
                 </h2>
               </div>
-              <div className="flex items-center gap-4">
-                <button
-                  onClick={() => setIsDarkMode(!isDarkMode)}
-                  className="text-text-muted hover:text-white transition-colors p-2 rounded-lg hover:bg-white/5"
-                  title={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
-                >
-                  {isDarkMode ? <Sun size={18} /> : <Moon size={18} />}
+              <div className="flex bg-bg-panel p-1 rounded-lg">
+                <button onClick={() => setProjectTab('chat')} className={cn("px-4 py-1.5 text-xs font-medium rounded-md transition-colors", projectTab === 'chat' ? "bg-bg-dark text-white shadow-sm" : "text-text-muted hover:text-white")}>
+                  Copilot
                 </button>
-                <div className="flex bg-bg-panel p-1 rounded-lg">
-                  <button onClick={() => setProjectTab('chat')} className={cn("px-4 py-1.5 text-xs font-medium rounded-md transition-colors", projectTab === 'chat' ? "bg-bg-dark text-white shadow-sm" : "text-text-muted hover:text-white")}>
-                    Copilot
-                  </button>
-                  <button onClick={() => setProjectTab('plan')} className={cn("px-4 py-1.5 text-xs font-medium rounded-md transition-colors", projectTab === 'plan' ? "bg-bg-dark text-white shadow-sm" : "text-text-muted hover:text-white")}>
-                    Plan
-                  </button>
-                </div>
+                <button onClick={() => setProjectTab('plan')} className={cn("px-4 py-1.5 text-xs font-medium rounded-md transition-colors", projectTab === 'plan' ? "bg-bg-dark text-white shadow-sm" : "text-text-muted hover:text-white")}>
+                  Plan
+                </button>
               </div>
             </header>
 
