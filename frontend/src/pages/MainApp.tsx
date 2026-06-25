@@ -1,8 +1,4 @@
-<<<<<<< Updated upstream
 import React, { useState, useMemo, useEffect } from 'react';
-=======
-import React, { useState, useMemo } from 'react';
->>>>>>> Stashed changes
 import { Bot, CircuitBoard, ShoppingCart, List, Zap, Cpu, Settings, MessageSquare, Send, Activity, Info, Folder, Archive, Plus, ArrowLeft, Trash2, Box, PanelLeftClose, PanelLeft, ExternalLink, Sparkles, RefreshCw, Sun, Moon } from 'lucide-react';
 import { cn } from '../utils/cn';
 import { API_BASE_URL } from '../config';
@@ -29,49 +25,12 @@ export default function MainApp() {
   });
   const [recommendations, setRecommendations] = useState<ProjectRecommendation[]>([]);
   const [loadingRecs, setLoadingRecs] = useState(false);
-  
-  // Track completed plan steps for each project
-  const [completedSteps, setCompletedSteps] = useState<Record<string, Set<number>>>({});
 
   const [projectTab, setProjectTab] = useState<'chat' | 'plan'>('chat');
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(true);
   
-  // Theme state
-  const [isDarkMode, setIsDarkMode] = useState(() => {
-    const saved = localStorage.getItem('theme');
-    return saved ? saved === 'dark' : true;
-  });
-
-  // Update html class when theme changes
-  useEffect(() => {
-    if (isDarkMode) {
-      document.documentElement.classList.remove('light-mode');
-      localStorage.setItem('theme', 'dark');
-    } else {
-      document.documentElement.classList.add('light-mode');
-      localStorage.setItem('theme', 'light');
-    }
-  }, [isDarkMode]);
-
-  // Save to localStorage whenever relevant state changes
-  React.useEffect(() => {
-    localStorage.setItem('circuitpal-projects', JSON.stringify(projects));
-  }, [projects]);
-
-  React.useEffect(() => {
-    if (activeProjectId) {
-      localStorage.setItem('circuitpal-active-project', activeProjectId);
-    } else {
-      localStorage.removeItem('circuitpal-active-project');
-    }
-  }, [activeProjectId]);
-
-  React.useEffect(() => {
-    localStorage.setItem('circuitpal-inventory', JSON.stringify(inventory));
-  }, [inventory]);
-
   // Selected BOM items state
   const [selectedBomItems, setSelectedBomItems] = useState<Record<string, Set<number>>>(() => {
     const saved = localStorage.getItem('circuitpal-selected-boms');
@@ -101,13 +60,30 @@ export default function MainApp() {
   });
 
   // Theme state
-  const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
+  const [isDarkMode, setIsDarkMode] = useState(() => {
     const saved = localStorage.getItem('theme');
     return saved ? saved === 'dark' : true;
   });
 
+  // Save to localStorage whenever relevant state changes
+  useEffect(() => {
+    localStorage.setItem('circuitpal-projects', JSON.stringify(projects));
+  }, [projects]);
+
+  useEffect(() => {
+    if (activeProjectId) {
+      localStorage.setItem('circuitpal-active-project', activeProjectId);
+    } else {
+      localStorage.removeItem('circuitpal-active-project');
+    }
+  }, [activeProjectId]);
+
+  useEffect(() => {
+    localStorage.setItem('circuitpal-inventory', JSON.stringify(inventory));
+  }, [inventory]);
+
   // Save selected BOMs to localStorage
-  React.useEffect(() => {
+  useEffect(() => {
     const toSave: Record<string, number[]> = {};
     Object.keys(selectedBomItems).forEach(key => {
       toSave[key] = Array.from(selectedBomItems[key]);
@@ -116,7 +92,7 @@ export default function MainApp() {
   }, [selectedBomItems]);
 
   // Save completed steps to localStorage
-  React.useEffect(() => {
+  useEffect(() => {
     const toSave: Record<string, number[]> = {};
     Object.keys(completedSteps).forEach(key => {
       toSave[key] = Array.from(completedSteps[key]);
@@ -125,12 +101,12 @@ export default function MainApp() {
   }, [completedSteps]);
 
   // Save folded BOMs to localStorage
-  React.useEffect(() => {
+  useEffect(() => {
     localStorage.setItem('circuitpal-folded-boms', JSON.stringify(foldedBoms));
   }, [foldedBoms]);
 
   // Apply theme
-  React.useEffect(() => {
+  useEffect(() => {
     if (isDarkMode) {
       document.documentElement.classList.remove('light-mode');
       localStorage.setItem('theme', 'dark');
