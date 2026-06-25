@@ -868,7 +868,7 @@ export default function MainApp() {
               <div className="p-8 max-w-6xl mx-auto w-full">
                 <div className="flex justify-between items-center mb-8">
                   <div>
-                    <h2 className="text-2xl font-bold text-white mb-1">My Projects</h2>
+                    <h2 className="text-2xl font-bold text-white mb-1">Projects</h2>
                     <p className="text-text-muted">Manage your hardware builds and ideas.</p>
                   </div>
                   <button 
@@ -945,7 +945,7 @@ export default function MainApp() {
                 </div>
 
                 <div className="mb-4">
-                  <h3 className="text-xl font-bold text-white mb-1">Your Projects</h3>
+                  <h3 className="text-xl font-bold text-white mb-1">My Projects</h3>
                 </div>
 
                 {projects.length === 0 ? (
