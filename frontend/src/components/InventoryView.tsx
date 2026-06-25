@@ -39,12 +39,12 @@ export function InventoryView({ inventory, setInventory }: { inventory: Inventor
   return (
     <div className="p-8 max-w-5xl mx-auto w-full">
       <div className="mb-8">
-        <h2 className="text-2xl font-bold text-white mb-1">My Inventory</h2>
+        <h2 className="text-2xl font-bold text-text-main mb-1">My Inventory</h2>
         <p className="text-text-muted">Keep track of the components you already own. The AI will prioritize these when making recommendations.</p>
       </div>
 
       <div className="bg-bg-panel border border-border-dark rounded-xl p-6 mb-8 shadow-sm">
-        <h3 className="text-sm font-semibold text-white mb-4 flex items-center gap-2">
+        <h3 className="text-sm font-semibold text-text-main mb-4 flex items-center gap-2">
           <Plus size={16} className="text-primary"/> Add Component to Inventory
         </h3>
         <form onSubmit={handleAdd} className="flex gap-4 items-end">
@@ -55,7 +55,7 @@ export function InventoryView({ inventory, setInventory }: { inventory: Inventor
               value={name}
               onChange={e => setName(e.target.value)}
               placeholder="e.g. Arduino Uno, 10k Resistor..." 
-              className="w-full bg-bg-dark border border-border-dark rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-primary transition-colors text-white"
+              className="w-full bg-bg-dark border border-border-dark rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-primary transition-colors text-text-main"
             />
           </div>
           <div className="w-32">
@@ -65,13 +65,13 @@ export function InventoryView({ inventory, setInventory }: { inventory: Inventor
               min="1"
               value={quantity}
               onChange={e => setQuantity(Number(e.target.value))}
-              className="w-full bg-bg-dark border border-border-dark rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-primary transition-colors text-white"
+              className="w-full bg-bg-dark border border-border-dark rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-primary transition-colors text-text-main"
             />
           </div>
           <button 
             type="submit" 
             disabled={!name.trim()}
-            className="bg-bg-dark border border-border-dark hover:border-primary hover:text-primary disabled:opacity-50 text-white px-6 py-2.5 rounded-lg text-sm font-medium transition-colors h-[42px]"
+            className="bg-bg-dark border border-border-dark hover:border-primary hover:text-primary disabled:opacity-50 text-text-main px-6 py-2.5 rounded-lg text-sm font-medium transition-colors h-[42px]"
           >
             Add Item
           </button>
@@ -95,8 +95,8 @@ export function InventoryView({ inventory, setInventory }: { inventory: Inventor
             </thead>
             <tbody>
               {inventory.map((item) => (
-                <tr key={item.id} className="border-b border-border-dark/50 hover:bg-white/5 transition-colors group">
-                  <td className="p-4 font-medium text-white flex items-center gap-3">
+                <tr key={item.id} className="border-b border-border-dark/50 hover:bg-primary/5 transition-colors group">
+                  <td className="p-4 font-medium text-text-main flex items-center gap-3">
                     <div className="w-8 h-8 rounded bg-bg-dark flex items-center justify-center border border-border-dark">
                       <Box size={14} className="text-primary" />
                     </div>
@@ -107,16 +107,16 @@ export function InventoryView({ inventory, setInventory }: { inventory: Inventor
                       <button 
                         onClick={() => handleDecrease(item.id)}
                         disabled={item.quantity <= 1}
-                        className="px-2 py-1.5 text-text-muted hover:text-white hover:bg-white/5 disabled:opacity-50 disabled:hover:bg-transparent transition-colors border-r border-border-dark"
+                        className="px-2 py-1.5 text-text-muted hover:text-text-main hover:bg-primary/10 disabled:opacity-50 disabled:hover:bg-transparent transition-colors border-r border-border-dark"
                       >
                         <Minus size={14} />
                       </button>
-                      <span className="w-10 text-center text-sm font-mono text-white">
+                      <span className="w-10 text-center text-sm font-mono text-text-main">
                         {item.quantity}
                       </span>
                       <button 
                         onClick={() => handleIncrease(item.id)}
-                        className="px-2 py-1.5 text-text-muted hover:text-white hover:bg-white/5 transition-colors border-l border-border-dark"
+                        className="px-2 py-1.5 text-text-muted hover:text-text-main hover:bg-primary/10 transition-colors border-l border-border-dark"
                       >
                         <Plus size={14} />
                       </button>
