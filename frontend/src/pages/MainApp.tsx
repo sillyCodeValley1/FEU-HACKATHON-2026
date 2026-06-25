@@ -1252,6 +1252,9 @@ export default function MainApp() {
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                     {projects.map(p => {
                       const purchasablePartsCount = p.bom.filter(item => !findInInventory(item.name)).length + p.missing_components.length;
+                      const completedCount = completedSteps[p.id]?.size || 0;
+                      const totalSteps = p.plan.length;
+                      const progressPercentage = totalSteps > 0 ? Math.round((completedCount / totalSteps) * 100) : 0;
                       
                       return (
                       <div 
@@ -1259,22 +1262,43 @@ export default function MainApp() {
                         onClick={() => { setActiveProjectId(p.id); setProjectTab('chat'); }}
                         className="bg-bg-panel border border-border-dark rounded-xl p-5 cursor-pointer hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5 transition-all group flex flex-col h-48"
                       >
-                        <div className="flex justify-between items-start mb-3">
-                          <div className="w-10 h-10 rounded-lg bg-bg-dark flex items-center justify-center text-primary border border-border-dark group-hover:bg-primary/10 transition-colors">
+                        <div className="flex items-center mb-3 gap-3">
+                          <div className="w-10 h-10 rounded-lg bg-bg-dark flex items-center justify-center text-primary border border-border-dark group-hover:bg-primary/10 transition-colors shrink-0">
                             <Cpu size={20} />
                           </div>
+                          
+                          {totalSteps > 0 && (
+                            <div className="flex items-center flex-1 gap-3 px-2">
+                              <div className="h-1.5 flex-1 bg-bg-dark rounded-full overflow-hidden">
+                                <div 
+                                  className={cn(
+                                    "h-full transition-all duration-500",
+                                    progressPercentage === 100 ? "bg-green-500" : "bg-primary"
+                                  )}
+                                  style={{ width: `${progressPercentage}%` }}
+                                />
+                              </div>
+                              <span className={cn("text-xs font-bold", progressPercentage === 100 ? "text-green-400" : "text-primary")}>
+                                {progressPercentage}%
+                              </span>
+                            </div>
+                          )}
+                          
                           <button 
                             onClick={(e) => handleDeleteProject(p.id, e)}
-                            className="text-text-muted hover:text-red-400 p-1.5 rounded-md hover:bg-bg-dark transition-colors opacity-0 group-hover:opacity-100"
+                            className={cn(
+                              "text-text-muted hover:text-red-400 p-1.5 rounded-md hover:bg-bg-dark transition-colors opacity-0 group-hover:opacity-100 shrink-0",
+                              totalSteps === 0 && "ml-auto"
+                            )}
                           >
                             <Trash2 size={16} />
                           </button>
                         </div>
                         <h3 className="font-bold text-lg text-white mb-1 line-clamp-1">{p.name}</h3>
                         <p className="text-sm text-text-muted line-clamp-2 mb-4 flex-1">{p.description}</p>
-                        <div className="flex items-center gap-3 text-xs font-medium text-text-muted pt-4 border-t border-border-dark/50">
+                        <div className="flex items-center justify-between text-xs font-medium text-text-muted pt-4 border-t border-border-dark/50 mt-auto">
                           <div className="flex items-center gap-1.5"><ShoppingCart size={14}/> {purchasablePartsCount} Purchasable Parts</div>
-                          <div className="flex items-center gap-1.5"><Activity size={14}/> {p.plan.length} Steps</div>
+                          <div className="flex items-center gap-1.5"><Activity size={14}/> {completedCount}/{totalSteps} Steps</div>
                         </div>
                       </div>
                     )})}
