@@ -1131,59 +1131,62 @@ export default function MainApp() {
                     </div>
                   ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                      {recommendations.map((rec, idx) => {
+                      {recommendations.slice(0, 3).map((rec, idx) => {
                         const readinessPercentage = rec.required_parts?.length 
                           ? Math.round(((rec.owned_parts?.length || 0) / rec.required_parts.length) * 100) 
                           : 0;
 
                         return (
-                        <div key={idx} className="bg-bg-panel border border-border-dark rounded-2xl p-6 hover:border-primary/50 transition-all flex flex-col h-full group shadow-sm hover:shadow-lg">
-                          <div className="flex justify-between items-start mb-4">
-                            <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary/20 transition-colors">
+                        <div key={idx} className="relative bg-bg-panel border border-border-dark rounded-2xl p-6 hover:border-primary/50 transition-all flex flex-col h-full group shadow-sm hover:shadow-lg overflow-hidden">
+                          {/* Cohesive Blur Glow */}
+                          <div className="absolute -inset-4 bg-primary/5 opacity-0 group-hover:opacity-100 blur-3xl transition-opacity duration-500 pointer-events-none" />
+                          
+                          <div className="relative z-10 flex justify-between items-start mb-4">
+                            <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary/20 transition-colors">
                               <Zap size={24} />
                             </div>
                             {readinessPercentage === 100 ? (
-                              <span className="text-[11px] font-bold px-3 py-1.5 rounded-full bg-green-500/10 text-green-400 border border-green-500/20 flex items-center gap-1">
+                              <span className="text-[11px] font-bold px-3 py-1.5 rounded-lg bg-green-500/10 text-green-400 border border-green-500/20 flex items-center gap-1">
                                 <svg viewBox="0 0 24 24" fill="none" className="w-3.5 h-3.5" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                                   <polyline points="20 6 9 17 4 12"></polyline>
                                 </svg>
                                 Ready to Build
                               </span>
                             ) : (
-                              <span className="text-[11px] font-bold px-3 py-1.5 rounded-full bg-orange-500/10 text-orange-400 border border-orange-500/20 flex items-center gap-1">
+                              <span className="text-[11px] font-bold px-3 py-1.5 rounded-lg bg-orange-500/10 text-orange-400 border border-orange-500/20 flex items-center gap-1">
                                 {readinessPercentage}% Complete
                               </span>
                             )}
                           </div>
-                          <h4 className="font-bold text-xl text-white mb-2 line-clamp-1" title={rec.name}>{rec.name}</h4>
-                          <p className="text-sm text-text-muted mb-4 flex-1 line-clamp-2">{rec.description}</p>
+                          <h4 className="relative z-10 font-bold text-xl text-white mb-2 tracking-tight line-clamp-1" title={rec.name}>{rec.name}</h4>
+                          <p className="relative z-10 text-sm text-text-muted mb-4 flex-1 line-clamp-2">{rec.description}</p>
                           
                           {/* Progress Bar */}
-                          <div className="mb-4">
-                            <div className="h-2 w-full bg-bg-dark rounded-full overflow-hidden">
+                          <div className="relative z-10 mb-4">
+                            <div className="h-1.5 w-full bg-bg-dark rounded-full overflow-hidden">
                               <div 
-                                className="h-full bg-gradient-to-r from-primary to-primary/70 transition-all duration-500"
+                                className="h-full bg-gradient-to-r from-primary to-primary-dark transition-all duration-500"
                                 style={{ width: `${readinessPercentage}%` }}
                               />
                             </div>
                           </div>
 
                           {/* Parts List */}
-                          <div className="mb-4 space-y-2">
+                          <div className="relative z-10 mb-5 space-y-3">
                             {/* Owned Parts */}
                             {rec.owned_parts && rec.owned_parts.length > 0 && (
                               <div>
-                                <div className="text-[11px] font-semibold text-green-400 mb-1 uppercase tracking-wider flex items-center gap-1">
+                                <div className="text-[10px] font-semibold text-green-400 mb-1.5 uppercase tracking-wider flex items-center gap-1">
                                   <Archive size={12} /> You Own
                                 </div>
                                 <div className="flex flex-wrap gap-1.5">
                                   {rec.owned_parts.slice(0, 4).map((part, i) => (
-                                    <span key={i} className="text-[10px] px-2 py-1 rounded bg-green-500/10 text-green-400 border border-green-500/20">
+                                    <span key={i} className="text-[10px] px-2 py-1 rounded-lg bg-green-500/10 text-green-400 border border-green-500/20">
                                       {part}
                                     </span>
                                   ))}
                                   {rec.owned_parts.length > 4 && (
-                                    <span className="text-[10px] px-2 py-1 rounded bg-green-500/10 text-green-400/70 border border-green-500/20">
+                                    <span className="text-[10px] px-2 py-1 rounded-lg bg-green-500/10 text-green-400/70 border border-green-500/20">
                                       +{rec.owned_parts.length - 4} more
                                     </span>
                                   )}
@@ -1194,17 +1197,17 @@ export default function MainApp() {
                             {/* Missing Parts */}
                             {rec.missing_parts && rec.missing_parts.length > 0 && (
                               <div>
-                                <div className="text-[11px] font-semibold text-orange-400 mb-1 uppercase tracking-wider flex items-center gap-1">
+                                <div className="text-[10px] font-semibold text-orange-400 mb-1.5 uppercase tracking-wider flex items-center gap-1">
                                   <ShoppingCart size={12} /> Need to Buy
                                 </div>
                                 <div className="flex flex-wrap gap-1.5">
                                   {rec.missing_parts.slice(0, 4).map((part, i) => (
-                                    <span key={i} className="text-[10px] px-2 py-1 rounded bg-orange-500/10 text-orange-400 border border-orange-500/20">
+                                    <span key={i} className="text-[10px] px-2 py-1 rounded-lg bg-orange-500/10 text-orange-400 border border-orange-500/20">
                                       {part}
                                     </span>
                                   ))}
                                   {rec.missing_parts.length > 4 && (
-                                    <span className="text-[10px] px-2 py-1 rounded bg-orange-500/10 text-orange-400/70 border border-orange-500/20">
+                                    <span className="text-[10px] px-2 py-1 rounded-lg bg-orange-500/10 text-orange-400/70 border border-orange-500/20">
                                       +{rec.missing_parts.length - 4} more
                                     </span>
                                   )}
@@ -1215,7 +1218,7 @@ export default function MainApp() {
 
                           <button 
                             onClick={() => handleCreateFromRecommendation(rec)}
-                            className="w-full py-3 bg-primary hover:bg-primary-dark disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-xl text-sm font-semibold transition-all shadow-lg shadow-primary/20 hover:shadow-primary/30 mt-auto flex items-center justify-center gap-2"
+                            className="relative z-10 w-full py-3 bg-primary hover:bg-primary-dark disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-xl text-sm font-semibold transition-all shadow-lg shadow-primary/20 hover:shadow-primary/30 mt-auto flex items-center justify-center gap-2"
                           >
                             <Plus size={16} />
                             Start Project
