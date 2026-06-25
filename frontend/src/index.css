@@ -12,17 +12,19 @@
   --color-text-muted: #94a3b8;
   --color-border-dark: #2a2d3d;
   --color-white: #ffffff;
+  --grid-color: rgba(255, 255, 255, 0.05);
 }
 
 /* Light mode variables */
 :root.light-mode {
-  --color-bg-dark: #f8fafc;
+  --color-bg-dark: #eef2f6;
   --color-bg-panel: #ffffff;
-  --color-bg-sidebar: #f1f5f9;
+  --color-bg-sidebar: #f8fafc;
   --color-text-main: #0f172a; /* Darker for better contrast */
   --color-text-muted: #475569; /* More visible gray */
   --color-border-dark: #cbd5e1; /* Darker border for visibility */
   --color-white: #1e293b; /* White text becomes dark in light mode */
+  --grid-color: rgba(15, 23, 42, 0.08);
 }
 
 /* Always keep button text white */
