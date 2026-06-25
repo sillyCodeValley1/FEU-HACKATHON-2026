@@ -19,10 +19,16 @@
   --color-bg-dark: #f8fafc;
   --color-bg-panel: #ffffff;
   --color-bg-sidebar: #f1f5f9;
-  --color-text-main: #1e293b;
-  --color-text-muted: #64748b;
-  --color-border-dark: #e2e8f0;
+  --color-text-main: #0f172a; /* Darker for better contrast */
+  --color-text-muted: #475569; /* More visible gray */
+  --color-border-dark: #cbd5e1; /* Darker border for visibility */
   --color-white: #1e293b; /* White text becomes dark in light mode */
+}
+
+/* Always keep button text white */
+button.bg-primary,
+button.bg-green-500 {
+  color: #ffffff !important;
 }
 
 @theme {
