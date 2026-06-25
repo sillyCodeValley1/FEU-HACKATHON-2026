@@ -1011,7 +1011,7 @@ export default function MainApp() {
                     <p className="text-sm text-text-muted mt-2">Chat with the copilot to generate a roadmap.</p>
                   </div>
                 ) : (
-                  <div className="relative border-l border-border-dark ml-4 space-y-8 pb-8">
+                  <div className="relative border-l border-border-dark ml-5 space-y-8 pb-8">
                     {currentProject.plan.map((step, idx) => {
                       const isCompleted = completedSteps[activeProjectId!]?.has(idx) || false;
                       
@@ -1028,11 +1028,11 @@ export default function MainApp() {
                       };
                       
                       return (
-                        <div key={idx} className="relative pl-8">
+                        <div key={idx} className="relative pl-9">
                           <button
                             onClick={toggleStep}
                             className={cn(
-                              "absolute -left-6 top-0.5 w-10 h-10 rounded-full flex items-center justify-center transition-all shadow-md z-10",
+                              "absolute -left-[20px] top-3 w-10 h-10 rounded-full flex items-center justify-center transition-all shadow-md z-10",
                               isCompleted 
                                 ? "bg-green-500 border-2 border-green-500" 
                                 : "bg-bg-dark border-2 border-primary hover:bg-primary/20"
