@@ -11,6 +11,7 @@
   --color-text-main: #e2e8f0;
   --color-text-muted: #94a3b8;
   --color-border-dark: #2a2d3d;
+  --color-white: #ffffff;
 }
 
 /* Light mode variables */
@@ -21,6 +22,7 @@
   --color-text-main: #1e293b;
   --color-text-muted: #64748b;
   --color-border-dark: #e2e8f0;
+  --color-white: #1e293b; /* White text becomes dark in light mode */
 }
 
 @theme {
@@ -32,10 +34,17 @@
   --color-text-main: var(--color-text-main);
   --color-text-muted: var(--color-text-muted);
   --color-border-dark: var(--color-border-dark);
+  --color-white: var(--color-white); /* Custom color for "white" text that adapts */
 }
 
 @layer base {
+  * {
+    /* Optimize transitions for speed */
+    @apply transition-colors duration-150 ease-out;
+    will-change: background-color, color, border-color;
+  }
+
   body {
-    @apply bg-bg-dark text-text-main antialiased selection:bg-primary/30 transition-colors duration-300;
+    @apply bg-bg-dark text-text-main antialiased selection:bg-primary/30;
   }
 }
