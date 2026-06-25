@@ -27,13 +27,13 @@ export default function MainApp() {
     return saved ? saved === 'dark' : true;
   });
 
-  // Update body class when theme changes
+  // Update html class when theme changes
   useEffect(() => {
     if (isDarkMode) {
-      document.body.classList.remove('light-mode');
+      document.documentElement.classList.remove('light-mode');
       localStorage.setItem('theme', 'dark');
     } else {
-      document.body.classList.add('light-mode');
+      document.documentElement.classList.add('light-mode');
       localStorage.setItem('theme', 'light');
     }
   }, [isDarkMode]);
