@@ -3,6 +3,23 @@ import { Link } from 'react-router-dom';
 import { CircuitBoard, Zap, Cpu, ShoppingCart, List, ArrowRight, Activity, ShieldCheck, CheckCircle2, Bot, Archive, Sparkles, Sun, Moon } from 'lucide-react';
 
 export default function Landing() {
+  // Theme state
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
+    const saved = localStorage.getItem('theme');
+    return saved ? saved === 'dark' : true;
+  });
+
+  // Apply theme
+  useEffect(() => {
+    if (isDarkMode) {
+      document.documentElement.classList.remove('light-mode');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.documentElement.classList.add('light-mode');
+      localStorage.setItem('theme', 'light');
+    }
+  }, [isDarkMode]);
+
   const handleScroll = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     e.preventDefault();
     const targetId = e.currentTarget.getAttribute('href')?.substring(1);
@@ -69,6 +86,13 @@ export default function Landing() {
           </h1>
         </div>
         <div className="flex gap-4 items-center">
+          <button
+            onClick={() => setIsDarkMode(!isDarkMode)}
+            className="text-text-muted hover:text-white p-2 rounded-lg transition-colors hover:bg-white/5"
+            title={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+          >
+            {isDarkMode ? <Sun size={18} /> : <Moon size={18} />}
+          </button>
           <a href="#features" onClick={handleScroll} className="text-sm font-medium text-text-muted hover:text-white transition-colors hidden md:block">Features</a>
           <a href="#circuitrocks" onClick={handleScroll} className="text-sm font-medium text-text-muted hover:text-white transition-colors hidden md:block">Integration</a>
           <button
