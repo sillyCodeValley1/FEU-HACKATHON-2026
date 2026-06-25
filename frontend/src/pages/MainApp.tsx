@@ -578,7 +578,7 @@ export default function MainApp() {
                                 )}
                               </div>
                               <div className="flex flex-wrap gap-2">
-                                {msg.bom.slice(0, (foldedBoms[msg.id] || msg.bom.length <= 3) ? 3 : undefined).map((item, idx) => {
+                                {msg.bom.slice(0, (foldedBoms[msg.id] === undefined || foldedBoms[msg.id]) && msg.bom.length > 3 ? 3 : undefined).map((item, idx) => {
                                   const inInventory = findInInventory(item.name);
                                   return (
                                     <span key={idx} className={cn("px-3 py-1 bg-bg-dark border rounded-full text-xs flex items-center gap-2", inInventory ? "border-green-500/50" : "border-border-dark")}>
