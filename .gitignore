@@ -26,6 +26,7 @@ target/
 .idea/
 *.swp
 *.swo
+*.env
 
 # Python
 __pycache__/
