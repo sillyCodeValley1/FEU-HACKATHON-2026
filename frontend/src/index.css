@@ -50,9 +50,34 @@ button.bg-green-500 {
     /* Optimize transitions for speed */
     @apply transition-colors duration-150 ease-out;
     will-change: background-color, color, border-color;
+    
+    /* Firefox scrollbar styling */
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-border-dark) transparent;
   }
 
   body {
     @apply bg-bg-dark text-text-main antialiased selection:bg-primary/30;
+  }
+
+  /* Custom Webkit Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--color-border-dark);
+    border-radius: 8px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: var(--color-text-muted);
   }
 }
