@@ -30,5 +30,7 @@ export interface ProjectRecommendation {
   name: string;
   description: string;
   missing_count: number;
+  required_parts: string[];
+  owned_parts: string[];
   missing_parts: string[];
 }

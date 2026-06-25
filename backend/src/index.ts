@@ -184,15 +184,26 @@ app.post('/api/recommend', async (req, res) => {
     You are an electronics project assistant. The user has the following components in their inventory:
     ${JSON.stringify(inventory, null, 2)}
 
-    Suggest 3 creative electronics projects they can build mostly using what they have. It's okay if a project is missing 1 to 3 components, but try to maximize the use of their current inventory.
+    Suggest 5 creative electronics projects they can build mostly using what they have. It's okay if a project is missing 1 to 5 components, but try to maximize the use of their current inventory.
     
+    For each project, also include:
+    - "required_parts": all parts needed for the project
+    - "owned_parts": parts the user already has
+    - "missing_parts": parts they need to buy
+    - Try to suggest missing parts that are available in CircuitRocks catalog when possible.
+
+    CIRCUITROCKS AVAILABLE COMPONENTS:
+    ${JSON.stringify(mockCatalog.slice(0, 50), null, 2)}
+
     Return ONLY a valid JSON array matching this exact structure, with no markdown formatting around it:
     [
       {
         "name": "Smart Plant Monitor",
         "description": "Monitors soil moisture and alerts you via Wi-Fi.",
         "missing_count": 1,
-        "missing_parts": ["Water Pump"]
+        "required_parts": ["Arduino Uno", "Soil Moisture Sensor", "Water Pump", "Jumper Wires"],
+        "owned_parts": ["Arduino Uno", "Jumper Wires"],
+        "missing_parts": ["Soil Moisture Sensor", "Water Pump"]
       }
     ]
     `;
@@ -216,19 +227,41 @@ function getMockRecommendations(inventory: any[]) {
       name: "Smart Plant Monitor",
       description: "Monitors soil moisture and alerts you via Wi-Fi.",
       missing_count: 1,
-      missing_parts: ["Water Pump"]
+      required_parts: ["ESP32", "Soil Moisture Sensor", "Water Pump", "Jumper Wires", "Breadboard"],
+      owned_parts: ["Jumper Wires"],
+      missing_parts: ["ESP32", "Soil Moisture Sensor", "Water Pump", "Breadboard"]
     },
     {
       name: "Automated Desk Fan",
       description: "A small fan that turns on when the temperature gets too high.",
       missing_count: 2,
-      missing_parts: ["DC Motor", "Temperature Sensor"]
+      required_parts: ["Arduino Uno", "Temperature Sensor", "DC Motor", "Relay Module"],
+      owned_parts: ["Arduino Uno"],
+      missing_parts: ["Temperature Sensor", "DC Motor", "Relay Module"]
     },
     {
       name: "Inventory Tester",
       description: "A basic circuit to test the components you have.",
       missing_count: 0,
+      required_parts: ["Arduino Uno", "Breadboard", "Jumper Wires"],
+      owned_parts: ["Arduino Uno", "Breadboard", "Jumper Wires"],
       missing_parts: []
+    },
+    {
+      name: "LED Matrix Clock",
+      description: "A digital clock using an LED matrix display.",
+      missing_count: 2,
+      required_parts: ["ESP32", "LED Matrix", "RTC Module", "Jumper Wires"],
+      owned_parts: ["Jumper Wires"],
+      missing_parts: ["ESP32", "LED Matrix", "RTC Module"]
+    },
+    {
+      name: "Automatic Night Light",
+      description: "Turns on LEDs automatically when it gets dark.",
+      missing_count: 1,
+      required_parts: ["Arduino Uno", "LDR Sensor", "LEDs", "Resistors", "Jumper Wires"],
+      owned_parts: ["Arduino Uno", "Jumper Wires"],
+      missing_parts: ["LDR Sensor", "LEDs", "Resistors"]
     }
   ];
 }
