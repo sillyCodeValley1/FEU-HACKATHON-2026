@@ -8,7 +8,7 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 dotenv.config();
 
 const app = express();
-const port = process.env.PORT || 3001;
+const port = 4000;
 
 app.use(cors());
 app.use(express.json());
