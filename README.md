@@ -47,7 +47,7 @@ Before running the application, ensure you have the following installed:
    ```
    Add your Google Gemini API key to the `.env` file:
    ```env
-   PORT=3001
+   PORT=4000
    GEMINI_API_KEY=your_gemini_api_key_here
    ```
    *(Note: If no API key is provided, the application will gracefully fall back to mock responses).*
