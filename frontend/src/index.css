@@ -1,38 +1,41 @@
 @import "tailwindcss";
 
-@theme {
+/* Define CSS variables for both dark and light modes */
+:root {
+  /* Dark Mode Colors (default) */
   --color-primary: #10a37f;
   --color-primary-dark: #0d8c6d;
-  
-  /* Dark Mode Colors (default) */
   --color-bg-dark: #0f111a;
   --color-bg-panel: #1a1d2d;
   --color-bg-sidebar: #13151f;
   --color-text-main: #e2e8f0;
   --color-text-muted: #94a3b8;
   --color-border-dark: #2a2d3d;
-  
-  /* Light Mode Colors */
-  --color-light-bg: #f8fafc;
-  --color-light-bg-panel: #ffffff;
-  --color-light-bg-sidebar: #f1f5f9;
-  --color-light-text-main: #1e293b;
-  --color-light-text-muted: #64748b;
-  --color-light-border: #e2e8f0;
+}
+
+/* Light mode variables */
+:root.light-mode {
+  --color-bg-dark: #f8fafc;
+  --color-bg-panel: #ffffff;
+  --color-bg-sidebar: #f1f5f9;
+  --color-text-main: #1e293b;
+  --color-text-muted: #64748b;
+  --color-border-dark: #e2e8f0;
+}
+
+@theme {
+  --color-primary: var(--color-primary);
+  --color-primary-dark: var(--color-primary-dark);
+  --color-bg-dark: var(--color-bg-dark);
+  --color-bg-panel: var(--color-bg-panel);
+  --color-bg-sidebar: var(--color-bg-sidebar);
+  --color-text-main: var(--color-text-main);
+  --color-text-muted: var(--color-text-muted);
+  --color-border-dark: var(--color-border-dark);
 }
 
 @layer base {
   body {
     @apply bg-bg-dark text-text-main antialiased selection:bg-primary/30 transition-colors duration-300;
-  }
-  
-  body.light-mode {
-    @apply bg-light-bg text-light-text-main;
-    
-    & .bg-bg-panel { background-color: var(--color-light-bg-panel); }
-    & .bg-bg-sidebar { background-color: var(--color-light-bg-sidebar); }
-    & .bg-bg-dark { background-color: var(--color-light-bg); }
-    & .text-text-muted { color: var(--color-light-text-muted); }
-    & .border-border-dark { border-color: var(--color-light-border); }
   }
 }
