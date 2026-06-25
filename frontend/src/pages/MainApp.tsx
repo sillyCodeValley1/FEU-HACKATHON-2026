@@ -1,4 +1,8 @@
+<<<<<<< Updated upstream
 import React, { useState, useMemo, useEffect } from 'react';
+=======
+import React, { useState, useMemo } from 'react';
+>>>>>>> Stashed changes
 import { Bot, CircuitBoard, ShoppingCart, List, Zap, Cpu, Settings, MessageSquare, Send, Activity, Info, Folder, Archive, Plus, ArrowLeft, Trash2, Box, PanelLeftClose, PanelLeft, ExternalLink, Sparkles, RefreshCw, Sun, Moon } from 'lucide-react';
 import { cn } from '../utils/cn';
 import { API_BASE_URL } from '../config';
@@ -8,11 +12,21 @@ import { InventoryView } from '../components/InventoryView';
 import { CatalogView } from '../components/CatalogView';
 
 export default function MainApp() {
-  const [projects, setProjects] = useState<Project[]>([]);
-  const [activeProjectId, setActiveProjectId] = useState<string | null>(null);
+  // Load from localStorage on mount
+  const [projects, setProjects] = useState<Project[]>(() => {
+    const saved = localStorage.getItem('circuitpal-projects');
+    return saved ? JSON.parse(saved) : [];
+  });
+  const [activeProjectId, setActiveProjectId] = useState<string | null>(() => {
+    const saved = localStorage.getItem('circuitpal-active-project');
+    return saved || null;
+  });
   const [globalView, setGlobalView] = useState<'projects' | 'inventory' | 'catalog'>('projects');
   
-  const [inventory, setInventory] = useState<InventoryItem[]>([]);
+  const [inventory, setInventory] = useState<InventoryItem[]>(() => {
+    const saved = localStorage.getItem('circuitpal-inventory');
+    return saved ? JSON.parse(saved) : [];
+  });
   const [recommendations, setRecommendations] = useState<ProjectRecommendation[]>([]);
   const [loadingRecs, setLoadingRecs] = useState(false);
   
@@ -41,8 +55,90 @@ export default function MainApp() {
     }
   }, [isDarkMode]);
 
+  // Save to localStorage whenever relevant state changes
+  React.useEffect(() => {
+    localStorage.setItem('circuitpal-projects', JSON.stringify(projects));
+  }, [projects]);
+
+  React.useEffect(() => {
+    if (activeProjectId) {
+      localStorage.setItem('circuitpal-active-project', activeProjectId);
+    } else {
+      localStorage.removeItem('circuitpal-active-project');
+    }
+  }, [activeProjectId]);
+
+  React.useEffect(() => {
+    localStorage.setItem('circuitpal-inventory', JSON.stringify(inventory));
+  }, [inventory]);
+
   // Selected BOM items state
-  const [selectedBomItems, setSelectedBomItems] = useState<Record<string, Set<number>>>({});
+  const [selectedBomItems, setSelectedBomItems] = useState<Record<string, Set<number>>>(() => {
+    const saved = localStorage.getItem('circuitpal-selected-boms');
+    if (!saved) return {};
+    const parsed = JSON.parse(saved);
+    const result: Record<string, Set<number>> = {};
+    Object.keys(parsed).forEach(key => {
+      result[key] = new Set(parsed[key]);
+    });
+    return result;
+  });
+  // Track completed plan steps for each project
+  const [completedSteps, setCompletedSteps] = useState<Record<string, Set<number>>>(() => {
+    const saved = localStorage.getItem('circuitpal-completed-steps');
+    if (!saved) return {};
+    const parsed = JSON.parse(saved);
+    const result: Record<string, Set<number>> = {};
+    Object.keys(parsed).forEach(key => {
+      result[key] = new Set(parsed[key]);
+    });
+    return result;
+  });
+  // Track which messages' BOMs are folded
+  const [foldedBoms, setFoldedBoms] = useState<Record<string, boolean>>(() => {
+    const saved = localStorage.getItem('circuitpal-folded-boms');
+    return saved ? JSON.parse(saved) : {};
+  });
+
+  // Theme state
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
+    const saved = localStorage.getItem('theme');
+    return saved ? saved === 'dark' : true;
+  });
+
+  // Save selected BOMs to localStorage
+  React.useEffect(() => {
+    const toSave: Record<string, number[]> = {};
+    Object.keys(selectedBomItems).forEach(key => {
+      toSave[key] = Array.from(selectedBomItems[key]);
+    });
+    localStorage.setItem('circuitpal-selected-boms', JSON.stringify(toSave));
+  }, [selectedBomItems]);
+
+  // Save completed steps to localStorage
+  React.useEffect(() => {
+    const toSave: Record<string, number[]> = {};
+    Object.keys(completedSteps).forEach(key => {
+      toSave[key] = Array.from(completedSteps[key]);
+    });
+    localStorage.setItem('circuitpal-completed-steps', JSON.stringify(toSave));
+  }, [completedSteps]);
+
+  // Save folded BOMs to localStorage
+  React.useEffect(() => {
+    localStorage.setItem('circuitpal-folded-boms', JSON.stringify(foldedBoms));
+  }, [foldedBoms]);
+
+  // Apply theme
+  React.useEffect(() => {
+    if (isDarkMode) {
+      document.documentElement.classList.remove('light-mode');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.documentElement.classList.add('light-mode');
+      localStorage.setItem('theme', 'light');
+    }
+  }, [isDarkMode]);
 
   // Modal state
   const [showCreateModal, setShowCreateModal] = useState(false);
@@ -356,19 +452,28 @@ export default function MainApp() {
         sidebarOpen ? "w-[260px]" : "w-[68px]"
       )}
       >
-        <div className={cn("p-4 flex items-center h-14 relative", sidebarOpen ? "justify-between" : "justify-center")}>
+        <div className={cn("p-4 flex items-center h-14 relative gap-2", sidebarOpen ? "justify-between" : "justify-center")}>
           <div className={cn("flex items-center gap-2 overflow-hidden transition-opacity duration-200 pointer-events-none", sidebarOpen ? "opacity-100" : "opacity-0 absolute")}>
             <div className="w-8 h-8 rounded bg-primary/20 flex items-center justify-center text-primary shrink-0">
               <CircuitBoard size={20} />
             </div>
             <h1 className="text-xl font-bold tracking-tight text-white whitespace-nowrap">CircuitPal<span className="text-primary">.AI</span></h1>
           </div>
-          <button 
-            onClick={() => setSidebarOpen(!sidebarOpen)}
-            className={cn("text-text-muted hover:text-white p-1.5 rounded-lg transition-colors hover:bg-white/10 shrink-0 z-10", !sidebarOpen && "absolute")}
-          >
-            {sidebarOpen ? <PanelLeftClose size={18} /> : <PanelLeft size={20} />}
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setIsDarkMode(!isDarkMode)}
+              className="text-text-muted hover:text-white p-1.5 rounded-lg transition-colors hover:bg-white/10 shrink-0"
+              title={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+            >
+              {isDarkMode ? <Sun size={18} /> : <Moon size={18} />}
+            </button>
+            <button 
+              onClick={() => setSidebarOpen(!sidebarOpen)}
+              className={cn("text-text-muted hover:text-white p-1.5 rounded-lg transition-colors hover:bg-white/10 shrink-0", !sidebarOpen && "absolute right-4")}
+            >
+              {sidebarOpen ? <PanelLeftClose size={18} /> : <PanelLeft size={20} />}
+            </button>
+          </div>
         </div>
         
         <nav className="flex-1 p-3 space-y-1 overflow-y-auto overflow-x-hidden w-full">
@@ -472,13 +577,22 @@ export default function MainApp() {
                   {currentProject.name}
                 </h2>
               </div>
-              <div className="flex bg-bg-panel p-1 rounded-lg">
-                <button onClick={() => setProjectTab('chat')} className={cn("px-4 py-1.5 text-xs font-medium rounded-md transition-colors", projectTab === 'chat' ? "bg-bg-dark text-white shadow-sm" : "text-text-muted hover:text-white")}>
-                  Copilot
+              <div className="flex items-center gap-4">
+                <button
+                  onClick={() => setIsDarkMode(!isDarkMode)}
+                  className="text-text-muted hover:text-white transition-colors p-2 rounded-lg hover:bg-white/5"
+                  title={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+                >
+                  {isDarkMode ? <Sun size={18} /> : <Moon size={18} />}
                 </button>
-                <button onClick={() => setProjectTab('plan')} className={cn("px-4 py-1.5 text-xs font-medium rounded-md transition-colors", projectTab === 'plan' ? "bg-bg-dark text-white shadow-sm" : "text-text-muted hover:text-white")}>
-                  Plan
-                </button>
+                <div className="flex bg-bg-panel p-1 rounded-lg">
+                  <button onClick={() => setProjectTab('chat')} className={cn("px-4 py-1.5 text-xs font-medium rounded-md transition-colors", projectTab === 'chat' ? "bg-bg-dark text-white shadow-sm" : "text-text-muted hover:text-white")}>
+                    Copilot
+                  </button>
+                  <button onClick={() => setProjectTab('plan')} className={cn("px-4 py-1.5 text-xs font-medium rounded-md transition-colors", projectTab === 'plan' ? "bg-bg-dark text-white shadow-sm" : "text-text-muted hover:text-white")}>
+                    Plan
+                  </button>
+                </div>
               </div>
             </header>
 
@@ -501,12 +615,22 @@ export default function MainApp() {
                           {/* Inline BOM directly in chat */}
                           {msg.bom && msg.bom.length > 0 && (
                             <div className="bg-bg-panel border border-border-dark rounded-xl p-4 w-full mt-2 shadow-lg">
-                              <div className="flex items-center gap-2 mb-3 text-sm font-semibold text-white">
-                                <ShoppingCart size={16} className="text-primary" />
-                                Suggested Components ({msg.bom.length})
+                              <div className="flex items-center justify-between mb-3">
+                                <div className="flex items-center gap-2 text-sm font-semibold text-white">
+                                  <ShoppingCart size={16} className="text-primary" />
+                                  Suggested Components ({msg.bom.length})
+                                </div>
+                                {msg.bom.length > 3 && (
+                                  <button
+                                    onClick={() => setFoldedBoms(prev => ({ ...prev, [msg.id]: !prev[msg.id] }))}
+                                    className="text-text-muted hover:text-white text-xs flex items-center gap-1 transition-colors"
+                                  >
+                                    {foldedBoms[msg.id] ? 'Show all' : 'Show less'}
+                                  </button>
+                                )}
                               </div>
                               <div className="flex flex-wrap gap-2">
-                                {msg.bom.map((item, idx) => {
+                                {msg.bom.slice(0, (foldedBoms[msg.id] === false || msg.bom.length <= 3) ? undefined : 3).map((item, idx) => {
                                   const inInventory = findInInventory(item.name);
                                   return (
                                     <span key={idx} className={cn("px-3 py-1 bg-bg-dark border rounded-full text-xs flex items-center gap-2", inInventory ? "border-green-500/50" : "border-border-dark")}>
