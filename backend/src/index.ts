@@ -172,7 +172,7 @@ app.get('/api/catalog', (req, res) => {
 
 // Endpoint to handle chat requests and generate project plans
 app.post('/api/chat', async (req, res) => {
-  const { message } = req.body;
+  const { message, inventory } = req.body;
   
   if (!process.env.GEMINI_API_KEY) {
     console.warn("WARNING: GEMINI_API_KEY is not set. Falling back to mock response.");
@@ -182,8 +182,13 @@ app.post('/api/chat', async (req, res) => {
   try {
     const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
     
+    const inventoryText = inventory && inventory.length > 0 
+      ? `\nUSER'S CURRENT INVENTORY:\n${JSON.stringify(inventory, null, 2)}\n\nIMPORTANT: The user already owns the items listed above. When generating the project plan and reply, explicitly acknowledge what the user already has in their inventory to save them money. Still include these components in the BOM for completeness.`
+      : "";
+
     const prompt = `
     System Instruction: ${SYSTEM_PROMPT}
+    ${inventoryText}
     
     User Message: ${message}
     

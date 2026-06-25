@@ -65,6 +65,55 @@ export default function MainApp() {
     if (activeProjectId === id) setActiveProjectId(null);
   };
 
+  const handleApplyChanges = (messageId: string) => {
+    if (!activeProjectId) return;
+    
+    setProjects(prev => prev.map(p => {
+      if (p.id === activeProjectId) {
+        const msg = p.messages.find(m => m.id === messageId);
+        if (!msg) return p;
+
+        const newBom = msg.bom && msg.bom.length > 0 ? msg.bom : p.bom;
+        
+        // Auto-select for newly applied BOM
+        if (newBom !== p.bom && newBom.length > 0) {
+          setSelectedBomItems(prevSelected => {
+            const projectSelections = new Set(prevSelected[activeProjectId] || []);
+            newBom.forEach((item: any, idx: number) => {
+              const inInv = inventory.find(i => i.name.toLowerCase() === item.name.toLowerCase());
+              if (!inInv) {
+                projectSelections.add(idx);
+              }
+            });
+            return { ...prevSelected, [activeProjectId]: projectSelections };
+          });
+        }
+
+        return {
+          ...p,
+          messages: p.messages.map(m => m.id === messageId ? { ...m, isApplied: true, isRejected: false } : m),
+          bom: newBom,
+          missing_components: msg.missing_components && msg.missing_components.length > 0 ? msg.missing_components : p.missing_components,
+          plan: msg.plan && msg.plan.length > 0 ? msg.plan : p.plan
+        };
+      }
+      return p;
+    }));
+  };
+
+  const handleRejectChanges = (messageId: string) => {
+    if (!activeProjectId) return;
+    setProjects(prev => prev.map(p => {
+      if (p.id === activeProjectId) {
+        return {
+          ...p,
+          messages: p.messages.map(m => m.id === messageId ? { ...m, isRejected: true, isApplied: false } : m)
+        };
+      }
+      return p;
+    }));
+  };
+
   const handleSend = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim() || !activeProjectId) return;
@@ -87,28 +136,39 @@ export default function MainApp() {
       const res = await fetch(`${API_BASE_URL}/api/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: sentInput })
+        body: JSON.stringify({ message: sentInput, inventory })
       });
       const data = await res.json();
       
-      const assistantMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        role: 'assistant',
-        content: data.reply,
-        bom: data.matched_components,
-        missing_components: data.missing_components,
-        plan: data.plan
-      };
-      
       setProjects(prev => prev.map(p => {
         if (p.id === activeProjectId) {
-          const newBom = data.matched_components && data.matched_components.length > 0 ? data.matched_components : p.bom;
+          const hasNewBom = data.matched_components && data.matched_components.length > 0;
+          const hasNewPlan = data.plan && data.plan.length > 0;
+          const isInitial = p.bom.length === 0 && p.plan.length === 0;
           
-          // Auto-select all new matched components
-          if (newBom !== p.bom && newBom.length > 0) {
+          const assistantMessage: Message = {
+            id: (Date.now() + 1).toString(),
+            role: 'assistant',
+            content: data.reply,
+            bom: data.matched_components,
+            missing_components: data.missing_components,
+            plan: data.plan,
+            hasProposedChanges: hasNewBom || hasNewPlan,
+            isApplied: isInitial,
+            isRejected: false
+          };
+
+          // If it's the first time generating BOM/Plan, auto-apply it.
+          // Otherwise, don't update BOM/Plan yet.
+          if (isInitial && hasNewBom) {
             setSelectedBomItems(prevSelected => {
               const projectSelections = new Set(prevSelected[activeProjectId] || []);
-              newBom.forEach((_: any, idx: number) => projectSelections.add(idx));
+              data.matched_components.forEach((item: any, idx: number) => {
+                const inInv = inventory.find(i => i.name.toLowerCase() === item.name.toLowerCase());
+                if (!inInv) {
+                  projectSelections.add(idx);
+                }
+              });
               return { ...prevSelected, [activeProjectId]: projectSelections };
             });
           }
@@ -116,10 +176,9 @@ export default function MainApp() {
           return {
             ...p,
             messages: [...p.messages, assistantMessage],
-            // Update BOM and Plan if the AI returned new ones
-            bom: newBom,
-            missing_components: data.missing_components && data.missing_components.length > 0 ? data.missing_components : p.missing_components,
-            plan: data.plan && data.plan.length > 0 ? data.plan : p.plan
+            bom: isInitial && hasNewBom ? data.matched_components : p.bom,
+            missing_components: isInitial && (data.missing_components && data.missing_components.length > 0) ? data.missing_components : p.missing_components,
+            plan: isInitial && hasNewPlan ? data.plan : p.plan
           };
         }
         return p;
@@ -366,6 +425,43 @@ export default function MainApp() {
                               </button>
                             </div>
                           )}
+
+                          {/* Accept/Reject Buttons */}
+                          {msg.hasProposedChanges && !msg.isApplied && !msg.isRejected && (
+                            <div className="flex items-center gap-3 mt-3">
+                              <button 
+                                onClick={() => handleApplyChanges(msg.id)}
+                                className="bg-primary hover:bg-primary-dark text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors shadow-lg shadow-primary/20"
+                              >
+                                Accept Updates
+                              </button>
+                              <button 
+                                onClick={() => handleRejectChanges(msg.id)}
+                                className="bg-bg-panel hover:bg-bg-dark border border-border-dark text-text-muted hover:text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+                              >
+                                Decline
+                              </button>
+                            </div>
+                          )}
+                          
+                          {msg.isApplied && msg.hasProposedChanges && (
+                            <div className="mt-2 text-xs font-medium text-green-400 flex items-center gap-1.5 bg-green-500/10 px-3 py-1.5 rounded-md border border-green-500/20">
+                              <svg viewBox="0 0 24 24" fill="none" className="w-3.5 h-3.5" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                              </svg>
+                              Updates Applied to Project
+                            </div>
+                          )}
+
+                          {msg.isRejected && msg.hasProposedChanges && (
+                            <div className="mt-2 text-xs font-medium text-text-muted flex items-center gap-1.5 bg-bg-panel px-3 py-1.5 rounded-md border border-border-dark">
+                              <svg viewBox="0 0 24 24" fill="none" className="w-3.5 h-3.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                              </svg>
+                              Updates Declined
+                            </div>
+                          )}
                         </div>
                       </div>
                     ))}
@@ -422,76 +518,126 @@ export default function MainApp() {
                       </div>
                     ) : (
                       <>
-                        {currentProject.bom.map((item, idx) => {
-                          const inInventory = inventory.find(i => i.name.toLowerCase() === item.name.toLowerCase());
-                          const isSelected = selectedBomItems[currentProject.id]?.has(idx) ?? true;
-
-                          const toggleSelection = () => {
-                            setSelectedBomItems(prev => {
-                              const projectSelections = new Set(prev[currentProject.id] || new Set(currentProject.bom.map((_: any, i: number) => i)));
-                              if (projectSelections.has(idx)) {
-                                projectSelections.delete(idx);
-                              } else {
-                                projectSelections.add(idx);
-                              }
-                              return { ...prev, [currentProject.id]: projectSelections };
-                            });
-                          };
-
-                          return (
-                            <div 
-                              key={idx} 
-                              className={cn(
-                                "bg-bg-panel border rounded-lg p-3 shadow-sm relative overflow-hidden transition-all",
-                                isSelected ? "border-primary/50" : "border-border-dark opacity-60"
-                              )}
-                            >
-                              <div className="absolute top-3 right-3 z-10">
-                                <button 
-                                  onClick={toggleSelection}
-                                  className={cn(
-                                    "w-5 h-5 rounded border flex items-center justify-center transition-colors",
-                                    isSelected 
-                                      ? "bg-primary border-primary text-white" 
-                                      : "bg-bg-dark border-border-dark text-transparent hover:border-primary/50"
-                                  )}
-                                >
-                                  <svg viewBox="0 0 24 24" fill="none" className="w-3.5 h-3.5" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                                    <polyline points="20 6 9 17 4 12"></polyline>
-                                  </svg>
-                                </button>
-                              </div>
-                              {inInventory && (
-                                <div className="absolute top-0 right-0 bg-green-500/20 text-green-400 text-[9px] font-bold px-2 py-0.5 rounded-bl-lg pr-10">
-                                  You own {inInventory.quantity}
-                                </div>
-                              )}
-                              <div className="text-xs text-primary mb-1 font-medium flex items-center justify-between pr-8">
-                                <span>{item.category}</span>
-                                {item.sku && <span className="font-mono text-[10px] text-text-muted">SKU: {item.sku}</span>}
-                              </div>
-                              <div className="font-semibold text-sm text-white leading-tight pr-8">{item.name}</div>
-                              <div className="mt-1 text-xs text-text-muted flex items-center gap-2">
-                                <span className="text-primary/80 font-medium">CircuitRocks</span>
-                                {item.stock !== undefined && (
-                                  <span className={cn(
-                                    "px-1.5 py-0.5 rounded border text-[10px] font-medium",
-                                    item.stock > 0 
-                                      ? "bg-green-500/10 text-green-400 border-green-500/20" 
-                                      : "bg-red-500/10 text-red-400 border-red-500/20"
-                                  )}>
-                                    {item.stock > 0 ? `${item.stock} in stock` : 'Out of stock'}
-                                  </span>
-                                )}
-                              </div>
-                              <div className="mt-3 flex items-center justify-between">
-                                <div className="text-xs text-text-muted line-clamp-1 flex-1 mr-2">{item.description}</div>
-                                <div className="font-mono text-sm text-primary font-bold">₱{item.price.toFixed(2)}</div>
-                              </div>
+                        {/* 1. Already Owned Components */}
+                        {currentProject.bom.some((item) => inventory.find(i => i.name.toLowerCase() === item.name.toLowerCase())) && (
+                          <div className="mb-6">
+                            <h4 className="text-xs font-semibold text-green-400 mb-3 uppercase tracking-wider flex items-center gap-1.5">
+                              <Archive size={14} /> Already Owned
+                            </h4>
+                            <div className="space-y-3">
+                              {currentProject.bom.map((item, idx) => {
+                                const inInventory = inventory.find(i => i.name.toLowerCase() === item.name.toLowerCase());
+                                if (!inInventory) return null;
+                                
+                                return (
+                                  <div key={`owned-${idx}`} className="bg-bg-panel border border-green-500/30 rounded-lg p-3 shadow-sm relative overflow-hidden transition-all opacity-80">
+                                    <div className="absolute top-0 right-0 bg-green-500/20 text-green-400 text-[9px] font-bold px-2 py-0.5 rounded-bl-lg">
+                                      You own {inInventory.quantity}
+                                    </div>
+                                    <div className="text-xs text-primary mb-1 font-medium flex items-center justify-between pr-16">
+                                      <span>{item.category}</span>
+                                      {item.sku && <span className="font-mono text-[10px] text-text-muted">SKU: {item.sku}</span>}
+                                    </div>
+                                    <div className="font-semibold text-sm text-white leading-tight pr-16">{item.name}</div>
+                                    <div className="mt-1 text-xs text-text-muted flex items-center gap-2">
+                                      <span className="text-primary/80 font-medium">CircuitRocks</span>
+                                    </div>
+                                    <div className="mt-3 flex items-center justify-between">
+                                      <div className="text-xs text-text-muted line-clamp-1 flex-1 mr-2">{item.description}</div>
+                                      <div className="font-mono text-sm text-text-muted line-through">₱{item.price.toFixed(2)}</div>
+                                    </div>
+                                  </div>
+                                );
+                              })}
                             </div>
-                          )
-                        })}
+                          </div>
+                        )}
 
+                        {/* 2. BOM (To Purchase from CircuitRocks) */}
+                        {currentProject.bom.some((item) => !inventory.find(i => i.name.toLowerCase() === item.name.toLowerCase())) && (
+                          <div className="mb-6">
+                            <h4 className="text-xs font-semibold text-primary mb-3 uppercase tracking-wider flex items-center gap-1.5">
+                              <ShoppingCart size={14} /> To Purchase
+                            </h4>
+                            <div className="space-y-3">
+                              {currentProject.bom.map((item, idx) => {
+                                const inInventory = inventory.find(i => i.name.toLowerCase() === item.name.toLowerCase());
+                                if (inInventory) return null;
+
+                                const isSelected = selectedBomItems[currentProject.id]?.has(idx) ?? true; // True by default since it's not in inventory
+
+                                const toggleSelection = () => {
+                                  setSelectedBomItems(prev => {
+                                    const defaultSelections = new Set(
+                                      currentProject.bom
+                                        .map((bItem: any, i: number) => ({ bItem, i }))
+                                        .filter(({ bItem }: any) => !inventory.find(inv => inv.name.toLowerCase() === bItem.name.toLowerCase()))
+                                        .map(({ i }: any) => i)
+                                    );
+                                    const projectSelections = new Set(prev[currentProject.id] || defaultSelections);
+                                    
+                                    if (projectSelections.has(idx)) {
+                                      projectSelections.delete(idx);
+                                    } else {
+                                      projectSelections.add(idx);
+                                    }
+                                    return { ...prev, [currentProject.id]: projectSelections };
+                                  });
+                                };
+
+                                return (
+                                  <div 
+                                    key={`purchase-${idx}`} 
+                                    className={cn(
+                                      "bg-bg-panel border rounded-lg p-3 shadow-sm relative overflow-hidden transition-all",
+                                      isSelected ? "border-primary/50" : "border-border-dark opacity-60"
+                                    )}
+                                  >
+                                    <div className="absolute top-3 right-3 z-10">
+                                      <button 
+                                        onClick={toggleSelection}
+                                        className={cn(
+                                          "w-5 h-5 rounded border flex items-center justify-center transition-colors",
+                                          isSelected 
+                                            ? "bg-primary border-primary text-white" 
+                                            : "bg-bg-dark border-border-dark text-transparent hover:border-primary/50"
+                                        )}
+                                      >
+                                        <svg viewBox="0 0 24 24" fill="none" className="w-3.5 h-3.5" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                                          <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>
+                                      </button>
+                                    </div>
+                                    <div className="text-xs text-primary mb-1 font-medium flex items-center justify-between pr-8">
+                                      <span>{item.category}</span>
+                                      {item.sku && <span className="font-mono text-[10px] text-text-muted">SKU: {item.sku}</span>}
+                                    </div>
+                                    <div className="font-semibold text-sm text-white leading-tight pr-8">{item.name}</div>
+                                    <div className="mt-1 text-xs text-text-muted flex items-center gap-2">
+                                      <span className="text-primary/80 font-medium">CircuitRocks</span>
+                                      {item.stock !== undefined && (
+                                        <span className={cn(
+                                          "px-1.5 py-0.5 rounded border text-[10px] font-medium",
+                                          item.stock > 0 
+                                            ? "bg-green-500/10 text-green-400 border-green-500/20" 
+                                            : "bg-red-500/10 text-red-400 border-red-500/20"
+                                        )}>
+                                          {item.stock > 0 ? `${item.stock} in stock` : 'Out of stock'}
+                                        </span>
+                                      )}
+                                    </div>
+                                    <div className="mt-3 flex items-center justify-between">
+                                      <div className="text-xs text-text-muted line-clamp-1 flex-1 mr-2">{item.description}</div>
+                                      <div className="font-mono text-sm text-primary font-bold">₱{item.price.toFixed(2)}</div>
+                                    </div>
+                                  </div>
+                                )
+                              })}
+                            </div>
+                          </div>
+                        )}
+
+                        {/* 3. External Components */}
                         {currentProject.missing_components && currentProject.missing_components.length > 0 && (
                           <div className="pt-4 mt-4 border-t border-border-dark/50">
                             <h4 className="text-xs font-semibold text-orange-400 mb-3 uppercase tracking-wider flex items-center gap-1.5">
@@ -523,19 +669,30 @@ export default function MainApp() {
                       <div className="flex justify-between items-center mb-4">
                         <span className="text-sm text-text-muted font-medium">
                           Total Est. Cost
-                          {selectedBomItems[currentProject.id] && selectedBomItems[currentProject.id].size !== currentProject.bom.length && (
-                            <span className="ml-1 text-xs">({selectedBomItems[currentProject.id].size} items)</span>
-                          )}
+                          {(() => {
+                            const selectedCount = selectedBomItems[currentProject.id] 
+                              ? selectedBomItems[currentProject.id].size 
+                              : currentProject.bom.filter((item: any) => !inventory.find(i => i.name.toLowerCase() === item.name.toLowerCase())).length;
+                            return selectedCount !== currentProject.bom.length ? (
+                              <span className="ml-1 text-xs">({selectedCount} items)</span>
+                            ) : null;
+                          })()}
                         </span>
                         <span className="font-mono text-white font-bold text-lg">
                           ₱{currentProject.bom.reduce((acc, item, idx) => {
-                            const isSelected = selectedBomItems[currentProject.id]?.has(idx) ?? true;
+                            const inInventory = inventory.find(i => i.name.toLowerCase() === item.name.toLowerCase());
+                            const isSelected = selectedBomItems[currentProject.id]?.has(idx) ?? !inInventory;
                             return isSelected ? acc + item.price : acc;
                           }, 0).toFixed(2)}
                         </span>
                       </div>
                       <button 
-                        disabled={(selectedBomItems[currentProject.id]?.size === 0) && currentProject.bom.length > 0}
+                        disabled={
+                          (selectedBomItems[currentProject.id] 
+                            ? selectedBomItems[currentProject.id].size === 0 
+                            : currentProject.bom.filter((item: any) => !inventory.find(i => i.name.toLowerCase() === item.name.toLowerCase())).length === 0) 
+                          && currentProject.bom.length > 0
+                        }
                         className="w-full bg-primary hover:bg-primary-dark disabled:bg-gray-700 disabled:text-gray-400 text-white rounded-lg py-2.5 text-sm font-medium transition-colors flex items-center justify-center gap-2 shadow-lg shadow-primary/20"
                       >
                         <ShoppingCart size={16} /> Buy Selected

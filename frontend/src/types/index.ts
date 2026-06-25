@@ -5,6 +5,9 @@ export interface Message {
   bom?: any[];
   missing_components?: any[];
   plan?: any[];
+  hasProposedChanges?: boolean;
+  isApplied?: boolean;
+  isRejected?: boolean;
 }
 
 export interface Project {
