@@ -573,12 +573,12 @@ export default function MainApp() {
                                     onClick={() => setFoldedBoms(prev => ({ ...prev, [msg.id]: !prev[msg.id] }))}
                                     className="text-text-muted hover:text-white text-xs flex items-center gap-1 transition-colors"
                                   >
-                                    {foldedBoms[msg.id] ? 'Show all' : 'Show less'}
+                                    {foldedBoms[msg.id] ? 'Show less' : 'Show all'}
                                   </button>
                                 )}
                               </div>
                               <div className="flex flex-wrap gap-2">
-                                {msg.bom.slice(0, (foldedBoms[msg.id] === false || msg.bom.length <= 3) ? undefined : 3).map((item, idx) => {
+                                {msg.bom.slice(0, (foldedBoms[msg.id] || msg.bom.length <= 3) ? 3 : undefined).map((item, idx) => {
                                   const inInventory = findInInventory(item.name);
                                   return (
                                     <span key={idx} className={cn("px-3 py-1 bg-bg-dark border rounded-full text-xs flex items-center gap-2", inInventory ? "border-green-500/50" : "border-border-dark")}>
@@ -642,13 +642,28 @@ export default function MainApp() {
                                 <Activity size={16} className="text-primary" />
                                 Project Roadmap
                               </div>
-                              <div className="space-y-2">
+                              <div className="space-y-3">
                                 {msg.plan.slice(0, 2).map((step, idx) => (
                                   <div key={idx} className="flex gap-3 text-sm">
-                                    <span className="text-primary font-mono">{idx + 1}.</span>
-                                    <div>
-                                      <p className="font-medium text-gray-300">{step.phase}</p>
-                                      <p className="text-xs text-text-muted">{step.details}</p>
+                                    <span className="text-primary font-mono flex-shrink-0">{idx + 1}.</span>
+                                    <div className="flex-1">
+                                      <p className="font-medium text-gray-300 mb-1">{step.phase}</p>
+                                      <div className="text-xs text-text-muted space-y-1">
+                                        {step.details.replace(/\*\*/g, '').split(/(?<=(?:\.|^))\s*(?=\d+\.)/).map((detailItem, detailIdx) => {
+                                          const cleanItem = detailItem.trim();
+                                          if (!cleanItem) return null;
+                                          const match = cleanItem.match(/^(\d+)\.\s*(.*)$/);
+                                          if (match) {
+                                            return (
+                                              <div key={detailIdx} className="flex gap-2">
+                                                <span className="text-primary/70 flex-shrink-0">{match[1]}.</span>
+                                                <span>{match[2]}</span>
+                                              </div>
+                                            );
+                                          }
+                                          return <p key={detailIdx}>{cleanItem}</p>;
+                                        }).filter(Boolean)}
+                                      </div>
                                     </div>
                                   </div>
                                 ))}
@@ -1007,17 +1022,30 @@ export default function MainApp() {
                             <div className="flex items-start justify-between gap-4">
                               <div className="flex-1">
                                 <h3 className={cn(
-                                  "text-lg font-semibold mb-2",
+                                  "text-lg font-semibold mb-3",
                                   isCompleted ? "text-green-500 line-through" : "text-white"
                                 )}>
                                   {step.phase}
                                 </h3>
-                                <p className={cn(
-                                  "leading-relaxed",
+                                <div className={cn(
+                                  "leading-relaxed space-y-2",
                                   isCompleted ? "text-text-muted line-through" : "text-text-muted"
                                 )}>
-                                  {step.details}
-                                </p>
+                                  {step.details.replace(/\*\*/g, '').split(/(?<=(?:\.|^))\s*(?=\d+\.)/).map((detailItem, detailIdx) => {
+                                    const cleanItem = detailItem.trim();
+                                    if (!cleanItem) return null;
+                                    const match = cleanItem.match(/^(\d+)\.\s*(.*)$/);
+                                    if (match) {
+                                      return (
+                                        <div key={detailIdx} className="flex gap-2">
+                                          <span className="text-primary/70 font-mono flex-shrink-0">{match[1]}.</span>
+                                          <span>{match[2]}</span>
+                                        </div>
+                                      );
+                                    }
+                                    return <p key={detailIdx}>{cleanItem}</p>;
+                                  }).filter(Boolean)}
+                                </div>
                               </div>
                             </div>
                           </div>
