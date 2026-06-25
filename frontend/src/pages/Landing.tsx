@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { CircuitBoard, Zap, Cpu, ShoppingCart, List, ArrowRight, Activity, ShieldCheck, CheckCircle2, Bot, Archive, Sparkles, Sun, Moon } from 'lucide-react';
+import { CircuitBoard, Cpu, ShoppingCart, List, ArrowRight, Activity, ShieldCheck, CheckCircle2, Bot, Archive, Sparkles, Sun, Moon } from 'lucide-react';
 
 export default function Landing() {
   // Theme state

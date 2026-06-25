@@ -66,22 +66,28 @@ export function CatalogView() {
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
             {inStockItems.map(item => (
-              <div key={item.id} className="bg-bg-panel border border-border-dark rounded-xl p-5 flex flex-col hover:border-primary/50 transition-colors group">
-                <div className="w-full h-32 bg-bg-dark rounded-lg mb-4 flex items-center justify-center text-border-dark group-hover:text-primary/20 transition-colors border border-border-dark/50">
-                  <Cpu size={48} />
-                </div>
-                <div className="text-xs text-primary font-medium mb-1 flex items-center justify-between">
-                  <span>{item.category}</span>
-                  {item.sku && <span className="font-mono text-[10px] text-text-muted">SKU: {item.sku}</span>}
-                </div>
-                <h3 className="font-semibold text-text-main mb-1 line-clamp-1">{item.name}</h3>
-                <p className="text-xs text-text-muted mb-4 line-clamp-2 flex-1">{item.description}</p>
-                
-                <div className="flex items-center justify-between mt-auto pt-4 border-t border-border-dark/50">
-                  <span className="font-mono text-lg text-text-main font-bold">₱{item.price.toFixed(2)}</span>
-                  <span className="text-xs text-green-400 font-medium bg-green-500/10 px-2 py-1 rounded-md border border-green-500/20">{item.stock} in stock</span>
-                </div>
-              </div>
+              <a 
+                                key={item.id} 
+                                href={item.url} 
+                                target="_blank" 
+                                rel="noreferrer"
+                                className="bg-bg-panel border border-border-dark rounded-xl p-5 flex flex-col hover:border-primary/50 transition-colors group cursor-pointer"
+                              >
+                                <div className="w-full h-32 bg-bg-dark rounded-lg mb-4 flex items-center justify-center text-border-dark group-hover:text-primary/20 transition-colors border border-border-dark/50">
+                                  <Cpu size={48} />
+                                </div>
+                                <div className="text-xs text-primary font-medium mb-1 flex items-center justify-between">
+                                  <span>{item.category}</span>
+                                  {item.sku && <span className="font-mono text-[10px] text-text-muted">SKU: {item.sku}</span>}
+                                </div>
+                                <h3 className="font-semibold text-text-main mb-1 line-clamp-1">{item.name}</h3>
+                                <p className="text-xs text-text-muted mb-4 line-clamp-2 flex-1">{item.description}</p>
+                                
+                                <div className="flex items-center justify-between mt-auto pt-4 border-t border-border-dark/50">
+                                  <span className="font-mono text-lg text-text-main font-bold">₱{item.price.toFixed(2)}</span>
+                                  <span className="text-xs text-green-400 font-medium bg-green-500/10 px-2 py-1 rounded-md border border-green-500/20">{item.stock} in stock</span>
+                                </div>
+                              </a>
             ))}
           </div>
         </div>
@@ -96,22 +102,28 @@ export function CatalogView() {
           </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                 {outOfStockItems.map(item => (
-                  <div key={item.id} className="bg-bg-panel border border-border-dark rounded-xl p-5 flex flex-col hover:border-primary/50 transition-colors group opacity-60">
-                    <div className="w-full h-32 bg-bg-dark rounded-lg mb-4 flex items-center justify-center text-border-dark group-hover:text-primary/20 transition-colors border border-border-dark/50">
-                      <Cpu size={48} />
-                    </div>
-                    <div className="text-xs text-primary font-medium mb-1 flex items-center justify-between">
-                      <span>{item.category}</span>
-                      {item.sku && <span className="font-mono text-[10px] text-text-muted">SKU: {item.sku}</span>}
-                    </div>
-                    <h3 className="font-semibold text-text-main mb-1 line-clamp-1">{item.name}</h3>
-                    <p className="text-xs text-text-muted mb-4 line-clamp-2 flex-1">{item.description}</p>
-                    
-                    <div className="flex items-center justify-between mt-auto pt-4 border-t border-border-dark/50">
-                      <span className="font-mono text-lg text-text-main font-bold">₱{item.price.toFixed(2)}</span>
-                      <span className="text-xs text-red-400 font-medium bg-red-500/10 px-2 py-1 rounded-md border border-red-500/20">Out of stock</span>
-                    </div>
-                  </div>
+                  <a 
+                                key={item.id} 
+                                href={item.url} 
+                                target="_blank" 
+                                rel="noreferrer"
+                                className="bg-bg-panel border border-border-dark rounded-xl p-5 flex flex-col hover:border-primary/50 transition-colors group opacity-60 cursor-pointer"
+                              >
+                                <div className="w-full h-32 bg-bg-dark rounded-lg mb-4 flex items-center justify-center text-border-dark group-hover:text-primary/20 transition-colors border border-border-dark/50">
+                                  <Cpu size={48} />
+                                </div>
+                                <div className="text-xs text-primary font-medium mb-1 flex items-center justify-between">
+                                  <span>{item.category}</span>
+                                  {item.sku && <span className="font-mono text-[10px] text-text-muted">SKU: {item.sku}</span>}
+                                </div>
+                                <h3 className="font-semibold text-text-main mb-1 line-clamp-1">{item.name}</h3>
+                                <p className="text-xs text-text-muted mb-4 line-clamp-2 flex-1">{item.description}</p>
+                                
+                                <div className="flex items-center justify-between mt-auto pt-4 border-t border-border-dark/50">
+                                  <span className="font-mono text-lg text-text-main font-bold">₱{item.price.toFixed(2)}</span>
+                                  <span className="text-xs text-red-400 font-medium bg-red-500/10 px-2 py-1 rounded-md border border-red-500/20">Out of stock</span>
+                                </div>
+                              </a>
                 ))}
               </div>
             </div>

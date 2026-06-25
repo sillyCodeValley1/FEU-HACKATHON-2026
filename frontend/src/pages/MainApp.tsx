@@ -58,6 +58,12 @@ export default function MainApp() {
     const saved = localStorage.getItem('circuitpal-folded-boms');
     return saved ? JSON.parse(saved) : {};
   });
+  
+  // Track which BOM sections are collapsed
+  const [collapsedBomSections, setCollapsedBomSections] = useState<Record<string, boolean>>(() => {
+    const saved = localStorage.getItem('circuitpal-collapsed-bom-sections');
+    return saved ? JSON.parse(saved) : {};
+  });
 
   // Theme state
   const [isDarkMode, setIsDarkMode] = useState(() => {
@@ -104,6 +110,11 @@ export default function MainApp() {
   useEffect(() => {
     localStorage.setItem('circuitpal-folded-boms', JSON.stringify(foldedBoms));
   }, [foldedBoms]);
+  
+  // Save collapsed BOM sections to localStorage
+  useEffect(() => {
+    localStorage.setItem('circuitpal-collapsed-bom-sections', JSON.stringify(collapsedBomSections));
+  }, [collapsedBomSections]);
 
   // Apply theme
   useEffect(() => {
@@ -622,7 +633,13 @@ export default function MainApp() {
                                   }).map((item, idx) => {
                                     const inInventory = findInInventory(item.name);
                                     return (
-                                      <div key={idx} className={cn("px-3 py-2 bg-bg-dark border rounded-lg text-xs flex items-center justify-between w-full gap-2", inInventory ? "border-green-500/50" : "border-border-dark")}>
+                                      <a 
+                                        key={idx} 
+                                        href={item.url} 
+                                        target="_blank" 
+                                        rel="noreferrer"
+                                        className={cn("px-3 py-2 bg-bg-dark border rounded-lg text-xs flex items-center justify-between w-full gap-2 hover:border-primary/50 transition-colors cursor-pointer", inInventory ? "border-green-500/50" : "border-border-dark")}
+                                      >
                                         <div className="flex items-center gap-2 overflow-hidden">
                                           <span className="font-medium text-white truncate">{item.name}</span>
                                           {item.sku && <span className="font-mono text-text-muted text-[10px] shrink-0">[{item.sku}]</span>}
@@ -642,7 +659,7 @@ export default function MainApp() {
                                           </span>}
                                           <span className="text-primary font-mono font-semibold ml-2">₱{item.price}</span>
                                         </div>
-                                      </div>
+                                      </a>
                                     )
                                   })}
                                 </div>
@@ -803,144 +820,202 @@ export default function MainApp() {
                         {/* 1. Already Owned Components */}
                         {currentProject.bom.some((item) => findInInventory(item.name)) && (
                           <div className="mb-6">
-                            <h4 className="text-xs font-semibold text-green-400 mb-3 uppercase tracking-wider flex items-center gap-1.5">
+                            <button 
+                              onClick={() => setCollapsedBomSections(prev => ({ ...prev, [`${currentProject.id}-owned`]: !prev[`${currentProject.id}-owned`] }))}
+                              className="w-full text-left text-xs font-semibold text-green-400 mb-3 uppercase tracking-wider flex items-center gap-1.5 hover:text-green-300 transition-colors"
+                            >
                               <Archive size={14} /> Already Owned
-                            </h4>
-                            <div className="space-y-3">
-                              {currentProject.bom.map((item, idx) => {
-                                const inInventory = findInInventory(item.name);
-                                if (!inInventory) return null;
-                                
-                                return (
-                                  <div key={`owned-${idx}`} className="bg-bg-panel border border-green-500/30 rounded-lg p-3 shadow-sm relative overflow-hidden transition-all opacity-80">
-                                    <div className="absolute top-0 right-0 bg-green-500/20 text-green-400 text-[9px] font-bold px-2 py-0.5 rounded-bl-lg">
-                                      You own {inInventory.quantity}
-                                    </div>
-                                    <div className="text-xs text-primary mb-1 font-medium flex items-center justify-between pr-16">
-                                      <span>{item.category}</span>
-                                      {item.sku && <span className="font-mono text-[10px] text-text-muted">SKU: {item.sku}</span>}
-                                    </div>
-                                    <div className="font-semibold text-sm text-white leading-tight pr-16">{item.name}</div>
-                                    <div className="mt-1 text-xs text-text-muted flex items-center gap-2">
-                                      <span className="text-primary/80 font-medium">CircuitRocks</span>
-                                    </div>
-                                    <div className="mt-3 flex items-center justify-between">
-                                      <div className="text-xs text-text-muted line-clamp-1 flex-1 mr-2">{item.description}</div>
-                                      <div className="font-mono text-sm text-text-muted line-through">₱{item.price.toFixed(2)}</div>
-                                    </div>
-                                  </div>
-                                );
-                              })}
-                            </div>
+                              <svg 
+                                className={`ml-auto w-3 h-3 transition-transform ${collapsedBomSections[`${currentProject.id}-owned`] ? '' : 'rotate-90'}`}
+                                viewBox="0 0 24 24" 
+                                fill="none" 
+                                stroke="currentColor" 
+                                strokeWidth="3" 
+                                strokeLinecap="round" 
+                                strokeLinejoin="round"
+                              >
+                                <polyline points="9 18 15 12 9 6"></polyline>
+                              </svg>
+                            </button>
+                            {!collapsedBomSections[`${currentProject.id}-owned`] && (
+                              <div className="space-y-3">
+                                {currentProject.bom.map((item, idx) => {
+                                  const inInventory = findInInventory(item.name);
+                                  if (!inInventory) return null;
+                                  
+                                  return (
+                                    <a 
+                                      key={`owned-${idx}`} 
+                                      href={item.url} 
+                                      target="_blank" 
+                                      rel="noreferrer"
+                                      className="block bg-bg-panel border border-green-500/30 rounded-lg p-3 shadow-sm relative overflow-hidden transition-all opacity-80 hover:opacity-100 hover:border-green-400/50 cursor-pointer"
+                                    >
+                                      <div className="absolute top-0 right-0 bg-green-500/20 text-green-400 text-[9px] font-bold px-2 py-0.5 rounded-bl-lg">
+                                        You own {inInventory.quantity}
+                                      </div>
+                                      <div className="text-xs text-primary mb-1 font-medium flex items-center justify-between pr-16">
+                                        <span>{item.category}</span>
+                                        {item.sku && <span className="font-mono text-[10px] text-text-muted">SKU: {item.sku}</span>}
+                                      </div>
+                                      <div className="font-semibold text-sm text-white leading-tight pr-16">{item.name}</div>
+                                      <div className="mt-1 text-xs text-text-muted flex items-center gap-2">
+                                        <span className="text-primary/80 font-medium">CircuitRocks</span>
+                                      </div>
+                                      <div className="mt-3 flex items-center justify-between">
+                                        <div className="text-xs text-text-muted line-clamp-1 flex-1 mr-2">{item.description}</div>
+                                        <div className="font-mono text-sm text-text-muted line-through">₱{item.price.toFixed(2)}</div>
+                                      </div>
+                                    </a>
+                                  );
+                                })}
+                              </div>
+                            )}
                           </div>
                         )}
 
                         {/* 2. BOM (To Purchase from CircuitRocks) */}
                         {currentProject.bom.some((item) => !findInInventory(item.name)) && (
                           <div className="mb-6">
-                            <h4 className="text-xs font-semibold text-primary mb-3 uppercase tracking-wider flex items-center gap-1.5">
+                            <button 
+                              onClick={() => setCollapsedBomSections(prev => ({ ...prev, [`${currentProject.id}-purchase`]: !prev[`${currentProject.id}-purchase`] }))}
+                              className="w-full text-left text-xs font-semibold text-primary mb-3 uppercase tracking-wider flex items-center gap-1.5 hover:text-primary-light transition-colors"
+                            >
                               <ShoppingCart size={14} /> To Purchase
-                            </h4>
-                            <div className="space-y-3">
-                              {currentProject.bom.map((item, idx) => {
-                                const inInventory = findInInventory(item.name);
-                                if (inInventory) return null;
+                              <svg 
+                                className={`ml-auto w-3 h-3 transition-transform ${collapsedBomSections[`${currentProject.id}-purchase`] ? '' : 'rotate-90'}`}
+                                viewBox="0 0 24 24" 
+                                fill="none" 
+                                stroke="currentColor" 
+                                strokeWidth="3" 
+                                strokeLinecap="round" 
+                                strokeLinejoin="round"
+                              >
+                                <polyline points="9 18 15 12 9 6"></polyline>
+                              </svg>
+                            </button>
+                            {!collapsedBomSections[`${currentProject.id}-purchase`] && (
+                              <div className="space-y-3">
+                                {currentProject.bom.map((item, idx) => {
+                                  const inInventory = findInInventory(item.name);
+                                  if (inInventory) return null;
 
-                                const isSelected = selectedBomItems[currentProject.id]?.has(idx) ?? true; // True by default since it's not in inventory
+                                  const isSelected = selectedBomItems[currentProject.id]?.has(idx) ?? true; // True by default since it's not in inventory
 
-                                const toggleSelection = () => {
-                                  setSelectedBomItems(prev => {
-                                    const defaultSelections = new Set(
-                                      currentProject.bom
-                                        .map((bItem: any, i: number) => ({ bItem, i }))
-                                        .filter(({ bItem }: any) => !findInInventory(bItem.name))
-                                        .map(({ i }: any) => i)
-                                    );
-                                    const projectSelections = new Set(prev[currentProject.id] || defaultSelections);
-                                    
-                                    if (projectSelections.has(idx)) {
-                                      projectSelections.delete(idx);
-                                    } else {
-                                      projectSelections.add(idx);
-                                    }
-                                    return { ...prev, [currentProject.id]: projectSelections };
-                                  });
-                                };
+                                  const toggleSelection = (e: React.MouseEvent) => {
+                                    e.preventDefault(); // Prevent link navigation when clicking checkbox
+                                    setSelectedBomItems(prev => {
+                                      const defaultSelections = new Set(
+                                        currentProject.bom
+                                          .map((bItem: any, i: number) => ({ bItem, i }))
+                                          .filter(({ bItem }: any) => !findInInventory(bItem.name))
+                                          .map(({ i }: any) => i)
+                                      );
+                                      const projectSelections = new Set(prev[currentProject.id] || defaultSelections);
+                                      
+                                      if (projectSelections.has(idx)) {
+                                        projectSelections.delete(idx);
+                                      } else {
+                                        projectSelections.add(idx);
+                                      }
+                                      return { ...prev, [currentProject.id]: projectSelections };
+                                    });
+                                  };
 
-                                return (
-                                  <div 
-                                    key={`purchase-${idx}`} 
-                                    className={cn(
-                                      "bg-bg-panel border rounded-lg p-3 shadow-sm relative overflow-hidden transition-all",
-                                      isSelected ? "border-primary/50" : "border-border-dark opacity-60"
-                                    )}
-                                  >
-                                    <div className="absolute top-3 right-3 z-10">
-                                      <button 
-                                        onClick={toggleSelection}
-                                        className={cn(
-                                          "w-5 h-5 rounded border flex items-center justify-center transition-colors",
-                                          isSelected 
-                                            ? "bg-primary border-primary text-white" 
-                                            : "bg-bg-dark border-border-dark text-transparent hover:border-primary/50"
-                                        )}
-                                      >
-                                        <svg viewBox="0 0 24 24" fill="none" className="w-3.5 h-3.5" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                                          <polyline points="20 6 9 17 4 12"></polyline>
-                                        </svg>
-                                      </button>
-                                    </div>
-                                    <div className="text-xs text-primary mb-1 font-medium flex items-center justify-between pr-8">
-                                      <span>{item.category}</span>
-                                      {item.sku && <span className="font-mono text-[10px] text-text-muted">SKU: {item.sku}</span>}
-                                    </div>
-                                    <div className="font-semibold text-sm text-white leading-tight pr-8">{item.name}</div>
-                                    <div className="mt-1 text-xs text-text-muted flex items-center gap-2">
-                                      <span className="text-primary/80 font-medium">CircuitRocks</span>
-                                      {item.stock !== undefined && (
-                                        <span className={cn(
-                                          "px-1.5 py-0.5 rounded border text-[10px] font-medium",
-                                          item.stock > 0 
-                                            ? "bg-green-500/10 text-green-400 border-green-500/20" 
-                                            : "bg-red-500/10 text-red-400 border-red-500/20"
-                                        )}>
-                                          {item.stock > 0 ? `${item.stock} in stock` : 'Out of stock'}
-                                        </span>
+                                  return (
+                                    <a 
+                                      key={`purchase-${idx}`} 
+                                      href={item.url} 
+                                      target="_blank" 
+                                      rel="noreferrer"
+                                      className={cn(
+                                        "block bg-bg-panel border rounded-lg p-3 shadow-sm relative overflow-hidden transition-all cursor-pointer",
+                                        isSelected ? "border-primary/50 hover:border-primary" : "border-border-dark opacity-60 hover:opacity-80"
                                       )}
-                                    </div>
-                                    <div className="mt-3 flex items-center justify-between">
-                                      <div className="text-xs text-text-muted line-clamp-1 flex-1 mr-2">{item.description}</div>
-                                      <div className="font-mono text-sm text-primary font-bold">₱{item.price.toFixed(2)}</div>
-                                    </div>
-                                  </div>
-                                )
-                              })}
-                            </div>
+                                    >
+                                      <div className="absolute top-3 right-3 z-10">
+                                        <button 
+                                          onClick={toggleSelection}
+                                          className={cn(
+                                            "w-5 h-5 rounded border flex items-center justify-center transition-colors",
+                                            isSelected 
+                                              ? "bg-primary border-primary text-white" 
+                                              : "bg-bg-dark border-border-dark text-transparent hover:border-primary/50"
+                                          )}
+                                        >
+                                          <svg viewBox="0 0 24 24" fill="none" className="w-3.5 h-3.5" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                          </svg>
+                                        </button>
+                                      </div>
+                                      <div className="text-xs text-primary mb-1 font-medium flex items-center justify-between pr-8">
+                                        <span>{item.category}</span>
+                                        {item.sku && <span className="font-mono text-[10px] text-text-muted">SKU: {item.sku}</span>}
+                                      </div>
+                                      <div className="font-semibold text-sm text-white leading-tight pr-8">{item.name}</div>
+                                      <div className="mt-1 text-xs text-text-muted flex items-center gap-2">
+                                        <span className="text-primary/80 font-medium">CircuitRocks</span>
+                                        {item.stock !== undefined && (
+                                          <span className={cn(
+                                            "px-1.5 py-0.5 rounded border text-[10px] font-medium",
+                                            item.stock > 0 
+                                              ? "bg-green-500/10 text-green-400 border-green-500/20" 
+                                              : "bg-red-500/10 text-red-400 border-red-500/20"
+                                          )}>
+                                            {item.stock > 0 ? `${item.stock} in stock` : 'Out of stock'}
+                                          </span>
+                                        )}
+                                      </div>
+                                      <div className="mt-3 flex items-center justify-between">
+                                        <div className="text-xs text-text-muted line-clamp-1 flex-1 mr-2">{item.description}</div>
+                                        <div className="font-mono text-sm text-primary font-bold">₱{item.price.toFixed(2)}</div>
+                                      </div>
+                                    </a>
+                                  )
+                                })}
+                              </div>
+                            )}
                           </div>
                         )}
 
                         {/* 3. External Components */}
                         {currentProject.missing_components && currentProject.missing_components.filter(item => !findInInventory(item.name)).length > 0 && (
                           <div className="pt-4 mt-4 border-t border-border-dark/50">
-                            <h4 className="text-xs font-semibold text-orange-400 mb-3 uppercase tracking-wider flex items-center gap-1.5">
+                            <button 
+                              onClick={() => setCollapsedBomSections(prev => ({ ...prev, [`${currentProject.id}-external`]: !prev[`${currentProject.id}-external`] }))}
+                              className="w-full text-left text-xs font-semibold text-orange-400 mb-3 uppercase tracking-wider flex items-center gap-1.5 hover:text-orange-300 transition-colors"
+                            >
                               <Info size={14} /> External Components
-                            </h4>
-                            <div className="space-y-3">
-                              {currentProject.missing_components.filter(item => !findInInventory(item.name)).map((item, idx) => (
-                                <div key={idx} className="bg-bg-dark border border-orange-500/30 rounded-lg p-3 shadow-sm relative overflow-hidden">
-                                  <div className="text-xs text-orange-400 mb-1 font-medium flex items-center justify-between">
-                                    <span>Not in CircuitRocks</span>
-                                    {item.purchase_link && (
-                                      <a href={item.purchase_link} target="_blank" rel="noreferrer" className="text-orange-400 hover:text-orange-300 flex items-center gap-1 transition-colors">
-                                        Buy <ExternalLink size={10} />
-                                      </a>
-                                    )}
+                              <svg 
+                                className={`ml-auto w-3 h-3 transition-transform ${collapsedBomSections[`${currentProject.id}-external`] ? '' : 'rotate-90'}`}
+                                viewBox="0 0 24 24" 
+                                fill="none" 
+                                stroke="currentColor" 
+                                strokeWidth="3" 
+                                strokeLinecap="round" 
+                                strokeLinejoin="round"
+                              >
+                                <polyline points="9 18 15 12 9 6"></polyline>
+                              </svg>
+                            </button>
+                            {!collapsedBomSections[`${currentProject.id}-external`] && (
+                              <div className="space-y-3">
+                                {currentProject.missing_components.filter(item => !findInInventory(item.name)).map((item, idx) => (
+                                  <div key={idx} className="bg-bg-dark border border-orange-500/30 rounded-lg p-3 shadow-sm relative overflow-hidden">
+                                    <div className="text-xs text-orange-400 mb-1 font-medium flex items-center justify-between">
+                                      <span>Not in CircuitRocks</span>
+                                      {item.purchase_link && (
+                                        <a href={item.purchase_link} target="_blank" rel="noreferrer" className="text-orange-400 hover:text-orange-300 flex items-center gap-1 transition-colors">
+                                          Buy <ExternalLink size={10} />
+                                        </a>
+                                      )}
+                                    </div>
+                                    <div className="font-semibold text-sm text-white leading-tight">{item.name}</div>
+                                    <div className="mt-2 text-xs text-text-muted opacity-80">{item.reason}</div>
                                   </div>
-                                  <div className="font-semibold text-sm text-white leading-tight">{item.name}</div>
-                                  <div className="mt-2 text-xs text-text-muted opacity-80">{item.reason}</div>
-                                </div>
-                              ))}
-                            </div>
+                                ))}
+                              </div>
+                            )}
                           </div>
                         )}
                       </>
