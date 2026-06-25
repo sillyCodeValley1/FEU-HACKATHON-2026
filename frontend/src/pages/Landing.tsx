@@ -93,7 +93,7 @@ export default function Landing() {
         <section className="relative pt-24 pb-32 px-6 overflow-hidden">
           {/* Grid Background */}
           {/* Grid */}
-<div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:60px_60px] pointer-events-none" />
+<div className="absolute inset-0 bg-[linear-gradient(to_right,var(--grid-color)_1px,transparent_1px),linear-gradient(to_bottom,var(--grid-color)_1px,transparent_1px)] bg-[size:60px_60px] pointer-events-none transition-colors duration-300" />
 
 {/* Glow */}
 <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.08),transparent_70%)] pointer-events-none" />
