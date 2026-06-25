@@ -15,6 +15,9 @@ export default function MainApp() {
   const [inventory, setInventory] = useState<InventoryItem[]>([]);
   const [recommendations, setRecommendations] = useState<ProjectRecommendation[]>([]);
   const [loadingRecs, setLoadingRecs] = useState(false);
+  
+  // Track completed plan steps for each project
+  const [completedSteps, setCompletedSteps] = useState<Record<string, Set<number>>>({});
 
   const [projectTab, setProjectTab] = useState<'chat' | 'plan'>('chat');
   const [input, setInput] = useState('');
@@ -863,8 +866,22 @@ export default function MainApp() {
 
             {projectTab === 'plan' && (
               <div className="flex-1 flex flex-col h-full overflow-y-auto p-8 max-w-4xl mx-auto w-full">
-                <h2 className="text-2xl font-bold mb-2 text-white">Project Planner</h2>
-                <p className="text-text-muted mb-8">Step-by-step roadmap for building "{currentProject.name}".</p>
+                <div className="flex items-center justify-between mb-8">
+                  <div>
+                    <h2 className="text-2xl font-bold mb-2 text-white">Project Planner</h2>
+                    <p className="text-text-muted">Step-by-step roadmap for building "{currentProject.name}".</p>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-sm font-semibold text-primary">
+                      {currentProject.plan.length > 0 
+                        ? `${Math.round(((completedSteps[activeProjectId!]?.size || 0) / currentProject.plan.length) * 100)}% Complete` 
+                        : '0% Complete'}
+                    </div>
+                    <div className="text-xs text-text-muted">
+                      {completedSteps[activeProjectId!]?.size || 0} of {currentProject.plan.length} steps done
+                    </div>
+                  </div>
+                </div>
                 
                 {currentProject.plan.length === 0 ? (
                   <div className="text-center py-20 border border-dashed border-border-dark rounded-xl bg-bg-panel/50">
@@ -874,17 +891,67 @@ export default function MainApp() {
                   </div>
                 ) : (
                   <div className="relative border-l border-border-dark ml-4 space-y-8 pb-8">
-                    {currentProject.plan.map((step, idx) => (
-                      <div key={idx} className="relative pl-8">
-                        <div className="absolute -left-3 top-0.5 w-6 h-6 rounded-full bg-bg-dark border-2 border-primary flex items-center justify-center text-[10px] font-bold text-primary">
-                          {idx + 1}
+                    {currentProject.plan.map((step, idx) => {
+                      const isCompleted = completedSteps[activeProjectId!]?.has(idx) || false;
+                      
+                      const toggleStep = () => {
+                        setCompletedSteps(prev => {
+                          const projectSteps = new Set(prev[activeProjectId!] || []);
+                          if (projectSteps.has(idx)) {
+                            projectSteps.delete(idx);
+                          } else {
+                            projectSteps.add(idx);
+                          }
+                          return { ...prev, [activeProjectId!]: projectSteps };
+                        });
+                      };
+                      
+                      return (
+                        <div key={idx} className="relative pl-8">
+                          <button
+                            onClick={toggleStep}
+                            className={cn(
+                              "absolute -left-6 top-0.5 w-10 h-10 rounded-full flex items-center justify-center transition-all shadow-md z-10",
+                              isCompleted 
+                                ? "bg-green-500 border-2 border-green-500" 
+                                : "bg-bg-dark border-2 border-primary hover:bg-primary/20"
+                            )}
+                          >
+                            {isCompleted ? (
+                              <svg viewBox="0 0 24 24" fill="none" className="w-5 h-5 text-white" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                              </svg>
+                            ) : (
+                              <span className="text-[12px] font-bold text-primary">{idx + 1}</span>
+                            )}
+                          </button>
+                          
+                          <div className={cn(
+                            "bg-bg-panel border rounded-xl p-5 shadow-sm transition-all",
+                            isCompleted 
+                              ? "border-green-500/30 opacity-75" 
+                              : "border-border-dark hover:border-primary/50"
+                          )}>
+                            <div className="flex items-start justify-between gap-4">
+                              <div className="flex-1">
+                                <h3 className={cn(
+                                  "text-lg font-semibold mb-2",
+                                  isCompleted ? "text-green-500 line-through" : "text-white"
+                                )}>
+                                  {step.phase}
+                                </h3>
+                                <p className={cn(
+                                  "leading-relaxed",
+                                  isCompleted ? "text-text-muted line-through" : "text-text-muted"
+                                )}>
+                                  {step.details}
+                                </p>
+                              </div>
+                            </div>
+                          </div>
                         </div>
-                        <div className="bg-bg-panel border border-border-dark rounded-xl p-5 shadow-sm hover:border-primary/50 transition-colors">
-                          <h3 className="text-lg font-semibold text-white mb-2">{step.phase}</h3>
-                          <p className="text-text-muted leading-relaxed">{step.details}</p>
-                        </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 )}
               </div>
