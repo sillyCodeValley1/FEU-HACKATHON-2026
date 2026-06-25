@@ -1,6 +1,8 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import fs from 'fs';
+import path from 'path';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
 dotenv.config();
@@ -14,19 +16,36 @@ app.use(express.json());
 // Initialize Gemini API
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || 'dummy-key');
 
-// Mock component catalog data (Providing this to the AI as context)
-const mockCatalog = [
-  { id: '1', name: 'Arduino Uno R3', category: 'Microcontroller', price: 1450.00, stock: 50, description: 'Standard microcontroller board for beginners.' },
-  { id: '2', name: 'ESP32 Development Board', category: 'Microcontroller', price: 580.00, stock: 120, description: 'Wi-Fi & Bluetooth MCU, great for IoT.' },
-  { id: '3', name: 'Ultrasonic Sensor HC-SR04', category: 'Sensor', price: 230.00, stock: 300, description: 'Distance measuring sensor.' },
-  { id: '4', name: 'L298N Motor Driver', category: 'Module', price: 320.00, stock: 85, description: 'Dual H-bridge motor driver.' },
-  { id: '5', name: '18650 Li-ion Battery 3000mAh', category: 'Power', price: 405.00, stock: 200, description: 'Rechargeable power source.' },
-  { id: '6', name: 'Soil Moisture Sensor', category: 'Sensor', price: 145.00, stock: 150, description: 'Analog soil moisture sensor for plants.' },
-  { id: '7', name: '5V Relay Module', category: 'Module', price: 205.00, stock: 200, description: '1-channel relay module for switching high power.' },
-  { id: '8', name: 'Mini Water Pump 5V', category: 'Actuator', price: 290.00, stock: 90, description: 'Submersible water pump.' },
-  { id: '9', name: 'Jumper Wires (M-M) x40', category: 'Wiring', price: 175.00, stock: 500, description: 'Male to male jumper wires for breadboards.' },
-  { id: '10', name: 'Half-Size Breadboard', category: 'Prototyping', price: 260.00, stock: 150, description: 'Standard 400 tie-point breadboard.' }
-];
+// Load component catalog data from the scraper output
+let mockCatalog: any[] = [];
+try {
+  const rawData = fs.readFileSync(path.join(__dirname, 'catalog.json'), 'utf-8');
+  const parsedData = JSON.parse(rawData);
+  mockCatalog = parsedData.map((item: any, idx: number) => ({
+    id: item.sku || String(idx),
+    sku: item.sku || String(idx),
+    name: item.title,
+    category: 'Component', // Default category as scraper doesn't provide one
+    price: item.price || 0,
+    stock: item.stock !== null ? item.stock : (item.available ? 10 : 0), // Estimate if null but available
+    description: item.variant !== 'Default Title' ? item.variant : 'Genuine CircuitRocks component',
+    url: item.url
+  }));
+} catch (e) {
+  console.warn('Failed to load catalog.json, using fallback mock data.');
+  mockCatalog = [
+    { id: '1', name: 'Arduino Uno R3', category: 'Microcontroller', price: 1450.00, stock: 50, description: 'Standard microcontroller board for beginners.' },
+    { id: '2', name: 'ESP32 Development Board', category: 'Microcontroller', price: 580.00, stock: 120, description: 'Wi-Fi & Bluetooth MCU, great for IoT.' },
+    { id: '3', name: 'Ultrasonic Sensor HC-SR04', category: 'Sensor', price: 230.00, stock: 300, description: 'Distance measuring sensor.' },
+    { id: '4', name: 'L298N Motor Driver', category: 'Module', price: 320.00, stock: 85, description: 'Dual H-bridge motor driver.' },
+    { id: '5', name: '18650 Li-ion Battery 3000mAh', category: 'Power', price: 405.00, stock: 200, description: 'Rechargeable power source.' },
+    { id: '6', name: 'Soil Moisture Sensor', category: 'Sensor', price: 145.00, stock: 150, description: 'Analog soil moisture sensor for plants.' },
+    { id: '7', name: '5V Relay Module', category: 'Module', price: 205.00, stock: 200, description: '1-channel relay module for switching high power.' },
+    { id: '8', name: 'Mini Water Pump 5V', category: 'Actuator', price: 290.00, stock: 90, description: 'Submersible water pump.' },
+    { id: '9', name: 'Jumper Wires (M-M) x40', category: 'Wiring', price: 175.00, stock: 500, description: 'Male to male jumper wires for breadboards.' },
+    { id: '10', name: 'Half-Size Breadboard', category: 'Prototyping', price: 260.00, stock: 150, description: 'Standard 400 tie-point breadboard.' }
+  ];
+}
 
 const SYSTEM_PROMPT = `
 You are CircuitPal AI, a specialized electronics project planning assistant. 
@@ -59,7 +78,7 @@ After generating the ideal BOM:
 Compare every required component against CircuitRocks's Available Components. 
 For each component: 
 * If a suitable item exists in CircuitRocks's available components: 
-  * Add it to "matched_components". Ensure you include the "stock" property from CircuitRocks's data. 
+  * Add it to "matched_components". Ensure you include the "stock", and "sku" properties from CircuitRocks's data. 
 * If no suitable item exists: 
   * Add it to "missing_components" and include a "purchase_link" to an external site (e.g. Shopee, Lazada, Amazon, Adafruit) where it can be bought.
 
@@ -101,7 +120,8 @@ Return ONLY valid JSON.
 "name": "Arduino Uno R3", 
 "category": "Microcontroller", 
 "price": 1450,
-"stock": 50
+"stock": 50,
+"sku": "CR-1234"
 } 
 ], 
 "missing_components": [ 

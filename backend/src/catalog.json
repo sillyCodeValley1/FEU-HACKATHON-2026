@@ -1,0 +1,3908 @@
+[
+  {
+    "title": "Cooling Fans 3010/4010/5015 - 5V/12V/24V",
+    "sku": "2500",
+    "variant": "3010 RPI/ORANGE 5V",
+    "price": 45,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/cooling-fan-3010-4010-5015-5v-12v-24v-3d-printer-raspberry-pi-orange"
+  },
+  {
+    "title": "Cooling Fans 3010/4010/5015 - 5V/12V/24V",
+    "sku": "2704",
+    "variant": "4010 12V Fan",
+    "price": 45,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/cooling-fan-3010-4010-5015-5v-12v-24v-3d-printer-raspberry-pi-orange"
+  },
+  {
+    "title": "Cooling Fans 3010/4010/5015 - 5V/12V/24V",
+    "sku": "2807",
+    "variant": "4010 24V Fan",
+    "price": 55,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/cooling-fan-3010-4010-5015-5v-12v-24v-3d-printer-raspberry-pi-orange"
+  },
+  {
+    "title": "Cooling Fans 3010/4010/5015 - 5V/12V/24V",
+    "sku": "2808",
+    "variant": "4010 24V TURBO Fan",
+    "price": 99,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/cooling-fan-3010-4010-5015-5v-12v-24v-3d-printer-raspberry-pi-orange"
+  },
+  {
+    "title": "Cooling Fans 3010/4010/5015 - 5V/12V/24V",
+    "sku": "2703",
+    "variant": "82x20 BLOWER Fan",
+    "price": 179,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/cooling-fan-3010-4010-5015-5v-12v-24v-3d-printer-raspberry-pi-orange"
+  },
+  {
+    "title": "Cooling Fans 3010/4010/5015 - 5V/12V/24V",
+    "sku": "2262",
+    "variant": "3010 RPI/ORANGE 12V",
+    "price": 45,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/cooling-fan-3010-4010-5015-5v-12v-24v-3d-printer-raspberry-pi-orange"
+  },
+  {
+    "title": "Cooling Fans 3010/4010/5015 - 5V/12V/24V",
+    "sku": "2263",
+    "variant": "3010 RPI/ORANGE 24V",
+    "price": 45,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/cooling-fan-3010-4010-5015-5v-12v-24v-3d-printer-raspberry-pi-orange"
+  },
+  {
+    "title": "A4988/DRV8825 StepStick Stepper Driver w/ Heat Sink",
+    "sku": "2443",
+    "variant": "Default Title",
+    "price": 75,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/stepper-motor-driver-stepstick-a4988-drv8825-with-heat-sink-carrier-reprap"
+  },
+  {
+    "title": "eSUN Filament PLA+ PLA 3D Printer 1.75mm 1KG",
+    "sku": "2033",
+    "variant": "PLA+ Black",
+    "price": 949,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/circuitrocks-filament-pla-epla-abs-petg-3d-printer-1-75mm-esun"
+  },
+  {
+    "title": "eSUN Filament PLA+ PLA 3D Printer 1.75mm 1KG",
+    "sku": "2037",
+    "variant": "PLA+ White",
+    "price": 949,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/circuitrocks-filament-pla-epla-abs-petg-3d-printer-1-75mm-esun"
+  },
+  {
+    "title": "eSUN Filament PLA+ PLA 3D Printer 1.75mm 1KG",
+    "sku": "2036",
+    "variant": "PLA+ Yellow",
+    "price": 949,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/circuitrocks-filament-pla-epla-abs-petg-3d-printer-1-75mm-esun"
+  },
+  {
+    "title": "eSUN Filament PLA+ PLA 3D Printer 1.75mm 1KG",
+    "sku": "2040",
+    "variant": "PLA+ Gold",
+    "price": 949,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/circuitrocks-filament-pla-epla-abs-petg-3d-printer-1-75mm-esun"
+  },
+  {
+    "title": "eSUN Filament PLA+ PLA 3D Printer 1.75mm 1KG",
+    "sku": "2072",
+    "variant": "PLA+ Grey",
+    "price": 949,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/circuitrocks-filament-pla-epla-abs-petg-3d-printer-1-75mm-esun"
+  },
+  {
+    "title": "eSUN Filament PLA+ PLA 3D Printer 1.75mm 1KG",
+    "sku": "2035",
+    "variant": "PLA+ Peak Green",
+    "price": 949,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/circuitrocks-filament-pla-epla-abs-petg-3d-printer-1-75mm-esun"
+  },
+  {
+    "title": "eSUN Filament PLA+ PLA 3D Printer 1.75mm 1KG",
+    "sku": "2041",
+    "variant": "PLA+ Skin/Beige",
+    "price": 949,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/circuitrocks-filament-pla-epla-abs-petg-3d-printer-1-75mm-esun"
+  },
+  {
+    "title": "eSUN Filament PLA+ PLA 3D Printer 1.75mm 1KG",
+    "sku": "2038",
+    "variant": "PLA+ Red",
+    "price": 949,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/circuitrocks-filament-pla-epla-abs-petg-3d-printer-1-75mm-esun"
+  },
+  {
+    "title": "eSUN Filament PLA+ PLA 3D Printer 1.75mm 1KG",
+    "sku": "2039",
+    "variant": "PLA+ Brown",
+    "price": 949,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/circuitrocks-filament-pla-epla-abs-petg-3d-printer-1-75mm-esun"
+  },
+  {
+    "title": "eSUN Filament PLA+ PLA 3D Printer 1.75mm 1KG",
+    "sku": "2034",
+    "variant": "PLA+ Blue",
+    "price": 949,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/circuitrocks-filament-pla-epla-abs-petg-3d-printer-1-75mm-esun"
+  },
+  {
+    "title": "eSUN Filament PLA+ PLA 3D Printer 1.75mm 1KG",
+    "sku": "2068",
+    "variant": "PLA+ Purple",
+    "price": 949,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/circuitrocks-filament-pla-epla-abs-petg-3d-printer-1-75mm-esun"
+  },
+  {
+    "title": "eSUN Filament PLA+ PLA 3D Printer 1.75mm 1KG",
+    "sku": "2071",
+    "variant": "PLA+ Silver",
+    "price": 949,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/circuitrocks-filament-pla-epla-abs-petg-3d-printer-1-75mm-esun"
+  },
+  {
+    "title": "eSUN Filament PLA+ PLA 3D Printer 1.75mm 1KG",
+    "sku": "2074",
+    "variant": "PLA+ Pink",
+    "price": 949,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/circuitrocks-filament-pla-epla-abs-petg-3d-printer-1-75mm-esun"
+  },
+  {
+    "title": "eSUN Filament PLA+ PLA 3D Printer 1.75mm 1KG",
+    "sku": "2198",
+    "variant": "PLA+ Orange",
+    "price": 949,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/circuitrocks-filament-pla-epla-abs-petg-3d-printer-1-75mm-esun"
+  },
+  {
+    "title": "eSUN Filament PLA+ PLA 3D Printer 1.75mm 1KG",
+    "sku": "FIRE ENGINE RED",
+    "variant": "PLA+ FIRE ENGINE RED",
+    "price": 949,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/circuitrocks-filament-pla-epla-abs-petg-3d-printer-1-75mm-esun"
+  },
+  {
+    "title": "eSUN Filament PLA+ PLA 3D Printer 1.75mm 1KG",
+    "sku": "PLAS",
+    "variant": "PLA BLACK",
+    "price": 949,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/circuitrocks-filament-pla-epla-abs-petg-3d-printer-1-75mm-esun"
+  },
+  {
+    "title": "eSUN ePLA 3D Printer Filament 1kg - +/-0.03mm Accuracy",
+    "sku": "2199",
+    "variant": "Matte Milky White",
+    "price": 997,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/esun-epla-3d-printer-filament-dimensional-accuracy-0-03-mm-1-kg-spool-1-75-mm"
+  },
+  {
+    "title": "eSUN ePLA 3D Printer Filament 1kg - +/-0.03mm Accuracy",
+    "sku": "2191",
+    "variant": "Matte Deep Black",
+    "price": 997,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/esun-epla-3d-printer-filament-dimensional-accuracy-0-03-mm-1-kg-spool-1-75-mm"
+  },
+  {
+    "title": "Cable Drag Chain 25x25mm w/ End Connectors - Compact",
+    "sku": "2235",
+    "variant": "Default Title",
+    "price": 749,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/plastic-cable-drag-chain-wire-carrier-25mm-x-25mm-with-end-connectors"
+  },
+  {
+    "title": "3D Printer Set RAMPS 1.4 + Mega2560 + A4988 Drivers",
+    "sku": "AM062",
+    "variant": "Default Title",
+    "price": 1199,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/3d-printer-sets-ramps-1-4-controller-mega2560-r3-a4988-heat-sink-usb-cable"
+  },
+  {
+    "title": "MKS TMC2100 Stepper Driver - Silent 3D Printer Step Stick",
+    "sku": "2705",
+    "variant": "Default Title",
+    "price": 595,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/stepper-motor-driver-3d-printer-step-stick-mks-tmc2100"
+  },
+  {
+    "title": "Magnetic Bed Sticker 235x235mm - Ender 3 Compatible",
+    "sku": "2052",
+    "variant": "Default Title",
+    "price": 699,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/spring-steel-pei-sheet-print-bed-magnetic-sticker-for-3d-printer-235-x-235"
+  },
+  {
+    "title": "Cable Drag Chain 25x57mm w/ End Connectors - Wire Carrier",
+    "sku": "2234",
+    "variant": "Default Title",
+    "price": 899,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/plastic-cable-drag-chain-wire-carrier-25mm-x-57mm-with-end-connectors"
+  },
+  {
+    "title": "BIQU Hurakan DIY 3D Printer Klipper Ready",
+    "sku": null,
+    "variant": "Default Title",
+    "price": 18999,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/biqu-hurakan-diy-3d-printer-klipper-ready-1"
+  },
+  {
+    "title": "Creality Ender 3 V2 3D Printer - 220x220x250mm",
+    "sku": "2819",
+    "variant": "Default Title",
+    "price": 11999,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/creality-ender-3-v2-3d-printer-all-metal-integrated-structure-silent"
+  },
+  {
+    "title": "Creality CR-10 Smart 3D Printer - 300x300x400mm",
+    "sku": "2136",
+    "variant": "Default Title",
+    "price": 20999,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/creality-cr-10-smart-3d-printer-all-metal-integrated-structure-silent-mainboard"
+  },
+  {
+    "title": "Creality UV Resin 3D Printer LD-002H - 6\" Mono LCD",
+    "sku": "2860",
+    "variant": "Default Title",
+    "price": 14499,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/creality-uv-resin-3d-printer-ld-002h"
+  },
+  {
+    "title": "eSUN PETG Printer Filament Spool",
+    "sku": "SOLID BLACK",
+    "variant": "SOLID BLACK",
+    "price": 997,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/esun-pet-g-1-kg-printer-filament-dimensional-1-kg-spool-1-75-mm"
+  },
+  {
+    "title": "eSUN PETG Printer Filament Spool",
+    "sku": "SOLID WHITE",
+    "variant": "SOLID WHITE",
+    "price": 997,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/esun-pet-g-1-kg-printer-filament-dimensional-1-kg-spool-1-75-mm"
+  },
+  {
+    "title": "eSUN PETG Printer Filament Spool",
+    "sku": "BLACK-S",
+    "variant": "BLACK",
+    "price": 997,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/esun-pet-g-1-kg-printer-filament-dimensional-1-kg-spool-1-75-mm"
+  },
+  {
+    "title": "eSUN ePLA-Silk Candy Filament",
+    "sku": "RGB1",
+    "variant": "RED+GOLD+BLUE",
+    "price": 947,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/esun-epla-silk-candy-1-75mm-3d-filament-1kg"
+  },
+  {
+    "title": "eSUN ePLA-Silk Candy Filament",
+    "sku": "GBG2",
+    "variant": "GOLD+BLUE+GREEN",
+    "price": 947,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/esun-epla-silk-candy-1-75mm-3d-filament-1kg"
+  },
+  {
+    "title": "eSUN ePLA-Silk Candy Filament",
+    "sku": "SB3",
+    "variant": "SILVER+BLACK",
+    "price": 947,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/esun-epla-silk-candy-1-75mm-3d-filament-1kg"
+  },
+  {
+    "title": "eSUN ePLA-Silk Candy Filament",
+    "sku": "RG4",
+    "variant": "RED+GOLD",
+    "price": 947,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/esun-epla-silk-candy-1-75mm-3d-filament-1kg"
+  },
+  {
+    "title": "eSUN ePLA-Silk Candy Filament",
+    "sku": "SB5",
+    "variant": "SILVER+BLUE",
+    "price": 947,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/esun-epla-silk-candy-1-75mm-3d-filament-1kg"
+  },
+  {
+    "title": "eSUN ePLA-Silk Candy Filament",
+    "sku": "BG6",
+    "variant": "BLUE+GREEN",
+    "price": 947,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/esun-epla-silk-candy-1-75mm-3d-filament-1kg"
+  },
+  {
+    "title": "CCTREE ABS Filament 1.75mm White - 1kg Spool",
+    "sku": "CCABS175W",
+    "variant": "Default Title",
+    "price": 849,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/abs-3d-printing-filament-1-75mm-white"
+  },
+  {
+    "title": "Creality UV Resin 500g Skin/Flesh",
+    "sku": "2081",
+    "variant": "Default Title",
+    "price": 1199,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/creality-uv-resin-500g-skin"
+  },
+  {
+    "title": "Creality UV Resin 500g Transparent",
+    "sku": "2919",
+    "variant": "Default Title",
+    "price": 1199,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/creality-uv-resin-500g-transparent"
+  },
+  {
+    "title": "Creality UV Resin 500g Grey",
+    "sku": "2918",
+    "variant": "Default Title",
+    "price": 1199,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/creality-uv-resin-500g-grey"
+  },
+  {
+    "title": "Creality UV Resin 500g White",
+    "sku": "2917",
+    "variant": "Default Title",
+    "price": 1199,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/creality-uv-resin-500g-white"
+  },
+  {
+    "title": "Creality UV Resin 500g Black",
+    "sku": "2916",
+    "variant": "Default Title",
+    "price": 1199,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/creality-resin-500g-black-printing-creality-resin-500g-black-printer-filament"
+  },
+  {
+    "title": "CCTREE ABS Filament 1.75mm Orange - 1kg Spool",
+    "sku": "CCABS175ORG",
+    "variant": "Default Title",
+    "price": 849,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/abs-3d-printing-filament-1-75mm-orange"
+  },
+  {
+    "title": "CCTREE ABS 3D Filament 1.75mm Brown",
+    "sku": "CCABS175BRW",
+    "variant": "Default Title",
+    "price": 849,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/abs-3d-printing-filament-1-75mm-brown"
+  },
+  {
+    "title": "CCTREE ABS 3D Filament 1.75mm Dark Blue",
+    "sku": "CCABS175DBLU",
+    "variant": "Default Title",
+    "price": 849,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/abs-3d-printing-filament-1-75mm-dark-blue"
+  },
+  {
+    "title": "CCTREE PLA 3D Filament 1.75mm Transparent Purple",
+    "sku": "CCPLA175TPPL",
+    "variant": "Default Title",
+    "price": 849,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/pla-3d-printing-filament-1-75mm-transparent-purple"
+  },
+  {
+    "title": "CCTREE PLA 3D Filament 1.75mm Transparent Yellow",
+    "sku": "CCPLA175TYLW",
+    "variant": "Default Title",
+    "price": 849,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/pla-3d-printing-filament-1-75mm-transparent-yellow"
+  },
+  {
+    "title": "GT2 Belt 6mm 3D Printer - Open-Loop Timing Belt",
+    "sku": "2347",
+    "variant": "1 M",
+    "price": 35,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/gt2-belt-6mm"
+  },
+  {
+    "title": "GT2 Belt 6mm 3D Printer - Open-Loop Timing Belt",
+    "sku": "2347-1",
+    "variant": "1.5 M",
+    "price": 89,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/gt2-belt-6mm"
+  },
+  {
+    "title": "GT2 Belt 6mm 3D Printer - Open-Loop Timing Belt",
+    "sku": "2347-2",
+    "variant": "2 M",
+    "price": 95,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/gt2-belt-6mm"
+  },
+  {
+    "title": "GT2 Belt 6mm 3D Printer - Open-Loop Timing Belt",
+    "sku": "2347-3",
+    "variant": "2.5 M",
+    "price": 129,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/gt2-belt-6mm"
+  },
+  {
+    "title": "GT2 Belt 6mm 3D Printer - Open-Loop Timing Belt",
+    "sku": "3D-B",
+    "variant": "3DPrint Connector-B",
+    "price": 25,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/gt2-belt-6mm"
+  },
+  {
+    "title": "GT2 Belt 6mm 3D Printer - Open-Loop Timing Belt",
+    "sku": "3D-W",
+    "variant": "3DPrint Connector-W",
+    "price": 25,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/gt2-belt-6mm"
+  },
+  {
+    "title": "MK8 Extruder Nozzles Hotend 0.4mm - M6 Brass",
+    "sku": "2257",
+    "variant": "Default Title",
+    "price": 17,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/mk8-extruder-nozzles-hotend-0-4mm-m6-thread"
+  },
+  {
+    "title": "Blue Masking Tape for 3D Printing Plates",
+    "sku": "2069",
+    "variant": "Default Title",
+    "price": 255,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/blue-masking-tape-for-printing-plates-prototyping"
+  },
+  {
+    "title": "CCTREE ABS Filament 1.75mm Blue - 1kg Spool",
+    "sku": "CCABS175BLU",
+    "variant": "Default Title",
+    "price": 849,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/abs-3d-printing-filament-1-75mm-blue"
+  },
+  {
+    "title": "Stepper Motor Vibration Damper NEMA 17 for 3D printers",
+    "sku": "2702",
+    "variant": "Default Title",
+    "price": 45,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/stepper-motor-vibration-damper-nema-17-for-3d-printers-2"
+  },
+  {
+    "title": "DC Female 2.1mm Jack to Screw Terminal Adapter",
+    "sku": "368",
+    "variant": "Default Title",
+    "price": 15,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/dc-female-power-adapter-2-1mm-jack-to-screw-terminal-block"
+  },
+  {
+    "title": "AC / DC 12V 1A Power Adapter Center Positive",
+    "sku": "2669",
+    "variant": "Default Title",
+    "price": 97,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/ac-dc-12v-1a-power-adapter-center-positive-2"
+  },
+  {
+    "title": "AC / DC 5V 1A Power Adapter Center Positive",
+    "sku": "2668",
+    "variant": "Default Title",
+    "price": 97,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/ac-dc-5v-1a-power-adapter-center-positive-2"
+  },
+  {
+    "title": "AC/DC 9V 1A Power Adapter - Center Positive",
+    "sku": "2671",
+    "variant": "Default Title",
+    "price": 97,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/ac-dc-9v-1a-power-adapter-center-positive"
+  },
+  {
+    "title": "DC Male 2.1mm Plug to Screw Terminal Adapter",
+    "sku": "369",
+    "variant": "Default Title",
+    "price": 15,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/dc-plug-power-adapter-2-1mm-to-screw-terminal-block"
+  },
+  {
+    "title": "AC/DC 12V 2A Power Adapter - 5.5/2.1mm Barrel",
+    "sku": "PSB01202U",
+    "variant": "Default Title",
+    "price": 115,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/ac-dc-power-adapter-12v-2a-limit-100"
+  },
+  {
+    "title": "AC-DC Switching Power Supply 12V 5A - 60W Standard Frame",
+    "sku": "352",
+    "variant": "Default Title",
+    "price": 245,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/ac-dc-12v-5a-switching-power-supply"
+  },
+  {
+    "title": "Pololu Wall Power Adapter 12VDC 3A - POL1467",
+    "sku": "POL1467",
+    "variant": "Default Title",
+    "price": 188,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/ac-dc-12v-3a-wall-power-adapter-5-5x2-1mm-barrel-jack-center-positive"
+  },
+  {
+    "title": "AC/DC 9V 2A Power Adapter w/ Cable",
+    "sku": "PSB00902U",
+    "variant": "Default Title",
+    "price": 178,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/ac-dc-9v-2a-power-adapter-with-cable"
+  },
+  {
+    "title": "Raspberry Pi 4 Official Power Supply 5.1V 3A USB-C",
+    "sku": "4298",
+    "variant": "Default Title",
+    "price": 1456,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/raspberry-pi-4-official-power-supply-5-1v-3a-with-usb-c-1-5-meter-long"
+  },
+  {
+    "title": "AC/DC 5V 3A Wall Power Adapter - 5.5/2.1mm",
+    "sku": "2135",
+    "variant": "Default Title",
+    "price": 185,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/ac-dc-5v-3a-wall-power-adapter-5-5x2-1mm-barrel-jack-center-positive"
+  },
+  {
+    "title": "AC-DC Switching Power Supply 5V 10A - 50W Mean-Well Style",
+    "sku": "658",
+    "variant": "Default Title",
+    "price": 529,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/ac-dc-5v-10a-switching-power-supply"
+  },
+  {
+    "title": "AC/DC 5V 3A Switching Power Supply with Micro-USB for Pi",
+    "sku": "AM152",
+    "variant": "Default Title",
+    "price": 195,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/ac-dc-5v-2-4a-switching-power-supply-with-20awg-microusb-cable-raspberry-pi"
+  },
+  {
+    "title": "AC 220V to 5V 3.5W Isolated PSU Module - Mains Compact",
+    "sku": "AB324",
+    "variant": "Default Title",
+    "price": 65,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/ac-dc-220v-to-5v-3-5w-isolated-switch-power-supply-module"
+  },
+  {
+    "title": "3A 4-USB Quick Charger USB Plug",
+    "sku": "2338",
+    "variant": "Default Title",
+    "price": 85,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/3a-4-usb-quick-charger-usb-plug"
+  },
+  {
+    "title": "DC Power Supply Module w/ Adapter Plate - Breadboard PSU",
+    "sku": "AJ271",
+    "variant": "Default Title",
+    "price": 35,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/dc-power-module"
+  },
+  {
+    "title": "SanDisk MicroSD 32GB Canvas Select Plus for Raspberry Pi",
+    "sku": "AG054",
+    "variant": "Default Title",
+    "price": 249,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/sd-card-16gb-micro-pre-installed-with-noobs-for-raspberry-pi"
+  },
+  {
+    "title": "Micro HDMI to HDMI Cable for Raspberry Pi 4",
+    "sku": "2698",
+    "variant": "1.5 METERS BLACK",
+    "price": 105,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/micro-hdmi-to-hdmi-cable-for-raspberry-pi-4"
+  },
+  {
+    "title": "Micro HDMI to HDMI Cable for Raspberry Pi 4",
+    "sku": "2612",
+    "variant": "2 METERS WHITE",
+    "price": 252,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/micro-hdmi-to-hdmi-cable-for-raspberry-pi-4"
+  },
+  {
+    "title": "MicroSD Memory Card 64GB Class 10 for Raspberry Pi",
+    "sku": "2752",
+    "variant": "Default Title",
+    "price": 550,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/sd-microsd-memory-card-64gb-class10-sdhc-for-raspberry-pi-2"
+  },
+  {
+    "title": "Micro-USB Cable 1.2m for Raspberry Pi - High-Speed",
+    "sku": "2426",
+    "variant": "Default Title",
+    "price": 35,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/magnet-micro-usb-cable-1-2m"
+  },
+  {
+    "title": "Micro HDMI to Standard HDMI Adapter for Raspberry Pi 4",
+    "sku": "2102",
+    "variant": "Default Title",
+    "price": 95,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/micro-hdmi-to-standard-hdmi-adapter-for-raspberry-pi-4"
+  },
+  {
+    "title": "USB Microphone for Raspberry Pi - Plug and Play",
+    "sku": "2797",
+    "variant": "Default Title",
+    "price": 99,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/usb-microphone-for-raspberry-pi-2"
+  },
+  {
+    "title": "Raspberry Pi 5 Active Cooler - Official PWM Fan/Heatsink",
+    "sku": "3741",
+    "variant": "Default Title",
+    "price": 1418,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/raspberry-pi-5-active-cooler"
+  },
+  {
+    "title": "USB to TTL Serial Debug Cable for Raspberry Pi",
+    "sku": "2480",
+    "variant": "Default Title",
+    "price": 65,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/usb-to-ttl-serial-cable-debug-console-cable-raspberry-pi"
+  },
+  {
+    "title": "Adhesive Aluminum Heatsink for Raspberry Pi - Silver",
+    "sku": "AG009",
+    "variant": "Default Title",
+    "price": 15,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/heat-sink-11x11x5-5-silver"
+  },
+  {
+    "title": "4-Piece Aluminum/Copper Heatsink Set for Raspberry Pi 4",
+    "sku": "2476",
+    "variant": "Default Title",
+    "price": 55,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/heatsink-self-adhesive-pure-copper"
+  },
+  {
+    "title": "HDMI Cable 1m Gold Plated - 4K UHD 3D Audio Return",
+    "sku": "FIT0480",
+    "variant": "Default Title",
+    "price": 55,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/hdmi-cable-1meter-gold-plated-supports-3d-4k-video-audio-return-channel"
+  },
+  {
+    "title": "Aluminum Heatsink for Raspberry Pi 4 - Black",
+    "sku": "2824",
+    "variant": "Default Title",
+    "price": 35,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/raspberry-pi-4-model-b-aluminum-heat-sink-black"
+  },
+  {
+    "title": "Aluminum Heatsink Case with Dual Fans for Raspberry Pi 4",
+    "sku": "2809",
+    "variant": "Default Title",
+    "price": 742,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/aluminum-metal-heatsink-raspberry-case-with-dual-fans-fans-heatsinks"
+  },
+  {
+    "title": "Adafruit Pi Zero FPC Camera Cable - 30cm Long",
+    "sku": "5211",
+    "variant": "Default Title",
+    "price": 435,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/raspberry-pi-zero-fpc-camera-cable-30cm-long"
+  },
+  {
+    "title": "Aluminum Heatsink for Raspberry Pi 4 - Gold",
+    "sku": "2699",
+    "variant": "Default Title",
+    "price": 35,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/raspberry-pi-4-model-b-aluminum-heat-sink-gold-2"
+  },
+  {
+    "title": "Mini HDMI to Standard HDMI Adapter for Raspberry Pi Zero",
+    "sku": "RPA08030H",
+    "variant": "Default Title",
+    "price": 95,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/mini-hdmi-to-standard-hdmi-adapter-for-raspberry-pi-zero"
+  },
+  {
+    "title": "uFL SMT Antenna Connector - Surface Mount RF Socket",
+    "sku": "1661",
+    "variant": "Default Title",
+    "price": 85,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/ufl-smt-antenna-connector-prototyping-ufl-smt-antenna-connector-connectors-sockets"
+  },
+  {
+    "title": "Adafruit VL6180X Time-of-Flight Distance Ranging Sensor Breakout",
+    "sku": "3316",
+    "variant": "Default Title",
+    "price": 839,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/adafruit-vl6180x-time-of-flight-distance-ranging-sensor-vl6180"
+  },
+  {
+    "title": "Adafruit Si4713 Stereo FM Transmitter Breakout with RDS/RBDS",
+    "sku": "1958",
+    "variant": "Default Title",
+    "price": 1305,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/adafruit-stereo-fm-transmitter-with-rds-rbds-breakout-si4713"
+  },
+  {
+    "title": "6mm 3MP Wide-Angle CS-Mount Lens for Raspberry Pi HQ Camera",
+    "sku": "4563",
+    "variant": "Default Title",
+    "price": 5177,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/6mm-3mp-wide-angle-lens-for-raspberry-pi-hq-camera-3mp-2"
+  },
+  {
+    "title": "Adafruit Feather M0 with RFM95 LoRa Radio - 900MHz",
+    "sku": "3178",
+    "variant": "Default Title",
+    "price": 2195,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/feather-m0-with-rfm95-lora-radio-900mhz-radiofruit"
+  },
+  {
+    "title": "Adafruit NeoPixel FeatherWing - 4x8 RGB LED Matrix",
+    "sku": "2945",
+    "variant": "Default Title",
+    "price": 897,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/featherwing-neopixel-4x8-rgb-led"
+  },
+  {
+    "title": "Adafruit Adalogger FeatherWing - RTC + SD Card Add-on",
+    "sku": "2922",
+    "variant": "Default Title",
+    "price": 585,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/featherwing-adalogger-rtc-sd"
+  },
+  {
+    "title": "Adafruit TFT FeatherWing 3.5\" 480x320 Touch - 3651",
+    "sku": "3651",
+    "variant": "Default Title",
+    "price": 2277,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/tft-featherwing-3-5-480x320-touchscreen-for-feathers-adafruit"
+  },
+  {
+    "title": "Adafruit FLORA Accelerometer/Compass LSM303 v1.0 - 1247",
+    "sku": "1247",
+    "variant": "Default Title",
+    "price": 785,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/flora-accelerometer-compass-sensor-lsm303-v10"
+  },
+  {
+    "title": "Adafruit LED Sequins Ruby Red - Pack of 5 Sewable LEDs",
+    "sku": "1755",
+    "variant": "Default Title",
+    "price": 335,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/led-sequins-adafruit-ruby-red-pack-of-5"
+  },
+  {
+    "title": "Adafruit LED Sequins Royal Blue - Pack of 5 Sewable LEDs",
+    "sku": "1757",
+    "variant": "Default Title",
+    "price": 335,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/led-sequins-adafruit-royal-blue-pack-of-5"
+  },
+  {
+    "title": "Adafruit GEMMA v2 Miniature Wearable Platform - 1222",
+    "sku": "1222",
+    "variant": "Default Title",
+    "price": 645,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/gemma-v2-miniature-wearable-electronic-platform-adafruit"
+  },
+  {
+    "title": "Adafruit GEMMA M0 Miniature Wearable ATSAMD21 Dev Board",
+    "sku": "3501",
+    "variant": "Default Title",
+    "price": 836,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/adafruit-gemma-m0-miniature-wearable-electronic-platform"
+  },
+  {
+    "title": "Adafruit LED Sequins Warm White - Pack of 5 Sewable LEDs",
+    "sku": "1758",
+    "variant": "Default Title",
+    "price": 335,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/led-sequins-warm-white-adafruit-pack-of-5"
+  },
+  {
+    "title": "Adafruit Flora Wearable Ultimate GPS Module - 1059",
+    "sku": "1059",
+    "variant": "Default Title",
+    "price": 2569,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/flora-wearable-ultimate-gps-module"
+  },
+  {
+    "title": "Adafruit FLORA Wearable Platform v3 - 659",
+    "sku": "659",
+    "variant": "Default Title",
+    "price": 927,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/flora-wearable-electronic-platform-arduino-compatible-v3"
+  },
+  {
+    "title": "Adafruit FLORA Wearable Bluefruit LE Module - 2487",
+    "sku": "2487",
+    "variant": "Default Title",
+    "price": 945,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/flora-wearable-bluefruit-le-module"
+  },
+  {
+    "title": "Adafruit Flora RGB Smart NeoPixel v2 - 1260 4-Pack",
+    "sku": "1260",
+    "variant": "Default Title",
+    "price": 525,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/flora-rgb-smart-neopixel-version-2-pack-of-4"
+  },
+  {
+    "title": "Adafruit Trinket M0 CircuitPython + Arduino IDE - 3500",
+    "sku": "3500",
+    "variant": "Default Title",
+    "price": 752,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/trinket-m0-circuitpython-and-arduino-ide"
+  },
+  {
+    "title": "Adafruit Trinket Mini Microcontroller - 5V Logic, MicroUSB",
+    "sku": "1501",
+    "variant": "Default Title",
+    "price": 469,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/trinket-adafruit-mini-microcontroller-5v-logic"
+  },
+  {
+    "title": "Adafruit Trinket Mini Microcontroller - 3.3V Logic, MicroUSB",
+    "sku": "1500",
+    "variant": "Default Title",
+    "price": 389,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/trinket-adafruit-mini-microcontroller-3-3v-logic-microusb"
+  },
+  {
+    "title": "Adafruit Pro Trinket 5V 16MHz ATmega328 Microcontroller Board",
+    "sku": "2000",
+    "variant": "Default Title",
+    "price": 645,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/adafruit-pro-trinket-5v-16mhz"
+  },
+  {
+    "title": "MQ-2 Gas Sensor - Smoke/LPG/CO Analog Module",
+    "sku": "AB072",
+    "variant": "Default Title",
+    "price": 55,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/analog-smoke-lpg-co-gas-sensor-mq2"
+  },
+  {
+    "title": "MQ-135 Air Quality Gas Sensor - Analog Module",
+    "sku": "2430",
+    "variant": "Default Title",
+    "price": 165,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/gas-sensor-mq135"
+  },
+  {
+    "title": "MQ-4 Methane (CH4) Gas Sensor - Analog Module",
+    "sku": "AB077",
+    "variant": "Default Title",
+    "price": 99,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/gas-sensor-mq4"
+  },
+  {
+    "title": "MQ-5 LPG/Natural Gas Sensor - Analog Module",
+    "sku": "AB075",
+    "variant": "Default Title",
+    "price": 75,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/gas-sensor-mq5"
+  },
+  {
+    "title": "MQ-7 Carbon Monoxide Gas Sensor - Analog Module",
+    "sku": "AB074",
+    "variant": "Default Title",
+    "price": 105,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/carbon-monoxide-analog-sensor-mq7-for-arduino-gravity"
+  },
+  {
+    "title": "Air Quality Sensor CCS811 VOC + eCO2 Breakout",
+    "sku": "AB171",
+    "variant": "Default Title",
+    "price": 539,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/air-quality-sensor-breakout-voc-and-eco2-ccs811"
+  },
+  {
+    "title": "Gas Sensor MQ-131 Ozone Module",
+    "sku": "AM315",
+    "variant": "Default Title",
+    "price": 1085,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/gas-sensor-mq-131-ozone-module"
+  },
+  {
+    "title": "Adafruit MiCS-5524 CO/Alcohol/VOC Gas Sensor Breakout",
+    "sku": "3199",
+    "variant": "Default Title",
+    "price": 1256,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/adafruit-mics5524-co-alcohol-and-voc-gas-sensor-breakout"
+  },
+  {
+    "title": "Gas Sensor MQ6 LPG - Butane/Propane Detector",
+    "sku": "AJ369-6",
+    "variant": "Default Title",
+    "price": 39,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/gas-sensor-mq6-1"
+  },
+  {
+    "title": "DFRobot Gravity MQ9 CO/Combustible Gas Sensor - SEN0134",
+    "sku": "SEN0134",
+    "variant": "Default Title",
+    "price": 439,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/gas-co-combustible-analog-sensor-mq9-for-arduino-gravity"
+  },
+  {
+    "title": "MQ-3 Alcohol Gas Sensor - Analog Module",
+    "sku": "AB076",
+    "variant": "Default Title",
+    "price": 105,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/analog-alcohol-sensor-mq3"
+  },
+  {
+    "title": "Adafruit ENS160 MOX Gas Sensor - CCS811 Upgrade, STEMMA QT",
+    "sku": "5606",
+    "variant": "Default Title",
+    "price": 1850,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/adafruit-ens160-mox-gas-sensor-sciosense-ccs811-upgrade-stemma-qt-qwiic"
+  },
+  {
+    "title": "Adafruit SGP30 Air Quality Sensor Breakout - VOC and eCO2",
+    "sku": "3709",
+    "variant": "Default Title",
+    "price": 1470,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/air-quality-sensor-sgp30-breakout-voc-and-eco2-adafruit"
+  },
+  {
+    "title": "Adafruit BME680 Temperature/Humidity/Pressure/Gas Sensor - STEMMA QT",
+    "sku": "3660",
+    "variant": "Default Title",
+    "price": 1598,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/adafruit-bme680-temperature-humidity-pressure-and-gas-sensor-stemma-qt"
+  },
+  {
+    "title": "CCS811+SI7021+BMP280 - CO + Temp + Humid + Pressure",
+    "sku": "AB650",
+    "variant": "Default Title",
+    "price": 1299,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/ccs811-si7021-bmp280-carbon-monoxide-temperature-and-humidity-sensor"
+  },
+  {
+    "title": "DFRobot Gravity MQ2 Gas Sensor - SEN0127",
+    "sku": "SEN0127",
+    "variant": "Default Title",
+    "price": 799,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/gas-lpg-butane-propane-methane-alcohol-sensor-analog-mq2-for-arduino-gravity"
+  },
+  {
+    "title": "Mini Digital Multimeter M118A - Compact Auto-Range DMM",
+    "sku": "2295",
+    "variant": "M118A+Special pointed pen",
+    "price": 713,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/mini-digital-range-multimeter"
+  },
+  {
+    "title": "Mini Digital Multimeter M118A - Compact Auto-Range DMM",
+    "sku": "2296",
+    "variant": "M118A",
+    "price": 611,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/mini-digital-range-multimeter"
+  },
+  {
+    "title": "Clamp Multimeter Plier-Style - Multifunctional AC/DC Tester",
+    "sku": "2294",
+    "variant": "Default Title",
+    "price": 736,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/multifunctional-plier-shaped-multimeter"
+  },
+  {
+    "title": "XL830 / AN8205C Digital Multimeter - Multi-Range LCD DMM",
+    "sku": "2297",
+    "variant": "XL830",
+    "price": 443,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/multifunctional-digital-display-multimeter-xl830-an8205c"
+  },
+  {
+    "title": "XL830 / AN8205C Digital Multimeter - Multi-Range LCD DMM",
+    "sku": "2298",
+    "variant": "AN8205C",
+    "price": 342,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/multifunctional-digital-display-multimeter-xl830-an8205c"
+  },
+  {
+    "title": "Current Sensor 30A ACS712 - Hall-Effect Module",
+    "sku": "AB480",
+    "variant": "Default Title",
+    "price": 75,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/current-sensor-30a-acs712"
+  },
+  {
+    "title": "Voltage Sensor Module 25V - Voltage Divider Breakout",
+    "sku": "AB116",
+    "variant": "Default Title",
+    "price": 49,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/voltage-sensor-module-25v"
+  },
+  {
+    "title": "Voltage AC Single-Phase Transformer Sensor ZMPT101B",
+    "sku": "AC036",
+    "variant": "Default Title",
+    "price": 157,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/voltage-ac-single-phase-voltage-transformer-sensor"
+  },
+  {
+    "title": "Water Hall Flow Sensor G1/2 - 1-30L/min YF-S201",
+    "sku": "AJ102",
+    "variant": "Default Title",
+    "price": 247,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/water-flow-sensor-g1-2"
+  },
+  {
+    "title": "Hall Effect Sensor Module - Magnetic Field Detector",
+    "sku": "2393",
+    "variant": "Default Title",
+    "price": 23,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/hall-sensor-module"
+  },
+  {
+    "title": "Hall Sensor A3144E - Digital Magnetic Switch",
+    "sku": "SPM31441S",
+    "variant": "Default Title",
+    "price": 75,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/hall-sensor-a3144e"
+  },
+  {
+    "title": "30A Current Sensor Non-Invasive AC - Clamp Type",
+    "sku": "AB230-30A",
+    "variant": "Default Title",
+    "price": 185,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/30a-current-sensor-non-invasive-ac"
+  },
+  {
+    "title": "LSM303 Accelerometer + Magnetometer Compass Board",
+    "sku": "AB019",
+    "variant": "Default Title",
+    "price": 265,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/accelerometer-magnetometer-triple-axis-compass-board-lsm303"
+  },
+  {
+    "title": "Reed Switch 2x14mm Normally-Open 10pcs - Magnetic",
+    "sku": "AL040",
+    "variant": "Default Title",
+    "price": 149,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/reed-switch"
+  },
+  {
+    "title": "5A Range Single Phase Current Transformer Monophase AC Active Output Onboard Precision CT Sensor Reverser for Arduino",
+    "sku": "2157",
+    "variant": "Default Title",
+    "price": 99,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/5a-range-single-phase-current-transformer-monophase-ac-active-output"
+  },
+  {
+    "title": "Voltage Level Indicator KA2284",
+    "sku": "AM187",
+    "variant": "Default Title",
+    "price": 67,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/voltage-level-indicator-ka2284"
+  },
+  {
+    "title": "Voltage+Current Sensor MAX471 Load Detection",
+    "sku": "2428",
+    "variant": "Default Title",
+    "price": 230,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/voltage-current-sensor-max471-load-detection"
+  },
+  {
+    "title": "DFRobot Gravity Analog AC Current Sensor - Non-Invasive Clamp",
+    "sku": "SEN0211",
+    "variant": "Default Title",
+    "price": 2508,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/current-ac-sensor-analog-gravity"
+  },
+  {
+    "title": "INA219 DC Current Sensor 26V 3.2A - High-Side I2C",
+    "sku": "AB083",
+    "variant": "Default Title",
+    "price": 215,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/dc-current-sensor-ina219-high-side-breakout-26v-3-2a-max"
+  },
+  {
+    "title": "100A Current Sensor Non-Invasive AC - High-Range Clamp",
+    "sku": "AB230-100A",
+    "variant": "Default Title",
+    "price": 189,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/current-sensor-non-invasive-ac-100a"
+  },
+  {
+    "title": "Engineer Professional Silicone-Tip Solder Sucker - Anti-Skid Desoldering",
+    "sku": "1597",
+    "variant": "Default Title",
+    "price": 1989,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/professional-silicone-tip-solder-sucker"
+  },
+  {
+    "title": "Thermal Grease Paste Conductive Heatsink",
+    "sku": "2841",
+    "variant": "Default Title",
+    "price": 69,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/thermal-grease-paste-conductive-heatsink-plaster-adhesive-glue"
+  },
+  {
+    "title": "Aluminum Flex Shaft Coupler 5-10mm - Stepper Coupling",
+    "sku": "2760",
+    "variant": "Default Title",
+    "price": 59,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/aluminum-flex-shaft-coupler-5mm-to-10mm-for-stepper-motors"
+  },
+  {
+    "title": "Stepper Fixed Bracket Mounting Plate 42mm",
+    "sku": "2822",
+    "variant": "Default Title",
+    "price": 45,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/stepper-fixed-bracket-mounting-plate-42mm-2"
+  },
+  {
+    "title": "2mm Hole 3-Blade Air Propeller DIY Fan",
+    "sku": "2308",
+    "variant": "Default Title",
+    "price": 25,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/2mm-hole-standard-three-blade-air-propeller-diy-fan-model"
+  },
+  {
+    "title": "Stepper NEMA 17 Bipolar Motor 42 x 42 x 40 mm",
+    "sku": "2090",
+    "variant": "Default Title",
+    "price": 446,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/stepper-nema-17-bipolar-motor-42-x-42-x-40-mm"
+  },
+  {
+    "title": "Thermoelectric Peltier Refrigeration Cooler DC 12V Kit",
+    "sku": "2832",
+    "variant": "Default Title",
+    "price": 344,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/thermoelectric-peltier-refrigeration-cooler-dc-12v-kit-2"
+  },
+  {
+    "title": "Cooling Fan 120mm Multicolored LED Ring - PC Style",
+    "sku": "2093",
+    "variant": "Default Title",
+    "price": 129,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/cooling-fan-120mm-multicolored-led-ring"
+  },
+  {
+    "title": "Heatsink for Stepper Motor Aluminum MK7 / MK8 40x40x11mm Black",
+    "sku": "2706",
+    "variant": "Default Title",
+    "price": 35,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/heatsink-for-stepper-motor-aluminum-mk7-mk8-40x40x11mm-black-2"
+  },
+  {
+    "title": "GPS NEO-6MV2 Flight Control Module",
+    "sku": "AB005",
+    "variant": "Default Title",
+    "price": 212,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/gps-neo6mv2-flight-control-module"
+  },
+  {
+    "title": "Antenna SMA Pigtail Cable IPX to SMA - WiFi/RF",
+    "sku": "AF072",
+    "variant": "Default Title",
+    "price": 49,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/sma-to-ufl-u-fl-ipx-ipex-rf-adapter-cable"
+  },
+  {
+    "title": "GY-NEO-7M GPS Module - Active Ceramic Antenna",
+    "sku": "2335",
+    "variant": "7M WITH PIN",
+    "price": 369,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/gy-neo-7m-gps-active-ceramic-antenna-module"
+  },
+  {
+    "title": "GY-NEO-7M GPS Module - Active Ceramic Antenna",
+    "sku": "2336",
+    "variant": "7M EXTERNAL ANTENNA",
+    "price": 344,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/gy-neo-7m-gps-active-ceramic-antenna-module"
+  },
+  {
+    "title": "NEO-6M GPS Module w/ STM32 Board - GY-NEO6MV2",
+    "sku": "AF081",
+    "variant": "Default Title",
+    "price": 391,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/gps-neo6m-stm32-board"
+  },
+  {
+    "title": "GPS Active Antenna 3m Cable SMA Connector",
+    "sku": "AF071",
+    "variant": "Default Title",
+    "price": 188,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/gps-active-antenna-3m-plug-series-connector-sma"
+  },
+  {
+    "title": "RP-SMA to U.FL/IPX RF Adapter Cable - DFRobot FIT0219",
+    "sku": "FIT0219",
+    "variant": "Default Title",
+    "price": 75,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/rp-sma-to-ufl-u-fl-ipx-ipex-rf-adapter-cable"
+  },
+  {
+    "title": "GY-NEO-6M GPS Active Antenna Module - UART NMEA",
+    "sku": "2334",
+    "variant": "Default Title",
+    "price": 175,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/gy-neo-6m-gps-active-module"
+  },
+  {
+    "title": "GPS Passive Antenna uFL 15x15mm 1dBi Gain - 2461",
+    "sku": "2461",
+    "variant": "Default Title",
+    "price": 299,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/antenna-passive-gps-ufl-15mm-x-15mm-1-dbi-gain"
+  },
+  {
+    "title": "SIM808 GSM/GPRS/GPS Module - 3-in-1 IoT Board",
+    "sku": "AF077",
+    "variant": "Default Title",
+    "price": 913,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/gprs-gsm-gps-shield-for-arduino"
+  },
+  {
+    "title": "GY-NEO-8M GPS Module - Ceramic Antenna",
+    "sku": "2332",
+    "variant": "8M with Pin",
+    "price": 469,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/gy-neo-8m-ceramic-antenna-module"
+  },
+  {
+    "title": "GY-NEO-8M GPS Module - Ceramic Antenna",
+    "sku": "2333",
+    "variant": "8M with External Antenna",
+    "price": 417,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/gy-neo-8m-ceramic-antenna-module"
+  },
+  {
+    "title": "GPS/GLONASS USB Dongle - Vehicle/Aviation Tracker",
+    "sku": "AJ059",
+    "variant": "Default Title",
+    "price": 318,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/gps-glonass-usb-dongle-for-vehicle-aviation-tracker"
+  },
+  {
+    "title": "GPS Passive Antenna uFL 9x9mm -2dBi Gain - 2460",
+    "sku": "2460",
+    "variant": "Default Title",
+    "price": 355,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/gps-passive-antenna-ufl-9mm-x-9mm-2dbi-gain"
+  },
+  {
+    "title": "Adafruit GPS Ultimate Breakout 66ch 10Hz v3 - 746",
+    "sku": "746",
+    "variant": "Default Title",
+    "price": 2516,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/gps-ultimate-breakout-66-channel-10-hz-updates-version-3-adafruit"
+  },
+  {
+    "title": "Adafruit FONA 808 Mini Cellular GSM + GPS Breakout Board",
+    "sku": "2542",
+    "variant": "Default Title",
+    "price": 3119,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/adafruit-fona-808-mini-cellular-gsm-gps-breakout"
+  },
+  {
+    "title": "DFRobot SIM808 GSM/GPS/GPRS Shield for Arduino",
+    "sku": "TEL0097",
+    "variant": "Default Title",
+    "price": 2175,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/gsm-gps-gprs-sim808-shield-dfrobot"
+  },
+  {
+    "title": "Adafruit FONA 808 Shield Mini Cellular GSM+GPS - 2636",
+    "sku": "2636",
+    "variant": "Default Title",
+    "price": 2917,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/fona-808-shield-mini-cellular-gsm-gps-for-arduino-adafruit"
+  },
+  {
+    "title": "IC NE555 Single Timer 3pcs DIP-8 Pack",
+    "sku": "AK063",
+    "variant": "Default Title",
+    "price": 35,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/timer-delay-555-single-timer-3pcs-integrated-circuits"
+  },
+  {
+    "title": "LED 3mm Diode Light - 5pcs Through-Hole",
+    "sku": "CLS30002R",
+    "variant": "Red",
+    "price": 19,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/circuitrocks-led-3mm-diode-light-green-blue-white-yellow-red-5-pcs"
+  },
+  {
+    "title": "LED 3mm Diode Light - 5pcs Through-Hole",
+    "sku": "CLS30002B",
+    "variant": "Blue",
+    "price": 19,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/circuitrocks-led-3mm-diode-light-green-blue-white-yellow-red-5-pcs"
+  },
+  {
+    "title": "LED 3mm Diode Light - 5pcs Through-Hole",
+    "sku": "CLL30001G",
+    "variant": "Green",
+    "price": 19,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/circuitrocks-led-3mm-diode-light-green-blue-white-yellow-red-5-pcs"
+  },
+  {
+    "title": "LED 3mm Diode Light - 5pcs Through-Hole",
+    "sku": "CLL30001Y",
+    "variant": "Yellow",
+    "price": 19,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/circuitrocks-led-3mm-diode-light-green-blue-white-yellow-red-5-pcs"
+  },
+  {
+    "title": "LED 3mm Diode Light - 5pcs Through-Hole",
+    "sku": "CLS30002W",
+    "variant": "White",
+    "price": 19,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/circuitrocks-led-3mm-diode-light-green-blue-white-yellow-red-5-pcs"
+  },
+  {
+    "title": "DS3231 RTC Module + AT24C32 EEPROM - High Precision",
+    "sku": "AB603",
+    "variant": "Default Title",
+    "price": 75,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/rtc-and-eeprom-ds3231-at24c32-module"
+  },
+  {
+    "title": "L7805 Linear Voltage Regulator 5V 1A - TO-220",
+    "sku": "2437",
+    "variant": "Default Title",
+    "price": 35,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/voltage-regulator-7805-5v-to-220"
+  },
+  {
+    "title": "Switch Drive High-Power MOSFET Trigger Module",
+    "sku": "AB327",
+    "variant": "Default Title",
+    "price": 26,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/switch-drive-high-power-mosfet-trigger-module"
+  },
+  {
+    "title": "Op-Amp LM358 Dual Operational Amplifier DIP-8 3pcs",
+    "sku": "AM133",
+    "variant": "Default Title",
+    "price": 69,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/lm358-dual-operational-amplifiers-dip"
+  },
+  {
+    "title": "L293D Dual H-Bridge Motor Driver 600mA - DC/Stepper",
+    "sku": "AK005",
+    "variant": "Default Title",
+    "price": 45,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/dual-h-bridge-motor-driver-for-dc-or-steppers-600ma-l293d"
+  },
+  {
+    "title": "ADS1115 16-Bit 4-Channel ADC w/ PGA - I2C Breakout",
+    "sku": "AB080",
+    "variant": "Default Title",
+    "price": 195,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/adc-16-bit-4-channel-ads1115-with-programmable-gain-amplifier"
+  },
+  {
+    "title": "TIP32C PNP Power Transistor TO-220",
+    "sku": "2087",
+    "variant": "Default Title",
+    "price": 15,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/tip32c-to220-tip32-to-220-transistor-tip-tip-32c-integrated-circuits"
+  },
+  {
+    "title": "IC 74HC04N Hex Inverter NOT Gate",
+    "sku": "2249",
+    "variant": "Default Title",
+    "price": 19,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/ic-74hc04n-hex-inverter-not-gate-ic"
+  },
+  {
+    "title": "74HC595 Shift Register 3pcs - DIP-16 Pack",
+    "sku": "AK059",
+    "variant": "Default Title",
+    "price": 111,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/74hc595-shift-register-3-pack"
+  },
+  {
+    "title": "Relay 12V Timer Delay NE555 Module - Adjustable Time",
+    "sku": "AB348",
+    "variant": "Default Title",
+    "price": 56,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/relay-12v-timer-delay-ne555-module"
+  },
+  {
+    "title": "Power Module 3.3V Regulator AMS1117",
+    "sku": "2674",
+    "variant": "Default Title",
+    "price": 45,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/power-module-33v-regulator-ams1117"
+  },
+  {
+    "title": "Adafruit TXB0104 Bi-Directional Level Shifter - 2464",
+    "sku": "2464",
+    "variant": "Default Title",
+    "price": 159,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/bi-directional-level-shifter-txb0104"
+  },
+  {
+    "title": "4-Channel Bi-Directional Level Shifter Module - 3.3V/5V",
+    "sku": "AM175",
+    "variant": "Default Title",
+    "price": 49,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/logic-converter-4-chanel-5v-3v"
+  },
+  {
+    "title": "AMS1117 5V Power Module - Linear Regulator Breakout",
+    "sku": "2846",
+    "variant": "Default Title",
+    "price": 35,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/power-module-5v-regulator-ams1117"
+  },
+  {
+    "title": "JSumo JS4311 Aluminum-Silicone Wheel 43x11mm Pair",
+    "sku": "JS15479",
+    "variant": "Default Title",
+    "price": 1628,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/js4311-aluminum-silicone-wheel-set-43-x-11mm-pair"
+  },
+  {
+    "title": "UNO R3 RFID Learning Advanced Version Starter Kit",
+    "sku": "Y0060",
+    "variant": "ARDUINO UNO R3",
+    "price": 1855,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/starter-kit-for-arduino-upgraded-rfid-and-stepper-driver"
+  },
+  {
+    "title": "UNO R3 RFID Learning Advanced Version Starter Kit",
+    "sku": "Y0061",
+    "variant": "ARDUINO UNO R3 CH340",
+    "price": 1825,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/starter-kit-for-arduino-upgraded-rfid-and-stepper-driver"
+  },
+  {
+    "title": "UNO R3 RFID Learning Advanced Version Starter Kit",
+    "sku": "Y0062",
+    "variant": "MEGA 2560 16U2",
+    "price": 2395,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/starter-kit-for-arduino-upgraded-rfid-and-stepper-driver"
+  },
+  {
+    "title": "UNO R3 RFID Learning Advanced Version Starter Kit",
+    "sku": "Y0063",
+    "variant": "MEGA CH340",
+    "price": 2305,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/starter-kit-for-arduino-upgraded-rfid-and-stepper-driver"
+  },
+  {
+    "title": "UNO R3 RFID Learning Advanced Version Starter Kit",
+    "sku": "Y0064",
+    "variant": "ORIGINAL UNO",
+    "price": 3349,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/starter-kit-for-arduino-upgraded-rfid-and-stepper-driver"
+  },
+  {
+    "title": "UNO R3 RFID Learning Advanced Version Starter Kit",
+    "sku": "Y0065",
+    "variant": "ORIGINAL MEGA",
+    "price": 4490,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/starter-kit-for-arduino-upgraded-rfid-and-stepper-driver"
+  },
+  {
+    "title": "UNO R3 RFID Learning Advanced Version Starter Kit",
+    "sku": "AH006",
+    "variant": "NO BOARD",
+    "price": 1580,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/starter-kit-for-arduino-upgraded-rfid-and-stepper-driver"
+  },
+  {
+    "title": "UNO R3 RFID Learning Advanced Version Starter Kit",
+    "sku": "Y0080",
+    "variant": "ARDUINO R4",
+    "price": 3095,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/starter-kit-for-arduino-upgraded-rfid-and-stepper-driver"
+  },
+  {
+    "title": "UNO R3 RFID Learning Advanced Version Starter Kit",
+    "sku": "Y0081",
+    "variant": "ARDUINO R4 MINIMA",
+    "price": 3515,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/starter-kit-for-arduino-upgraded-rfid-and-stepper-driver"
+  },
+  {
+    "title": "UNO R3 Starter Kit - LED Resistor Wires Arduino Compatible",
+    "sku": "AH008",
+    "variant": "Default Title",
+    "price": 669,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/uno-r3-starter-kit-with-led-resistor-wires-arduino-compatible"
+  },
+  {
+    "title": "DFRobot Waterproof DS18B20 Temp Sensor Kit - KIT0021",
+    "sku": "KIT0021",
+    "variant": "Default Title",
+    "price": 788,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/temperature-sensor-waterproof-ds18b20-kit"
+  },
+  {
+    "title": "Arduino Mega R3 Basic Starter Kit - DIY Learner Bundle",
+    "sku": "AH012",
+    "variant": "Default Title",
+    "price": 1150,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/arduino-starter-kit-elecrow"
+  },
+  {
+    "title": "Raspberry Pi 4 Bundle Kit 8GB w/ Case, USB-C, Heatsink",
+    "sku": "PI4Kit-D",
+    "variant": "1GB",
+    "price": 5020,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/raspberry-pi-4-bundle-kit-8gb-with-abs-plastic-casing-rpi-usb-c-power-heat"
+  },
+  {
+    "title": "Raspberry Pi 4 Bundle Kit 8GB w/ Case, USB-C, Heatsink",
+    "sku": "PI4Kit-C",
+    "variant": "2GB",
+    "price": 6630,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/raspberry-pi-4-bundle-kit-8gb-with-abs-plastic-casing-rpi-usb-c-power-heat"
+  },
+  {
+    "title": "Raspberry Pi 4 Bundle Kit 8GB w/ Case, USB-C, Heatsink",
+    "sku": "PI4Kit-A",
+    "variant": "4GB",
+    "price": 8730,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/raspberry-pi-4-bundle-kit-8gb-with-abs-plastic-casing-rpi-usb-c-power-heat"
+  },
+  {
+    "title": "Raspberry Pi 4 Bundle Kit 8GB w/ Case, USB-C, Heatsink",
+    "sku": "PI4Kit-B",
+    "variant": "8GB",
+    "price": 12930,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/raspberry-pi-4-bundle-kit-8gb-with-abs-plastic-casing-rpi-usb-c-power-heat"
+  },
+  {
+    "title": "Raspberry Pi 4 Bundle Kit 8GB w/ Case, USB-C, Heatsink",
+    "sku": "PI4Kit-E",
+    "variant": "1GB- A",
+    "price": 5147,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/raspberry-pi-4-bundle-kit-8gb-with-abs-plastic-casing-rpi-usb-c-power-heat"
+  },
+  {
+    "title": "Raspberry Pi 4 Bundle Kit 8GB w/ Case, USB-C, Heatsink",
+    "sku": "PI4Kit-F",
+    "variant": "2GB - A",
+    "price": 6757,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/raspberry-pi-4-bundle-kit-8gb-with-abs-plastic-casing-rpi-usb-c-power-heat"
+  },
+  {
+    "title": "Raspberry Pi 4 Bundle Kit 8GB w/ Case, USB-C, Heatsink",
+    "sku": "PI4Kit-G",
+    "variant": "4GB -A",
+    "price": 8857,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/raspberry-pi-4-bundle-kit-8gb-with-abs-plastic-casing-rpi-usb-c-power-heat"
+  },
+  {
+    "title": "Raspberry Pi 4 Bundle Kit 8GB w/ Case, USB-C, Heatsink",
+    "sku": "PI4Kit-H",
+    "variant": "8GB - A",
+    "price": 13057,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/raspberry-pi-4-bundle-kit-8gb-with-abs-plastic-casing-rpi-usb-c-power-heat"
+  },
+  {
+    "title": "Arduino Starter Kit K000007 - Official Learning Kit, 15 Projects",
+    "sku": "K000007",
+    "variant": "Default Title",
+    "price": 10424,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/arduino-official-starter-kit"
+  },
+  {
+    "title": "Raspberry Pi 5 Kit Bundle 4GB/8GB Options",
+    "sku": "Y0077",
+    "variant": "8GB",
+    "price": 13021,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/raspberry-pi-5-kit-8gb4gb-bundle"
+  },
+  {
+    "title": "Raspberry Pi 5 Kit Bundle 4GB/8GB Options",
+    "sku": "Y0078",
+    "variant": "4GB",
+    "price": 10506,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/raspberry-pi-5-kit-8gb4gb-bundle"
+  },
+  {
+    "title": "Raspberry Pi 5 Kit Bundle 4GB/8GB Options",
+    "sku": "Y0079",
+    "variant": "2GB",
+    "price": 9240,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/raspberry-pi-5-kit-8gb4gb-bundle"
+  },
+  {
+    "title": "Raspberry Pi 5 Kit Bundle 4GB/8GB Options",
+    "sku": "Y00080",
+    "variant": "16GB",
+    "price": 32218,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/raspberry-pi-5-kit-8gb4gb-bundle"
+  },
+  {
+    "title": "ESP8266 IoT Weather Station Kit - WiFi Display Bundle",
+    "sku": "CRT13450K",
+    "variant": "Default Title",
+    "price": 2199,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/esp8266-iot-weather-station-kit"
+  },
+  {
+    "title": "RAK WisBlock Starter Kit - LoRa BLE IoT Module AS923",
+    "sku": "2184",
+    "variant": "Default Title",
+    "price": 1965,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/wisblock-starter-kit-iot-module-ble-lora-as923"
+  },
+  {
+    "title": "Raspberry Pi 4 4GB Kit - Aluminum Case, Heatsink, Cable, SD",
+    "sku": "RPK01299PBE",
+    "variant": "Default Title",
+    "price": 6885,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/raspberry-pi-4-4gb-kit-aluminum-case-heatsink-cable-sd-card"
+  },
+  {
+    "title": "Raspberry Pi Zero WH Pack E - with 2.13\" E-Paper HAT",
+    "sku": "14371",
+    "variant": "Default Title",
+    "price": 3467,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/raspberry-pi-zero-wh-package-e-with-2-13inch-e-paper-hat"
+  },
+  {
+    "title": "Raspberry Pi Zero WH Pack B - with Official Case",
+    "sku": "14369",
+    "variant": "Default Title",
+    "price": 2387,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/raspberry-pi-zero-wh-package-b-with-official-case"
+  },
+  {
+    "title": "Raspberry Pi Zero WH Pack D - with USB HUB HAT",
+    "sku": "14370",
+    "variant": "Default Title",
+    "price": 3005,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/raspberry-pi-zero-starter-pack-includes-pi-zero-v1-3"
+  },
+  {
+    "title": "Raspberry Pi Zero WH Budget Pack - Includes Pi Zero",
+    "sku": "14368",
+    "variant": "Default Title",
+    "price": 1485,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/raspberry-pi-zero-budget-pack-includes-pi-zero"
+  },
+  {
+    "title": "Atlas Scientific Surveyor Analog pH Kit - Starter pH Sensor",
+    "sku": "KIT-103P",
+    "variant": "Default Title",
+    "price": 6999,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/surveyor-analog-ph-kit"
+  },
+  {
+    "title": "BBC micro:bit V2.2 Board",
+    "sku": "AB718",
+    "variant": "Default Title",
+    "price": 1798,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/micro-bit-board-microcontroller"
+  },
+  {
+    "title": "Silicone Shell for Microbit V2 Development Board",
+    "sku": "1126",
+    "variant": "Green",
+    "price": 221,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/silicone-shell-for-microbit-v2-development-board"
+  },
+  {
+    "title": "Silicone Shell for Microbit V2 Development Board",
+    "sku": "1129",
+    "variant": "Yellow",
+    "price": 221,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/silicone-shell-for-microbit-v2-development-board"
+  },
+  {
+    "title": "Silicone Shell for Microbit V2 Development Board",
+    "sku": "1130",
+    "variant": "Light blue",
+    "price": 221,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/silicone-shell-for-microbit-v2-development-board"
+  },
+  {
+    "title": "Microbit Motor Driver Expansion Board",
+    "sku": "1116",
+    "variant": "Default Title",
+    "price": 615,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/microbit-motor-driver-expansion-board"
+  },
+  {
+    "title": "BBC micro:bit V2.2 Educational Kit",
+    "sku": "MICROBIT-V2.2-KIT",
+    "variant": "Default Title",
+    "price": 1883,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/bbc-micro-bit-v2-2-educational-microcontroller-kit"
+  },
+  {
+    "title": "ACEBOTT TinkerBott Micro:bit Robot Car Kit (w/ Micro:bit)",
+    "sku": "QD024",
+    "variant": "Default Title",
+    "price": 3329,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/acebott-tinkerbott-microbit-carwith-microbit"
+  },
+  {
+    "title": "ACEBOTT Micro:bit Handle Kit (with Micro:bit) - Game Controller",
+    "sku": "QD026",
+    "variant": "Default Title",
+    "price": 2486,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/acebott-microbit-handle-kit-with-microbit"
+  },
+  {
+    "title": "L298N Dual H-Bridge DC Motor Driver - 2x2A",
+    "sku": "2482",
+    "variant": "Default Title",
+    "price": 105,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/2a-dual-motor-controller"
+  },
+  {
+    "title": "Adafruit-Style Motor Shield 4-Channel L293D - V1",
+    "sku": "AA058",
+    "variant": "Default Title",
+    "price": 118,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/motor-shield"
+  },
+  {
+    "title": "Servo Motor Controller Tester - 3-Channel 4.8-6V Test",
+    "sku": "2341",
+    "variant": "Default Title",
+    "price": 85,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/servo-motor-controller-tester"
+  },
+  {
+    "title": "DC Motor Speed Controller PWM 4.5-35V 5A 90W",
+    "sku": "2404",
+    "variant": "Default Title",
+    "price": 85,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/dc-motor-pwm-governor-3v6-12-24-35v"
+  },
+  {
+    "title": "A4988 Stepper Motor Driver Module - Step/Dir",
+    "sku": "2484",
+    "variant": "Default Title",
+    "price": 65,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/stepper-motor-driver-a4988-module"
+  },
+  {
+    "title": "28BYJ-48 5V Stepper Motor + ULN2003 Driver Kit",
+    "sku": "AJ190",
+    "variant": "Default Title",
+    "price": 95,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/stepper-motor-5v-28byj-48-with-uln2003-driver-board"
+  },
+  {
+    "title": "Motor Large Current Driver Module BTS7960 43A",
+    "sku": "AB487",
+    "variant": "Default Title",
+    "price": 215,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/motor-large-current-driver-module-bts7960-43a"
+  },
+  {
+    "title": "L298 Dual H-Bridge DC Motor Driver Module - Heatsink",
+    "sku": "AM112",
+    "variant": "Default Title",
+    "price": 165,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/motor-dualh-bridge-l298-driver"
+  },
+  {
+    "title": "Dual H-Bridge Motor Driver DRV8833",
+    "sku": "2682",
+    "variant": "Default Title",
+    "price": 55,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/dual-h-bridge-motor-driver-drv8833"
+  },
+  {
+    "title": "TB6600 Stepper Motor Driver - 4A 9-42V Industrial",
+    "sku": "2501",
+    "variant": "Default Title",
+    "price": 397,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/stepper-motor-driver-tb6600"
+  },
+  {
+    "title": "ULN2003 Stepper Motor Driver Module - Unipolar 5V",
+    "sku": "AA071",
+    "variant": "Default Title",
+    "price": 89,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/stepper-motor-uln2003-driver"
+  },
+  {
+    "title": "PCA9685 16-Channel 12-bit PWM/Servo Driver I2C",
+    "sku": "AJ325",
+    "variant": "Default Title",
+    "price": 215,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/pwm-servo-driver-adafruit-16-channel-12-bit-i2c-interface-pca9685"
+  },
+  {
+    "title": "L9110 Dual-Channel DC Motor Driver Module - 800mA",
+    "sku": "AA084",
+    "variant": "Default Title",
+    "price": 65,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/dual-channel-h-bridge-motor-driver-module"
+  },
+  {
+    "title": "NVIDIA Jetson Orin™ Nano Super Developer Kit",
+    "sku": "DEV-22098",
+    "variant": "Default Title",
+    "price": 26145,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/nvidia-jetson-orin%E2%84%A2-nano-super-developer-kit"
+  },
+  {
+    "title": "Jumper Wires DuPont Line 10/20/30cm Arduino",
+    "sku": "AJ217",
+    "variant": "M-M 10CM 20PCS WIRE",
+    "price": 35,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/jumper-wires-dupont-line-10-20-30-cm-arduino-compatible"
+  },
+  {
+    "title": "Jumper Wires DuPont Line 10/20/30cm Arduino",
+    "sku": "AJ184",
+    "variant": "F-M 10CM 20PCS WIRE",
+    "price": 35,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/jumper-wires-dupont-line-10-20-30-cm-arduino-compatible"
+  },
+  {
+    "title": "Jumper Wires DuPont Line 10/20/30cm Arduino",
+    "sku": "AJ206",
+    "variant": "F-F 10CM 20PCS WIRE",
+    "price": 35,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/jumper-wires-dupont-line-10-20-30-cm-arduino-compatible"
+  },
+  {
+    "title": "Jumper Wires DuPont Line 10/20/30cm Arduino",
+    "sku": "2478",
+    "variant": "M-M 20CM 20PCS WIRE",
+    "price": 45,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/jumper-wires-dupont-line-10-20-30-cm-arduino-compatible"
+  },
+  {
+    "title": "Jumper Wires DuPont Line 10/20/30cm Arduino",
+    "sku": "AJ010",
+    "variant": "F-M 20CM 20PCS WIRE",
+    "price": 45,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/jumper-wires-dupont-line-10-20-30-cm-arduino-compatible"
+  },
+  {
+    "title": "Jumper Wires DuPont Line 10/20/30cm Arduino",
+    "sku": "AJ011",
+    "variant": "F-F 20CM 20PCS WIRE",
+    "price": 45,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/jumper-wires-dupont-line-10-20-30-cm-arduino-compatible"
+  },
+  {
+    "title": "Jumper Wires DuPont Line 10/20/30cm Arduino",
+    "sku": "2422",
+    "variant": "M-M 30CM 20PCS WIRE",
+    "price": 55,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/jumper-wires-dupont-line-10-20-30-cm-arduino-compatible"
+  },
+  {
+    "title": "Jumper Wires DuPont Line 10/20/30cm Arduino",
+    "sku": "2483",
+    "variant": "F-M 30CM 20PCS WIRE",
+    "price": 55,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/jumper-wires-dupont-line-10-20-30-cm-arduino-compatible"
+  },
+  {
+    "title": "Jumper Wires DuPont Line 10/20/30cm Arduino",
+    "sku": "AJ187",
+    "variant": "F-F 30CM 20PCS WIRE",
+    "price": 55,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/jumper-wires-dupont-line-10-20-30-cm-arduino-compatible"
+  },
+  {
+    "title": "Particle Electron Cellular IoT Kit 3G - Asset Tracking",
+    "sku": "3234",
+    "variant": "Default Title",
+    "price": 1999,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/electron-cellular-iot-kit-3g"
+  },
+  {
+    "title": "Particle Photon Internet Button - WiFi-Connected Buttons",
+    "sku": "2799",
+    "variant": "Default Title",
+    "price": 349,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/particle-photon-internet-button"
+  },
+  {
+    "title": "DFRobot Particle Photon - WiFi IoT Dev Board",
+    "sku": "DFR0373",
+    "variant": "Default Title",
+    "price": 2070,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/particle-photon-philippines"
+  },
+  {
+    "title": "Pimoroni NVMe Base for Raspberry Pi 5 - PCIe SSD Adapter",
+    "sku": "PIM699",
+    "variant": "Default Title",
+    "price": 1380,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/nvme-base-for-raspberry-pi-5"
+  },
+  {
+    "title": "Pimoroni HyperPixel 4.0 - Hi-Res 800x480 Pi Display, Touch",
+    "sku": "PIM369",
+    "variant": "Default Title",
+    "price": 5518,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/hyperpixel-4-0-hi-res-display-for-raspberry-pi-touch"
+  },
+  {
+    "title": "Pimoroni Enviro + Air Quality HAT for Raspberry Pi",
+    "sku": "PIM458",
+    "variant": "Default Title",
+    "price": 5518,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/enviro-for-raspberry-pi-enviro-air-quality"
+  },
+  {
+    "title": "Pimoroni Pirate Audio Dual Microphone for Raspberry Pi",
+    "sku": "PIM524",
+    "variant": "Default Title",
+    "price": 2698,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/pirate-audio-dual-mic-for-raspberry-pi"
+  },
+  {
+    "title": "Pimoroni Pirate Audio Speaker for Raspberry Pi",
+    "sku": "PIM485",
+    "variant": "Default Title",
+    "price": 2207,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/pirate-audio-speaker-for-raspberry-pi"
+  },
+  {
+    "title": "Pimoroni Pirate Audio Line-Out for Raspberry Pi",
+    "sku": "PIM483",
+    "variant": "Default Title",
+    "price": 2207,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/pirate-audio-line-out-for-raspberry-pi"
+  },
+  {
+    "title": "Pimoroni Pirate Audio Headphone Amp for Raspberry Pi",
+    "sku": "PIM482",
+    "variant": "Default Title",
+    "price": 2207,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/pirate-audio-headphone-amp-for-raspberry-pi"
+  },
+  {
+    "title": "Pimoroni Pirate Audio 3W Stereo Amp for Raspberry Pi",
+    "sku": "PIM484",
+    "variant": "Default Title",
+    "price": 2207,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/pirate-audio-3w-stereo-amp-for-raspberry-pi"
+  },
+  {
+    "title": "Pimoroni Particulate Matter Sensor Breakout",
+    "sku": "PIM477",
+    "variant": "Default Title",
+    "price": 338,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/particulate-matter-sensor-breakout"
+  },
+  {
+    "title": "MLX90640 Thermal Camera Breakout (Pimoroni)",
+    "sku": "PIM365",
+    "variant": "Default Title",
+    "price": 6131,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/mlx90640-thermal-camera-breakout"
+  },
+  {
+    "title": "Pimoroni HyperPixel 4.0 Square - 720x720 Touch Display",
+    "sku": "PIM470",
+    "variant": "Default Title",
+    "price": 6744,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/hyperpixel-4-0-square-hi-res-display-for-raspberry-pi-touch"
+  },
+  {
+    "title": "Pimoroni HyperPixel 4.0 - Hi-Res 800x480 Pi Display, Non-Touch",
+    "sku": "PIM370",
+    "variant": "Default Title",
+    "price": 4598,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/hyperpixel-4-0-hi-res-display-for-raspberry-pi-non-touch"
+  },
+  {
+    "title": "Pimoroni Enviro Weather Pico W Board Only",
+    "sku": "PIM628",
+    "variant": "Default Title",
+    "price": 3066,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/enviro-weather-pico-w-aboard-board-only"
+  },
+  {
+    "title": "Pimoroni Enviro Urban Pico W Enviro Urban Only",
+    "sku": "PIM629",
+    "variant": "Default Title",
+    "price": 5978,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/enviro-urban-pico-w-aboard-enviro-urban-only"
+  },
+  {
+    "title": "Pimoroni Enviro for Raspberry Pi - Environmental Sensor HAT",
+    "sku": "PIM486",
+    "variant": "Default Title",
+    "price": 3066,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/enviro-for-raspberry-pi-enviro"
+  },
+  {
+    "title": "HDMI 8\" LCD Screen Kit",
+    "sku": "HDMI-8-LCD",
+    "variant": "Default Title",
+    "price": 7664,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/hdmi-8-lcd-screen-kit"
+  },
+  {
+    "title": "Pololu QTR-8RC Reflectance Sensor Array - 8 IR Channels, Digital",
+    "sku": "POL961",
+    "variant": "Default Title",
+    "price": 929,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/qtr-8rc-reflectance-sensor-array"
+  },
+  {
+    "title": "SparkFun 9V Alkaline Battery - PP3 Single Cell",
+    "sku": "PRT-10218",
+    "variant": "Default Title",
+    "price": 48,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/9v-alkaline-battery"
+  },
+  {
+    "title": "Wireless Remote Control + IR Receiver Module Set",
+    "sku": "AH017",
+    "variant": "Default Title",
+    "price": 55,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/ir-kit-for-arduino"
+  },
+  {
+    "title": "IR Proximity Obstacle Avoidance Sensor Module",
+    "sku": "2450",
+    "variant": "Default Title",
+    "price": 35,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/ir-proximity-obstacle-avoidance-sensor-module"
+  },
+  {
+    "title": "HC-SR04 Ultrasonic Sensor + Bracket",
+    "sku": "2134",
+    "variant": "Bracket Transparent",
+    "price": 25,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/ultrasonic-ranging-sensor-hc-sr04-and-bracket-for-distance-sensors-in"
+  },
+  {
+    "title": "HC-SR04 Ultrasonic Sensor + Bracket",
+    "sku": "AJ191",
+    "variant": "Bracket Blue",
+    "price": 35,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/ultrasonic-ranging-sensor-hc-sr04-and-bracket-for-distance-sensors-in"
+  },
+  {
+    "title": "HC-SR04 Ultrasonic Sensor + Bracket",
+    "sku": "2131",
+    "variant": "HYSRF04 5V",
+    "price": 75,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/ultrasonic-ranging-sensor-hc-sr04-and-bracket-for-distance-sensors-in"
+  },
+  {
+    "title": "HC-SR04 Ultrasonic Sensor + Bracket",
+    "sku": "2132",
+    "variant": "US-015",
+    "price": 75,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/ultrasonic-ranging-sensor-hc-sr04-and-bracket-for-distance-sensors-in"
+  },
+  {
+    "title": "HC-SR04 Ultrasonic Sensor + Bracket",
+    "sku": "AF112",
+    "variant": "HC-SR04",
+    "price": 88,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/ultrasonic-ranging-sensor-hc-sr04-and-bracket-for-distance-sensors-in"
+  },
+  {
+    "title": "HC-SR04 Ultrasonic Sensor + Bracket",
+    "sku": "SUS100UL",
+    "variant": "US-100",
+    "price": 75,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/ultrasonic-ranging-sensor-hc-sr04-and-bracket-for-distance-sensors-in"
+  },
+  {
+    "title": "HC-SR04 Ultrasonic Sensor + Bracket",
+    "sku": "Y0083",
+    "variant": "COMBI 1",
+    "price": 75,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/ultrasonic-ranging-sensor-hc-sr04-and-bracket-for-distance-sensors-in"
+  },
+  {
+    "title": "HC-SR04 Ultrasonic Sensor + Bracket",
+    "sku": "Y0084",
+    "variant": "COMBI 2",
+    "price": 85,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/ultrasonic-ranging-sensor-hc-sr04-and-bracket-for-distance-sensors-in"
+  },
+  {
+    "title": "HC-SR04 Ultrasonic Sensor + Bracket",
+    "sku": "Y0085",
+    "variant": "COMBI 3",
+    "price": 105,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/ultrasonic-ranging-sensor-hc-sr04-and-bracket-for-distance-sensors-in"
+  },
+  {
+    "title": "HC-SR04 Ultrasonic Sensor + Bracket",
+    "sku": "Y0086",
+    "variant": "COMBI 4",
+    "price": 95,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/ultrasonic-ranging-sensor-hc-sr04-and-bracket-for-distance-sensors-in"
+  },
+  {
+    "title": "HC-SR501 PIR Motion Sensor Module - Digital Output",
+    "sku": "AM298",
+    "variant": "Default Title",
+    "price": 85,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/pir-motion-sensor-module-digital"
+  },
+  {
+    "title": "Proximity Inductive 4mm Metal Sensor LJ12A3-4-Z/BY",
+    "sku": "AJ218",
+    "variant": "Default Title",
+    "price": 65,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/proximity-inductive-metal-sensor"
+  },
+  {
+    "title": "Capacitive Proximity Sensor LJC18A3-H-Z / BY",
+    "sku": "2389",
+    "variant": "Default Title",
+    "price": 380,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/capacitive-proximity-sensor-ljc18a3-h-z-by-2"
+  },
+  {
+    "title": "Line Tracking Sensor Module TCRT5000 - Reflective IR",
+    "sku": "AB604",
+    "variant": "Default Title",
+    "price": 37,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/line-tracking-sensor-module-tcrt5000"
+  },
+  {
+    "title": "JSN-B02 V2.0 Waterproof Ultrasonic Distance Sensor",
+    "sku": "AC048",
+    "variant": "Default Title",
+    "price": 135,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/waterproof-integrated-ultrasonic-ranging-module-jsn-b02"
+  },
+  {
+    "title": "Piezo Ceramic Wafer Plate 15mm 10PCS",
+    "sku": "2504",
+    "variant": "Default Title",
+    "price": 70,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/piezo-ceramic-wafer-plate-15mm-10pcs-2"
+  },
+  {
+    "title": "TCRT5000 Infrared Reflectance Obstacle Avoidance Module",
+    "sku": "2158",
+    "variant": "Default Title",
+    "price": 45,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/tcrt5000-infrared-reflectance-obstacle-avoidance-module"
+  },
+  {
+    "title": "Float Switch Plastic Water Level Control - In-Line",
+    "sku": "AM313",
+    "variant": "Default Title",
+    "price": 108,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/float-switch-plastic-water-level-control"
+  },
+  {
+    "title": "Line Tracking Sensor 5 Channel Module with Obstacle and Bump Sensor",
+    "sku": "2547",
+    "variant": "Default Title",
+    "price": 105,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/line-tracking-sensor-5-channel-module-with-obstacle-and-bump-sensor-2"
+  },
+  {
+    "title": "Line Tracking Sensor 5-Channel Module",
+    "sku": "2520",
+    "variant": "Default Title",
+    "price": 112,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/line-tracking-sensor-5-channel-module"
+  },
+  {
+    "title": "IR Sensor Adjustable E18-D80NK - Photoelectric Switch",
+    "sku": "AF169",
+    "variant": "Default Title",
+    "price": 209,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/adjustable-infrared-sensor-switch-3-80-cm"
+  },
+  {
+    "title": "Magnetic Contact Switch Door/Window Sensor",
+    "sku": "AB553",
+    "variant": "Default Title",
+    "price": 87,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/magnetic-contact-switch-door-sensor"
+  },
+  {
+    "title": "Adafruit ToF Distance Sensor VL53L0X 30-1000mm - 3317",
+    "sku": "3317",
+    "variant": "Default Title",
+    "price": 365,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/time-of-flight-distance-sensor-vl53l0x-30-to-1000mm"
+  },
+  {
+    "title": "Pololu QTR-MD-05RC Reflectance Array - 5-Channel, 8mm Pitch",
+    "sku": "POL4145",
+    "variant": "Default Title",
+    "price": 537,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/reflectance-sensor-array-qtr-md-05rc-5-channel-8mm-pitch-rc-output"
+  },
+  {
+    "title": "MFRC522 NFC RFID Reader Module 13.56MHz - SPI Card+Keyfob",
+    "sku": "2473",
+    "variant": "Default Title",
+    "price": 65,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/nfc-rfid-reader-kit-13-56mh"
+  },
+  {
+    "title": "Raspberry Pi 5 Quad-Core Cortex-A76 4GB/8GB/16GB",
+    "sku": "2331",
+    "variant": "2GB",
+    "price": 5915,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/raspberry-pi-5-2-4ghz-quad-core-arm-cortex-a76-4gb-8gb-16gb"
+  },
+  {
+    "title": "Raspberry Pi 5 Quad-Core Cortex-A76 4GB/8GB/16GB",
+    "sku": "2281",
+    "variant": "4GB",
+    "price": 10010,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/raspberry-pi-5-2-4ghz-quad-core-arm-cortex-a76-4gb-8gb-16gb"
+  },
+  {
+    "title": "Raspberry Pi 5 Quad-Core Cortex-A76 4GB/8GB/16GB",
+    "sku": "2274",
+    "variant": "8GB",
+    "price": 15015,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/raspberry-pi-5-2-4ghz-quad-core-arm-cortex-a76-4gb-8gb-16gb"
+  },
+  {
+    "title": "Raspberry Pi 5 Quad-Core Cortex-A76 4GB/8GB/16GB",
+    "sku": "RPI16",
+    "variant": "16GB",
+    "price": 27755,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/raspberry-pi-5-2-4ghz-quad-core-arm-cortex-a76-4gb-8gb-16gb"
+  },
+  {
+    "title": "Adafruit DC & Stepper Motor HAT for Raspberry Pi",
+    "sku": "2348",
+    "variant": "Default Title",
+    "price": 1335,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/raspberry-pi-dc-stepper-motor-hat-mini-kit-adafruit"
+  },
+  {
+    "title": "Adafruit Perma-Proto HAT for Raspberry Pi - No EEPROM",
+    "sku": "2310",
+    "variant": "Default Title",
+    "price": 425,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/raspberry-pi-perma-proto-hat-mini-kit-no-eeprom-adafruit"
+  },
+  {
+    "title": "Adafruit 16-Channel PWM/Servo HAT for Raspberry Pi",
+    "sku": "2327",
+    "variant": "Default Title",
+    "price": 1147,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/raspberry-pi-16-channel-pwm-servo-hat-mini-kit-adafruit"
+  },
+  {
+    "title": "Raspberry Pi Model B+/2/3 GPIO Kit - Breakout + Cable",
+    "sku": "RA000022RK",
+    "variant": "Default Title",
+    "price": 395,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/raspberry-pi-model-b-2-3-gpio-kit"
+  },
+  {
+    "title": "Raspberry Pi Acrylic Cluster Bracket Kit - Supercomputer Stack",
+    "sku": "RPA58104B",
+    "variant": "Default Title",
+    "price": 376,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/raspberry-pi-acrylic-bracket-kit-spark-supercomputer-cluster"
+  },
+  {
+    "title": "Adafruit Ultimate GPS HAT for Raspberry Pi - 2324",
+    "sku": "2324",
+    "variant": "Default Title",
+    "price": 2629,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/gps-ultimate-hat-raspberry-pi-a-b-pi-2-mini-kit-adafruit"
+  },
+  {
+    "title": "Raspberry Pi 3 B+ Sensor Kit",
+    "sku": "14799",
+    "variant": "Default Title",
+    "price": 5915,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/raspberry-pi-3-model-b-sensor-kit"
+  },
+  {
+    "title": "Raspberry Pi 3 B+ LCD HDMI Kit",
+    "sku": "14801",
+    "variant": "Default Title",
+    "price": 6527,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/raspberry-pi-3-model-b-lcd-hdmi-kit"
+  },
+  {
+    "title": "Raspberry Pi Gaming Pack - Game HAT, SD Card, Power Adapter",
+    "sku": "15156",
+    "variant": "Default Title",
+    "price": 2549,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/raspberry-pi-pack-game-hat-micro-sd-card-power-adapter"
+  },
+  {
+    "title": "Raspberry Pi 3 B+ Development Kit Type E",
+    "sku": "14800",
+    "variant": "Default Title",
+    "price": 5325,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/raspberry-pi-3-model-b-development-kit-type-e"
+  },
+  {
+    "title": "Raspberry Pi 3 B+ Super Starter Kit",
+    "sku": "AM391",
+    "variant": "Default Title",
+    "price": 5499,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/raspberry-pi-super-starter-kit-with-pi-3-b"
+  },
+  {
+    "title": "Raspberry Pi Zero 2 W - 5x Faster Quad-Core Pi Zero",
+    "sku": "14298",
+    "variant": "Default Title",
+    "price": 1887,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/raspberry-pi-zero-wh"
+  },
+  {
+    "title": "Relay Module 1-Channel 5V w/ Optocoupler",
+    "sku": "2397",
+    "variant": "1",
+    "price": 55,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/relay-module-channel-5v-with-optocoupler-projects-arduino-compatible"
+  },
+  {
+    "title": "Relay Module 1-Channel 5V w/ Optocoupler",
+    "sku": "AB241",
+    "variant": "2",
+    "price": 65,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/relay-module-channel-5v-with-optocoupler-projects-arduino-compatible"
+  },
+  {
+    "title": "Relay Module 1-Channel 5V w/ Optocoupler",
+    "sku": "2384",
+    "variant": "4",
+    "price": 135,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/relay-module-channel-5v-with-optocoupler-projects-arduino-compatible"
+  },
+  {
+    "title": "Relay Module 1-Channel 5V w/ Optocoupler",
+    "sku": "AB242",
+    "variant": "6",
+    "price": 245,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/relay-module-channel-5v-with-optocoupler-projects-arduino-compatible"
+  },
+  {
+    "title": "Relay Module 1-Channel 5V w/ Optocoupler",
+    "sku": "AB352",
+    "variant": "8",
+    "price": 255,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/relay-module-channel-5v-with-optocoupler-projects-arduino-compatible"
+  },
+  {
+    "title": "Relay Module 1-Channel 5V w/ Optocoupler",
+    "sku": "AB253",
+    "variant": "16",
+    "price": 495,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/relay-module-channel-5v-with-optocoupler-projects-arduino-compatible"
+  },
+  {
+    "title": "Rhino SW-11 Precision Straight Tweezers - Stainless Steel",
+    "sku": "3096",
+    "variant": "Default Title",
+    "price": 489,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/tweezers-precision-straight-rhino-sw-11"
+  },
+  {
+    "title": "Servo Mini Tower Pro 9g SG-90 - Hobby Servo 180 deg",
+    "sku": "AF001",
+    "variant": "Default Title",
+    "price": 89,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/tower-pro-9g-sg-90-mini-servo"
+  },
+  {
+    "title": "Flex Cable for Raspberry Pi Camera / Display",
+    "sku": "2665",
+    "variant": "2M",
+    "price": 185,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/cable-flex-raspberry-pi-camera-display"
+  },
+  {
+    "title": "Flex Cable for Raspberry Pi Camera / Display",
+    "sku": "2143",
+    "variant": "1M",
+    "price": 75,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/cable-flex-raspberry-pi-camera-display"
+  },
+  {
+    "title": "Flex Cable for Raspberry Pi Camera / Display",
+    "sku": "2666",
+    "variant": "0.5mm",
+    "price": 85,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/cable-flex-raspberry-pi-camera-display"
+  },
+  {
+    "title": "Flex Cable for Raspberry Pi Camera / Display",
+    "sku": "2242",
+    "variant": "0.4mm",
+    "price": 39,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/cable-flex-raspberry-pi-camera-display"
+  },
+  {
+    "title": "Flex Cable for Raspberry Pi Camera / Display",
+    "sku": "2744",
+    "variant": "0.3mm",
+    "price": 55,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/cable-flex-raspberry-pi-camera-display"
+  },
+  {
+    "title": "Flex Cable for Raspberry Pi Camera / Display",
+    "sku": "2745",
+    "variant": "0.15mm",
+    "price": 45,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/cable-flex-raspberry-pi-camera-display"
+  },
+  {
+    "title": "Waveshare 5\" Resistive Touch LCD 800x480 HDMI",
+    "sku": "10563",
+    "variant": "Default Title",
+    "price": 2450,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/lcd-hdmi-5inch-800x480-raspberry-pi"
+  },
+  {
+    "title": "1080p HDMI Male-to-Male Adapter for Raspberry Pi 3/4",
+    "sku": "2258",
+    "variant": "Default Title",
+    "price": 78,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/1080p-male-to-male-adapter-for-raspberry-pi-3-4-hdmi-compatible-converter"
+  },
+  {
+    "title": "Waveshare 3.5\" Resistive Touch HDMI LCD 480x320 IPS",
+    "sku": "12824",
+    "variant": "Default Title",
+    "price": 1795,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/raspberry-pi-b-2-3-tft-display-7-inch"
+  },
+  {
+    "title": "Waveshare 10.1\" Cap Touch LCD 1280x800 HDMI IPS Case",
+    "sku": "11750",
+    "variant": "Default Title",
+    "price": 5945,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/10-1inch-capacitive-touch-screen-lcd-with-case-1280x800-hdmi-for-raspberry-pi"
+  },
+  {
+    "title": "Waveshare 7\" Resistive Touch HDMI LCD 1024x600 IPS",
+    "sku": "12104",
+    "variant": "Default Title",
+    "price": 2899,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/lcd-hdmi-7inch-1024x600"
+  },
+  {
+    "title": "Waveshare 10.1inch Resistive Touch HDMI LCD - 1024×600 IPS",
+    "sku": "11870",
+    "variant": "Default Title",
+    "price": 4329,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/lcd-hdmi-10-1inch-1024x600"
+  },
+  {
+    "title": "Adafruit PiTFT 2.4\" Mini Kit 320x240 Touch - 2455",
+    "sku": "2455",
+    "variant": "Default Title",
+    "price": 2049,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/pitft-2-4-hat-mini-kit-320x240-tft-touchscreen-adafruit"
+  },
+  {
+    "title": "HDMI Connector for 5inch Raspberry Pi Screen",
+    "sku": "DRA04605C",
+    "variant": "Default Title",
+    "price": 57,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/hdmi-connector-for-5-inch-raspberry-pi-screen"
+  },
+  {
+    "title": "Waveshare 13.3\" Cap Touch LCD 1920x1080 HDMI IPS Case",
+    "sku": "16316",
+    "variant": "Default Title",
+    "price": 8415,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/133inch-capacitive-touch-screen-lcd-with-case-v2-19201080-hdmi-ips-various"
+  },
+  {
+    "title": "7-inch 800x600 HDMI Display for Raspberry Pi",
+    "sku": "RPA08067R",
+    "variant": "Default Title",
+    "price": 2389,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/raspberry-pi-b-b-2-3-7-inch-800x600-hdmi-display"
+  },
+  {
+    "title": "Raspberry Pi 3.95-inch TFT Display - SPI",
+    "sku": "RPA29501R",
+    "variant": "Default Title",
+    "price": 725,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/raspberry-pi-3-95-inch-tft-display"
+  },
+  {
+    "title": "Adafruit PiTFT 2.8\" Capacitive Touch LCD for Raspberry Pi",
+    "sku": "1983",
+    "variant": "Default Title",
+    "price": 2605,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/pitft-2-8-tft-320x240-capacitive-touchscreen-for-raspberry-pi"
+  },
+  {
+    "title": "Raspberry Pi 7\" Touchscreen Display - Official Foundation",
+    "sku": "2718",
+    "variant": "Default Title",
+    "price": 5499,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/touchscreen-display-pi-7-foundation-display-for-raspberry-pi"
+  },
+  {
+    "title": "Seeed Grove Luminance Sensor APDS-9002 - 101020076",
+    "sku": "101020076",
+    "variant": "Default Title",
+    "price": 325,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/luminance-sensor-grove-apds-9002"
+  },
+  {
+    "title": "Solar Panel 5.5V 300mA USB Charger - 1.65W Battery Pack",
+    "sku": "PSG05051E",
+    "variant": "Default Title",
+    "price": 210,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/solar-panel-foldable-5w-5v"
+  },
+  {
+    "title": "Adafruit Solenoid JF-0530B Mini Push-Pull - 412",
+    "sku": "412",
+    "variant": "Default Title",
+    "price": 211,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/small-push-pull-solenoid"
+  },
+  {
+    "title": "LilyPad Button Board - Sewable Tactile Switch",
+    "sku": "AM053",
+    "variant": "Default Title",
+    "price": 39,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/lilypad-button-board"
+  },
+  {
+    "title": "LilyPad CR2032 Coin Cell Battery Holder w/ Switch 20mm",
+    "sku": "AB488",
+    "variant": "Default Title",
+    "price": 45,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/lilypad-cr2032-coin-cell-battery-holder-switched-20mm-power-supply"
+  },
+  {
+    "title": "LilyPad RGB LED Wearable - Sewable RGB",
+    "sku": "AD062",
+    "variant": "Default Title",
+    "price": 45,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/lilypad-rgb-led-wearable-displays"
+  },
+  {
+    "title": "LilyPad Arduino USB ATmega32U4 - Wearable/Sewable",
+    "sku": "2435",
+    "variant": "Default Title",
+    "price": 469,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/lilypad-arduino-usb-atmega32u4-board"
+  },
+  {
+    "title": "LilyPad Buzzer - Sewable Audio Buzzer for Wearables",
+    "sku": "AB426",
+    "variant": "Default Title",
+    "price": 95,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/lilypad-buzzer-audio"
+  },
+  {
+    "title": "LilyPad LiPower - Wearable LiPo Boost",
+    "sku": "AB425",
+    "variant": "Default Title",
+    "price": 395,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/lilypad-lipower"
+  },
+  {
+    "title": "LilyPad Arduino Main Board ATmega328 - Sewable",
+    "sku": "AA070",
+    "variant": "Default Title",
+    "price": 265,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/arduino-lilypad-main-board"
+  },
+  {
+    "title": "LilyPad Power Supply AAA Battery - Sewable Boost",
+    "sku": "AB131",
+    "variant": "Default Title",
+    "price": 145,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/lilypad-power-supply-aaa-battery"
+  },
+  {
+    "title": "LilyPad Pixel Board - Sewable WS2812",
+    "sku": "AD077",
+    "variant": "Default Title",
+    "price": 65,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/lilypad-pixel-board"
+  },
+  {
+    "title": "LilyPad ATtiny85 Digispark Wearable",
+    "sku": "AC073",
+    "variant": "Default Title",
+    "price": 237,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/lilypad-attiny85-digispark-wearable-device"
+  },
+  {
+    "title": "Tamiya 70190 Mini Motor Multi-Ratio Gearbox 12-Speed Kit",
+    "sku": "1683",
+    "variant": "Default Title",
+    "price": 815,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/tamiya-70190-mini-motor-multi-ratio-gearbox-12-speed-kit-2"
+  },
+  {
+    "title": "DHT11 Digital Temperature/Humidity Sensor Module",
+    "sku": "AB118",
+    "variant": "Default Title",
+    "price": 89,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/dht11-digital-temperature-humidity-sensor-module"
+  },
+  {
+    "title": "Red 22AWG Flexible Silicone Wire - 200C High-Temp",
+    "sku": "288",
+    "variant": "Default Title",
+    "price": 19,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/solid-core-wire-spool-25ft-22awg-red"
+  },
+  {
+    "title": "Wire Blue 22 AWG Flexible Silicone Cable 0.3mm2 High-Temperature Max 200 Degrees Arduino",
+    "sku": "2094",
+    "variant": "Default Title",
+    "price": 19,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/wire-blue-22-awg-flexible-silicone-cable-03mm2-high-temperature-max-200"
+  },
+  {
+    "title": "Yellow 22AWG Flexible Silicone Wire - 200C High-Temp",
+    "sku": "289",
+    "variant": "Default Title",
+    "price": 19,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/solid-core-wire-spool-25ft-22awg-yellow"
+  },
+  {
+    "title": "Soldering Iron 60W Adjustable Temperature - 220VAC w/ Tip",
+    "sku": "AN124",
+    "variant": "Default Title",
+    "price": 119,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/soldering-iron-lead-free-30w-110-240vac"
+  },
+  {
+    "title": "Temperature Sensor LM35 TO-92 - Analog Output",
+    "sku": "AK114",
+    "variant": "Default Title",
+    "price": 65,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/temperature-sensor-lm35-to-92"
+  },
+  {
+    "title": "DHT22 Temperature and Humidity Sensor Module - AM2302",
+    "sku": "AB104",
+    "variant": "Default Title",
+    "price": 85,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/temperature-and-humidity-sensor-dht22-gravity"
+  },
+  {
+    "title": "Waterproof DS18B20 Temperature Sensor 1-Wire 3m Cable",
+    "sku": "AB389",
+    "variant": "Default Title",
+    "price": 105,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/one-wire-waterproof-temperature-sensor"
+  },
+  {
+    "title": "DHT22 Temperature + Humidity Digital Sensor",
+    "sku": "AB105",
+    "variant": "Default Title",
+    "price": 109,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/dht22-temperature-and-humidity-digital-sensor"
+  },
+  {
+    "title": "NTC Thermistor 10K MF52A 10PCS",
+    "sku": "2543",
+    "variant": "Default Title",
+    "price": 149,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/ntc-thermistor-10k-mf52a-10pcs-2"
+  },
+  {
+    "title": "DHT11 Temperature and Humidity Sensor Module - 3-Pin",
+    "sku": "2474",
+    "variant": "Default Title",
+    "price": 55,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/temperature-and-humidity-dht11-sensor"
+  },
+  {
+    "title": "Temperature DS18B20 Sensor TO-92 Form",
+    "sku": "2447",
+    "variant": "Default Title",
+    "price": 23,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/temperature-ds18b20-sensor-to-92-form-2"
+  },
+  {
+    "title": "MAX6675 Temperature Thermocouple Module - K-Type SPI",
+    "sku": "2200",
+    "variant": "Default Title",
+    "price": 205,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/max6675-temperature-sensor-thermocouple-module"
+  },
+  {
+    "title": "Thermistor NTC 3950 100K - 3D Printer Hotend",
+    "sku": "AE006",
+    "variant": "Default Title",
+    "price": 35,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/thermistor-ntc-3950-100k"
+  },
+  {
+    "title": "DFRobot Thermal Printer Tiny Receipt TTL/USB - DFR0503-EN",
+    "sku": "DFR0503-EN",
+    "variant": "Default Title",
+    "price": 4915,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/thermal-printer-tiny-receipt-ttl-serial-usb"
+  },
+  {
+    "title": "Turnigy 1000mAh 3S 20C LiPo Pack - 11.1V RC Drone Battery",
+    "sku": "2920",
+    "variant": "Default Title",
+    "price": 988,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/turnigy-1000mah-3s-20c-lipo-pack"
+  },
+  {
+    "title": "USB Cable Type B to Type A Male - Arduino Uno/Mega",
+    "sku": "AJ022",
+    "variant": "30 CM",
+    "price": 45,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/usb-cable-type-b-to-type-a-male-for-arduino-uno-mega"
+  },
+  {
+    "title": "USB Cable Type B to Type A Male - Arduino Uno/Mega",
+    "sku": "4453",
+    "variant": "50CM",
+    "price": 49,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/usb-cable-type-b-to-type-a-male-for-arduino-uno-mega"
+  },
+  {
+    "title": "USB Cable Type B to Type A Male - Arduino Uno/Mega",
+    "sku": "4455",
+    "variant": "1M",
+    "price": 65,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/usb-cable-type-b-to-type-a-male-for-arduino-uno-mega"
+  },
+  {
+    "title": "USB Cable Type B to Type A Male - Arduino Uno/Mega",
+    "sku": "4452",
+    "variant": "1.5M",
+    "price": 88,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/usb-cable-type-b-to-type-a-male-for-arduino-uno-mega"
+  },
+  {
+    "title": "USB Cable Type B to Type A Male - Arduino Uno/Mega",
+    "sku": "4451",
+    "variant": "3M",
+    "price": 133,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/usb-cable-type-b-to-type-a-male-for-arduino-uno-mega"
+  },
+  {
+    "title": "USB Cable Type B to Type A Male - Arduino Uno/Mega",
+    "sku": "4454",
+    "variant": "5M",
+    "price": 185,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/usb-cable-type-b-to-type-a-male-for-arduino-uno-mega"
+  },
+  {
+    "title": "USB Cable Type B to Type A Male - Arduino Uno/Mega",
+    "sku": "4450",
+    "variant": "10M",
+    "price": 195,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/usb-cable-type-b-to-type-a-male-for-arduino-uno-mega"
+  },
+  {
+    "title": "Weatherproof IP65 NEMA 4 ABS Enclosure - Outdoor Project Box",
+    "sku": "2376",
+    "variant": "115-90-55 mm",
+    "price": 98,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/weatherproof-enclosure-ip65-nema-4-abs-2"
+  },
+  {
+    "title": "Weatherproof IP65 NEMA 4 ABS Enclosure - Outdoor Project Box",
+    "sku": "2572",
+    "variant": "100-68-50 mm",
+    "price": 98,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/weatherproof-enclosure-ip65-nema-4-abs-2"
+  },
+  {
+    "title": "Weatherproof IP65 NEMA 4 ABS Enclosure - Outdoor Project Box",
+    "sku": "2573",
+    "variant": "83-58-34 mm",
+    "price": 59,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/weatherproof-enclosure-ip65-nema-4-abs-2"
+  },
+  {
+    "title": "Weatherproof IP65 NEMA 4 ABS Enclosure - Outdoor Project Box",
+    "sku": "4456",
+    "variant": "158-60-55 mm",
+    "price": 308,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/weatherproof-enclosure-ip65-nema-4-abs-2"
+  },
+  {
+    "title": "Weatherproof IP65 NEMA 4 ABS Enclosure - Outdoor Project Box",
+    "sku": "4457",
+    "variant": "160-80-95 mm",
+    "price": 344,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/weatherproof-enclosure-ip65-nema-4-abs-2"
+  },
+  {
+    "title": "Weatherproof IP65 NEMA 4 ABS Enclosure - Outdoor Project Box",
+    "sku": "4458",
+    "variant": "263-185-125 mm",
+    "price": 724,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/weatherproof-enclosure-ip65-nema-4-abs-2"
+  },
+  {
+    "title": "Weatherproof IP65 NEMA 4 ABS Enclosure - Outdoor Project Box",
+    "sku": "4459",
+    "variant": "263-185-95mm",
+    "price": 434,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/weatherproof-enclosure-ip65-nema-4-abs-2"
+  },
+  {
+    "title": "Weatherproof IP65 NEMA 4 ABS Enclosure - Outdoor Project Box",
+    "sku": "4460",
+    "variant": "263-185-60 mm",
+    "price": 416,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/weatherproof-enclosure-ip65-nema-4-abs-2"
+  },
+  {
+    "title": "Weatherproof IP65 NEMA 4 ABS Enclosure - Outdoor Project Box",
+    "sku": "4461",
+    "variant": "240-160-90 mm",
+    "price": 407,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/weatherproof-enclosure-ip65-nema-4-abs-2"
+  },
+  {
+    "title": "Weatherproof IP65 NEMA 4 ABS Enclosure - Outdoor Project Box",
+    "sku": "4462",
+    "variant": "230-150-87 mm",
+    "price": 402,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/weatherproof-enclosure-ip65-nema-4-abs-2"
+  },
+  {
+    "title": "Weatherproof IP65 NEMA 4 ABS Enclosure - Outdoor Project Box",
+    "sku": "4463",
+    "variant": "200-120-113 mm",
+    "price": 296,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/weatherproof-enclosure-ip65-nema-4-abs-2"
+  },
+  {
+    "title": "Weatherproof IP65 NEMA 4 ABS Enclosure - Outdoor Project Box",
+    "sku": "4464",
+    "variant": "200-120-75 mm",
+    "price": 271,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/weatherproof-enclosure-ip65-nema-4-abs-2"
+  },
+  {
+    "title": "Weatherproof IP65 NEMA 4 ABS Enclosure - Outdoor Project Box",
+    "sku": "4465",
+    "variant": "200-120-56 mm",
+    "price": 256,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/weatherproof-enclosure-ip65-nema-4-abs-2"
+  },
+  {
+    "title": "Weatherproof IP65 NEMA 4 ABS Enclosure - Outdoor Project Box",
+    "sku": "4466",
+    "variant": "192-188-100 mm",
+    "price": 434,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/weatherproof-enclosure-ip65-nema-4-abs-2"
+  },
+  {
+    "title": "Weatherproof IP65 NEMA 4 ABS Enclosure - Outdoor Project Box",
+    "sku": "4468",
+    "variant": "160-160-90 mm",
+    "price": 232,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/weatherproof-enclosure-ip65-nema-4-abs-2"
+  },
+  {
+    "title": "Weatherproof IP65 NEMA 4 ABS Enclosure - Outdoor Project Box",
+    "sku": "4469",
+    "variant": "160-110-90 mm",
+    "price": 296,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/weatherproof-enclosure-ip65-nema-4-abs-2"
+  },
+  {
+    "title": "Weatherproof IP65 NEMA 4 ABS Enclosure - Outdoor Project Box",
+    "sku": "4470",
+    "variant": "158-90-60 mm",
+    "price": 158,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/weatherproof-enclosure-ip65-nema-4-abs-2"
+  },
+  {
+    "title": "Weatherproof IP65 NEMA 4 ABS Enclosure - Outdoor Project Box",
+    "sku": "4471",
+    "variant": "158-90-45 mm",
+    "price": 178,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/weatherproof-enclosure-ip65-nema-4-abs-2"
+  },
+  {
+    "title": "Weatherproof IP65 NEMA 4 ABS Enclosure - Outdoor Project Box",
+    "sku": "4472",
+    "variant": "120-120-90 mm",
+    "price": 218,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/weatherproof-enclosure-ip65-nema-4-abs-2"
+  },
+  {
+    "title": "Weatherproof IP65 NEMA 4 ABS Enclosure - Outdoor Project Box",
+    "sku": "4473",
+    "variant": "83-81-56 mm",
+    "price": 118,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/weatherproof-enclosure-ip65-nema-4-abs-2"
+  },
+  {
+    "title": "Weatherproof IP65 NEMA 4 ABS Enclosure - Outdoor Project Box",
+    "sku": "4474",
+    "variant": "63-58-35 mm",
+    "price": 49,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/weatherproof-enclosure-ip65-nema-4-abs-2"
+  },
+  {
+    "title": "ESP-01S 1MB WiFi ESP8266 - Serial Transceiver",
+    "sku": "AB560",
+    "variant": "Default Title",
+    "price": 95,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/wifi-serial-transceiver-module-esp8266"
+  },
+  {
+    "title": "2.4GHz 2.5dBi WiFi Antenna IPEX/u.FL to SMA Pigtail",
+    "sku": "AJ205",
+    "variant": "Default Title",
+    "price": 65,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/antenna-wifi-2-4g-4dbi-with-cover"
+  },
+  {
+    "title": "MH-ET Live ESP32 MiniKit - WiFi/BT Dev Board, WeMos D1 Form",
+    "sku": "ARS01119B",
+    "variant": "Default Title",
+    "price": 326,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/esp32-wifi-ble-board-wroom"
+  },
+  {
+    "title": "ESP-01 512KB WiFi ESP8266 - Crowtail Edition",
+    "sku": "CT0917",
+    "variant": "Default Title",
+    "price": 149,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/esp8266-nodemcu-iot-kit"
+  },
+  {
+    "title": "ESP8266 WeMos D1 WiFi Board - Arduino UNO Footprint",
+    "sku": "AC023",
+    "variant": "Default Title",
+    "price": 259,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/arduino-uno-esp8266-espduino-wifi-board"
+  },
+  {
+    "title": "ESP32 WiFi+BT+BLE MCU Module - ESP-WROOM-32",
+    "sku": "AB520",
+    "variant": "Default Title",
+    "price": 178,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/esp32-wifi-bt-ble-mcu-module-esp-wroom-32"
+  },
+  {
+    "title": "W5100 Ethernet Shield for Arduino - 10/100 RJ45",
+    "sku": "2323",
+    "variant": "Default Title",
+    "price": 355,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/ethernet-shield-w5100"
+  },
+  {
+    "title": "W5500 Ethernet Module - SPI 10/100 Gigabit Buffer",
+    "sku": "AC043",
+    "variant": "Default Title",
+    "price": 309,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/ethernet-module-w5500"
+  },
+  {
+    "title": "WiFi Antenna 12dBi 2.4G/5.8G Dual-Band SMA Magnetic",
+    "sku": "2214",
+    "variant": "Default Title",
+    "price": 179,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/wifi-antenna-12dbi-24g-58g-dual-band-pole-antenna-sma-male-with-magnetic"
+  },
+  {
+    "title": "ESP8266 WiFi GPIO Shield for Arduino",
+    "sku": "2070",
+    "variant": "Default Title",
+    "price": 275,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/esp8266-wifi-gpio-shield-for-arduino"
+  },
+  {
+    "title": "Adafruit HUZZAH32 ESP32 Feather Board - 3405",
+    "sku": "3405",
+    "variant": "Default Title",
+    "price": 1676,
+    "stock": null,
+    "available": false,
+    "url": "https://circuit.rocks/products/huzzah32-esp32-feather-board-adafruit"
+  },
+  {
+    "title": "Adafruit Feather HUZZAH ESP8266 Wi-Fi Development Board",
+    "sku": "2821",
+    "variant": "Default Title",
+    "price": 1179,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/wifi-feather-huzzah-esp8266-adafruit"
+  },
+  {
+    "title": "Antenna 2.4GHz Linear Dipole u.FL/IPX Connector",
+    "sku": "AJ314",
+    "variant": "Default Title",
+    "price": 49,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/antenna-wifi-2-4g-3dbi"
+  },
+  {
+    "title": "ESP8266 WeMos D1 Mini Lite - ESP-12 USB WiFi Development Board",
+    "sku": "2399",
+    "variant": "Default Title",
+    "price": 245,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/wemos-esp8266-esp-12-usb-d1-mini-wifi"
+  },
+  {
+    "title": "ESP8266 WiFi Relay Module 10A 220V - Network Switch",
+    "sku": "AB563",
+    "variant": "Default Title",
+    "price": 375,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/relay-esp8266-10a-220v-network-wifi-module-input-dc-7v-30v"
+  },
+  {
+    "title": "DFRobot WiFi Bee ESP8266 - XBee Footprint - TEL0092",
+    "sku": "TEL0092",
+    "variant": "Default Title",
+    "price": 335,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/wifi-bee-esp8266-arduino-compatible"
+  },
+  {
+    "title": "SparkFun XBee 3 Module PCB Antenna - WRL-15126",
+    "sku": "WRL-15126",
+    "variant": "Default Title",
+    "price": 1800,
+    "stock": null,
+    "available": true,
+    "url": "https://circuit.rocks/products/xbee-3-module-pcb-antenna"
+  }
+]

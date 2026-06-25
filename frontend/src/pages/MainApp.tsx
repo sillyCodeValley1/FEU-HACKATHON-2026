@@ -291,7 +291,8 @@ export default function MainApp() {
                                   return (
                                     <span key={idx} className={cn("px-3 py-1 bg-bg-dark border rounded-full text-xs flex items-center gap-2", inInventory ? "border-green-500/50" : "border-border-dark")}>
                                       {item.name} 
-                                      <span className="text-primary font-mono">₱{item.price}</span>
+                                      {item.sku && <span className="font-mono text-text-muted text-[10px] ml-1">[{item.sku}]</span>}
+                                      <span className="text-primary font-mono ml-1">₱{item.price}</span>
                                       {item.stock !== undefined && (
                                         <span className={cn(
                                           "text-[10px] ml-1 px-1 rounded-sm",
@@ -465,8 +466,11 @@ export default function MainApp() {
                                   You own {inInventory.quantity}
                                 </div>
                               )}
-                              <div className="text-xs text-primary mb-1 font-medium">{item.category}</div>
-                              <div className="font-semibold text-sm text-white leading-tight">{item.name}</div>
+                              <div className="text-xs text-primary mb-1 font-medium flex items-center justify-between pr-8">
+                                <span>{item.category}</span>
+                                {item.sku && <span className="font-mono text-[10px] text-text-muted">SKU: {item.sku}</span>}
+                              </div>
+                              <div className="font-semibold text-sm text-white leading-tight pr-8">{item.name}</div>
                               <div className="mt-1 text-xs text-text-muted flex items-center gap-2">
                                 <span className="text-primary/80 font-medium">CircuitRocks</span>
                                 {item.stock !== undefined && (

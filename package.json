@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/sillyCodeValley1/FEU-HACKATHON-2026#readme",
   "dependencies": {
-    "concurrently": "^10.0.3"
+    "concurrently": "^10.0.3",
+    "jsdom": "^29.1.1"
   }
 }
