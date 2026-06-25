@@ -184,12 +184,12 @@ app.post('/api/recommend', async (req, res) => {
     You are an electronics project assistant. The user has the following components in their inventory:
     ${JSON.stringify(inventory, null, 2)}
 
-    Suggest 5 creative electronics projects they can build mostly using what they have. It's okay if a project is missing 1 to 5 components, but try to maximize the use of their current inventory.
+    Suggest 5 creative electronics projects they can build mostly using what they have. IMPORTANT: Only recommend projects that are missing 2-3 parts.
     
     For each project, also include:
     - "required_parts": all parts needed for the project
     - "owned_parts": parts the user already has
-    - "missing_parts": parts they need to buy
+    - "missing_parts": parts they need to buy (must be exactly 2-3)
     - Try to suggest missing parts that are available in CircuitRocks catalog when possible.
 
     CIRCUITROCKS AVAILABLE COMPONENTS:
@@ -200,7 +200,7 @@ app.post('/api/recommend', async (req, res) => {
       {
         "name": "Smart Plant Monitor",
         "description": "Monitors soil moisture and alerts you via Wi-Fi.",
-        "missing_count": 1,
+        "missing_count": 2,
         "required_parts": ["Arduino Uno", "Soil Moisture Sensor", "Water Pump", "Jumper Wires"],
         "owned_parts": ["Arduino Uno", "Jumper Wires"],
         "missing_parts": ["Soil Moisture Sensor", "Water Pump"]
@@ -222,46 +222,55 @@ app.post('/api/recommend', async (req, res) => {
 });
 
 function getMockRecommendations(inventory: any[]) {
+  // Helper to get random owned parts from inventory if available
+  const getRandomOwned = (count: number) => {
+    const inv = inventory.map(i => i.name);
+    const shuffled = [...inv].sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, Math.min(count, shuffled.length));
+  };
+
+  const ownedBase = getRandomOwned(2);
+  
   return [
     {
       name: "Smart Plant Monitor",
-      description: "Monitors soil moisture and alerts you via Wi-Fi.",
-      missing_count: 1,
-      required_parts: ["ESP32", "Soil Moisture Sensor", "Water Pump", "Jumper Wires", "Breadboard"],
-      owned_parts: ["Jumper Wires"],
-      missing_parts: ["ESP32", "Soil Moisture Sensor", "Water Pump", "Breadboard"]
+      description: "Monitors soil moisture and waters your plants automatically.",
+      missing_count: 2,
+      required_parts: [...ownedBase, "Soil Moisture Sensor", "Water Pump", "Relay Module"],
+      owned_parts: ownedBase,
+      missing_parts: ["Soil Moisture Sensor", "Water Pump"]
     },
     {
       name: "Automated Desk Fan",
-      description: "A small fan that turns on when the temperature gets too high.",
+      description: "A temperature-controlled fan for your workspace.",
       missing_count: 2,
-      required_parts: ["Arduino Uno", "Temperature Sensor", "DC Motor", "Relay Module"],
-      owned_parts: ["Arduino Uno"],
-      missing_parts: ["Temperature Sensor", "DC Motor", "Relay Module"]
+      required_parts: [...ownedBase, "DHT11 Temperature Sensor", "DC Fan", "Transistor"],
+      owned_parts: ownedBase,
+      missing_parts: ["DHT11 Temperature Sensor", "DC Fan"]
     },
     {
-      name: "Inventory Tester",
-      description: "A basic circuit to test the components you have.",
-      missing_count: 0,
-      required_parts: ["Arduino Uno", "Breadboard", "Jumper Wires"],
-      owned_parts: ["Arduino Uno", "Breadboard", "Jumper Wires"],
-      missing_parts: []
-    },
-    {
-      name: "LED Matrix Clock",
-      description: "A digital clock using an LED matrix display.",
-      missing_count: 2,
-      required_parts: ["ESP32", "LED Matrix", "RTC Module", "Jumper Wires"],
-      owned_parts: ["Jumper Wires"],
-      missing_parts: ["ESP32", "LED Matrix", "RTC Module"]
+      name: "LED Matrix Message Board",
+      description: "Scrolling text display using an 8x8 LED matrix.",
+      missing_count: 3,
+      required_parts: [...ownedBase, "8x8 LED Matrix", "MAX7219 Driver", "Jumper Wires"],
+      owned_parts: ownedBase,
+      missing_parts: ["8x8 LED Matrix", "MAX7219 Driver", "Jumper Wires"]
     },
     {
       name: "Automatic Night Light",
-      description: "Turns on LEDs automatically when it gets dark.",
-      missing_count: 1,
-      required_parts: ["Arduino Uno", "LDR Sensor", "LEDs", "Resistors", "Jumper Wires"],
-      owned_parts: ["Arduino Uno", "Jumper Wires"],
-      missing_parts: ["LDR Sensor", "LEDs", "Resistors"]
+      description: "Ambient lighting that turns on at dusk.",
+      missing_count: 2,
+      required_parts: [...ownedBase, "LDR Sensor", "LED Strip", "MOSFET"],
+      owned_parts: ownedBase,
+      missing_parts: ["LDR Sensor", "LED Strip"]
+    },
+    {
+      name: "Simple Weather Station",
+      description: "Measures temperature and humidity with basic display.",
+      missing_count: 3,
+      required_parts: [...ownedBase, "DHT22 Sensor", "OLED Display", "Breadboard"],
+      owned_parts: ownedBase,
+      missing_parts: ["DHT22 Sensor", "OLED Display", "Breadboard"]
     }
   ];
 }

@@ -1,5 +1,5 @@
-import React, { useState, useMemo } from 'react';
-import { Bot, CircuitBoard, ShoppingCart, List, Zap, Cpu, Settings, MessageSquare, Send, Activity, Info, Folder, Archive, Plus, ArrowLeft, Trash2, Box, PanelLeftClose, PanelLeft, ExternalLink, Sparkles, RefreshCw } from 'lucide-react';
+import React, { useState, useMemo, useEffect } from 'react';
+import { Bot, CircuitBoard, ShoppingCart, List, Zap, Cpu, Settings, MessageSquare, Send, Activity, Info, Folder, Archive, Plus, ArrowLeft, Trash2, Box, PanelLeftClose, PanelLeft, ExternalLink, Sparkles, RefreshCw, Sun, Moon } from 'lucide-react';
 import { cn } from '../utils/cn';
 import { API_BASE_URL } from '../config';
 import type { Message, Project, InventoryItem, ProjectRecommendation } from '../types';
@@ -20,6 +20,23 @@ export default function MainApp() {
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  
+  // Theme state
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    const saved = localStorage.getItem('theme');
+    return saved ? saved === 'dark' : true;
+  });
+
+  // Update body class when theme changes
+  useEffect(() => {
+    if (isDarkMode) {
+      document.body.classList.remove('light-mode');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.body.classList.add('light-mode');
+      localStorage.setItem('theme', 'light');
+    }
+  }, [isDarkMode]);
 
   // Selected BOM items state
   const [selectedBomItems, setSelectedBomItems] = useState<Record<string, Set<number>>>({});
@@ -420,7 +437,19 @@ export default function MainApp() {
           )}
         </nav>
 
-        <div className="p-3 border-t border-border-dark w-full">
+        <div className="p-3 border-t border-border-dark w-full space-y-1">
+          <button
+            onClick={() => setIsDarkMode(!isDarkMode)}
+            className={cn(
+              "w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-text-muted hover:text-white hover:bg-white/10 transition-colors",
+              !sidebarOpen && "justify-center"
+            )}
+          >
+            {isDarkMode ? <Sun size={18} /> : <Moon size={18} />}
+            {sidebarOpen && (
+              <span>{isDarkMode ? "Light Mode" : "Dark Mode"}</span>
+            )}
+          </button>
           <SidebarItem icon={<Settings size={18} />} label="Settings" collapsed={!sidebarOpen} />
         </div>
       </aside>
