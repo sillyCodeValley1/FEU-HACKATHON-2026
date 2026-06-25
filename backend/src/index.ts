@@ -183,7 +183,7 @@ app.post('/api/chat', async (req, res) => {
     const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
     
     const inventoryText = inventory && inventory.length > 0 
-      ? `\nUSER'S CURRENT INVENTORY:\n${JSON.stringify(inventory, null, 2)}\n\nIMPORTANT: The user already owns the items listed above. When generating the project plan and reply, explicitly acknowledge what the user already has in their inventory to save them money. Still include these components in the BOM for completeness.`
+      ? `\nUSER'S CURRENT INVENTORY:\n${JSON.stringify(inventory, null, 2)}\n\nIMPORTANT: The user already owns the items listed above. When generating the project plan and reply, explicitly acknowledge what the user already has in their inventory to save them money. Still include these components in the BOM for completeness. VERY IMPORTANT: For components the user already owns, use the EXACT name from their inventory in the "name" field. Also, ANY component the user already owns MUST be placed in the "matched_components" array (with a price of 0 and "stock" of 1 if not found in catalog), NEVER in the "missing_components" array.`
       : "";
 
     const prompt = `

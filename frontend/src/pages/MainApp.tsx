@@ -65,6 +65,21 @@ export default function MainApp() {
     if (activeProjectId === id) setActiveProjectId(null);
   };
 
+  // Helper to check if an item is in inventory
+  const findInInventory = (itemName: string) => {
+    if (!itemName) return undefined;
+    const normalizedItem = itemName.toLowerCase();
+    return inventory.find(i => {
+      const invName = i.name.toLowerCase();
+      if (normalizedItem.includes(invName) || invName.includes(normalizedItem)) return true;
+      
+      const invWords = invName.split(/\s+/).filter(w => w.length > 2);
+      if (invWords.length > 0 && invWords.every(w => normalizedItem.includes(w))) return true;
+      
+      return false;
+    });
+  };
+
   const handleApplyChanges = (messageId: string) => {
     if (!activeProjectId) return;
     
@@ -80,7 +95,7 @@ export default function MainApp() {
           setSelectedBomItems(prevSelected => {
             const projectSelections = new Set(prevSelected[activeProjectId] || []);
             newBom.forEach((item: any, idx: number) => {
-              const inInv = inventory.find(i => i.name.toLowerCase() === item.name.toLowerCase());
+              const inInv = findInInventory(item.name);
               if (!inInv) {
                 projectSelections.add(idx);
               }
@@ -164,7 +179,7 @@ export default function MainApp() {
             setSelectedBomItems(prevSelected => {
               const projectSelections = new Set(prevSelected[activeProjectId] || []);
               data.matched_components.forEach((item: any, idx: number) => {
-                const inInv = inventory.find(i => i.name.toLowerCase() === item.name.toLowerCase());
+                const inInv = findInInventory(item.name);
                 if (!inInv) {
                   projectSelections.add(idx);
                 }
@@ -346,7 +361,7 @@ export default function MainApp() {
                               </div>
                               <div className="flex flex-wrap gap-2">
                                 {msg.bom.map((item, idx) => {
-                                  const inInventory = inventory.find(i => i.name.toLowerCase() === item.name.toLowerCase());
+                                  const inInventory = findInInventory(item.name);
                                   return (
                                     <span key={idx} className={cn("px-3 py-1 bg-bg-dark border rounded-full text-xs flex items-center gap-2", inInventory ? "border-green-500/50" : "border-border-dark")}>
                                       {item.name} 
@@ -372,15 +387,15 @@ export default function MainApp() {
                           )}
 
                           {/* Inline Missing Components in chat */}
-                          {msg.missing_components && msg.missing_components.length > 0 && (
+                          {msg.missing_components && msg.missing_components.filter(item => !findInInventory(item.name)).length > 0 && (
                             <div className="bg-bg-panel border border-orange-500/30 rounded-xl p-4 w-full mt-2 shadow-lg">
                               <div className="flex items-center gap-2 mb-3 text-sm font-semibold text-orange-400">
                                 <Info size={16} />
-                                External Components ({msg.missing_components.length})
+                                External Components ({msg.missing_components.filter(item => !findInInventory(item.name)).length})
                               </div>
                               <p className="text-xs text-text-muted mb-3">These items are not in CircuitRocks, but you can buy them externally.</p>
                               <div className="flex flex-col gap-2">
-                                {msg.missing_components.map((item, idx) => (
+                                {msg.missing_components.filter(item => !findInInventory(item.name)).map((item, idx) => (
                                   <div key={idx} className="bg-bg-dark border border-orange-500/20 rounded-lg p-3 text-xs flex flex-col gap-1.5">
                                     <div className="flex items-center justify-between">
                                       <span className="font-semibold text-white">{item.name}</span>
@@ -519,14 +534,14 @@ export default function MainApp() {
                     ) : (
                       <>
                         {/* 1. Already Owned Components */}
-                        {currentProject.bom.some((item) => inventory.find(i => i.name.toLowerCase() === item.name.toLowerCase())) && (
+                        {currentProject.bom.some((item) => findInInventory(item.name)) && (
                           <div className="mb-6">
                             <h4 className="text-xs font-semibold text-green-400 mb-3 uppercase tracking-wider flex items-center gap-1.5">
                               <Archive size={14} /> Already Owned
                             </h4>
                             <div className="space-y-3">
                               {currentProject.bom.map((item, idx) => {
-                                const inInventory = inventory.find(i => i.name.toLowerCase() === item.name.toLowerCase());
+                                const inInventory = findInInventory(item.name);
                                 if (!inInventory) return null;
                                 
                                 return (
@@ -554,14 +569,14 @@ export default function MainApp() {
                         )}
 
                         {/* 2. BOM (To Purchase from CircuitRocks) */}
-                        {currentProject.bom.some((item) => !inventory.find(i => i.name.toLowerCase() === item.name.toLowerCase())) && (
+                        {currentProject.bom.some((item) => !findInInventory(item.name)) && (
                           <div className="mb-6">
                             <h4 className="text-xs font-semibold text-primary mb-3 uppercase tracking-wider flex items-center gap-1.5">
                               <ShoppingCart size={14} /> To Purchase
                             </h4>
                             <div className="space-y-3">
                               {currentProject.bom.map((item, idx) => {
-                                const inInventory = inventory.find(i => i.name.toLowerCase() === item.name.toLowerCase());
+                                const inInventory = findInInventory(item.name);
                                 if (inInventory) return null;
 
                                 const isSelected = selectedBomItems[currentProject.id]?.has(idx) ?? true; // True by default since it's not in inventory
@@ -571,7 +586,7 @@ export default function MainApp() {
                                     const defaultSelections = new Set(
                                       currentProject.bom
                                         .map((bItem: any, i: number) => ({ bItem, i }))
-                                        .filter(({ bItem }: any) => !inventory.find(inv => inv.name.toLowerCase() === bItem.name.toLowerCase()))
+                                        .filter(({ bItem }: any) => !findInInventory(bItem.name))
                                         .map(({ i }: any) => i)
                                     );
                                     const projectSelections = new Set(prev[currentProject.id] || defaultSelections);
@@ -638,13 +653,13 @@ export default function MainApp() {
                         )}
 
                         {/* 3. External Components */}
-                        {currentProject.missing_components && currentProject.missing_components.length > 0 && (
+                        {currentProject.missing_components && currentProject.missing_components.filter(item => !findInInventory(item.name)).length > 0 && (
                           <div className="pt-4 mt-4 border-t border-border-dark/50">
                             <h4 className="text-xs font-semibold text-orange-400 mb-3 uppercase tracking-wider flex items-center gap-1.5">
                               <Info size={14} /> External Components
                             </h4>
                             <div className="space-y-3">
-                              {currentProject.missing_components.map((item, idx) => (
+                              {currentProject.missing_components.filter(item => !findInInventory(item.name)).map((item, idx) => (
                                 <div key={idx} className="bg-bg-dark border border-orange-500/30 rounded-lg p-3 shadow-sm relative overflow-hidden">
                                   <div className="text-xs text-orange-400 mb-1 font-medium flex items-center justify-between">
                                     <span>Not in CircuitRocks</span>
@@ -672,7 +687,7 @@ export default function MainApp() {
                           {(() => {
                             const selectedCount = selectedBomItems[currentProject.id] 
                               ? selectedBomItems[currentProject.id].size 
-                              : currentProject.bom.filter((item: any) => !inventory.find(i => i.name.toLowerCase() === item.name.toLowerCase())).length;
+                              : currentProject.bom.filter((item: any) => !findInInventory(item.name)).length;
                             return selectedCount !== currentProject.bom.length ? (
                               <span className="ml-1 text-xs">({selectedCount} items)</span>
                             ) : null;
@@ -680,7 +695,7 @@ export default function MainApp() {
                         </span>
                         <span className="font-mono text-white font-bold text-lg">
                           ₱{currentProject.bom.reduce((acc, item, idx) => {
-                            const inInventory = inventory.find(i => i.name.toLowerCase() === item.name.toLowerCase());
+                            const inInventory = findInInventory(item.name);
                             const isSelected = selectedBomItems[currentProject.id]?.has(idx) ?? !inInventory;
                             return isSelected ? acc + item.price : acc;
                           }, 0).toFixed(2)}
@@ -690,7 +705,7 @@ export default function MainApp() {
                         disabled={
                           (selectedBomItems[currentProject.id] 
                             ? selectedBomItems[currentProject.id].size === 0 
-                            : currentProject.bom.filter((item: any) => !inventory.find(i => i.name.toLowerCase() === item.name.toLowerCase())).length === 0) 
+                            : currentProject.bom.filter((item: any) => !findInInventory(item.name)).length === 0) 
                           && currentProject.bom.length > 0
                         }
                         className="w-full bg-primary hover:bg-primary-dark disabled:bg-gray-700 disabled:text-gray-400 text-white rounded-lg py-2.5 text-sm font-medium transition-colors flex items-center justify-center gap-2 shadow-lg shadow-primary/20"
