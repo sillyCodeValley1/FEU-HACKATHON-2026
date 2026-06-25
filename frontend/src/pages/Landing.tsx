@@ -105,8 +105,8 @@ export default function Landing() {
           
           <div className="relative z-10 max-w-5xl mx-auto text-center">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-8 border border-primary/20 shadow-sm shadow-primary/5">
-              <Cpu size={16} className="text-primary" />
-              <span>Powered by CircuitRocks</span>
+              <Zap size={16} className="text-yellow-400" />
+              <span>Smart Hardware Planning</span>
             </div>
             
             <h1 className="text-5xl md:text-7xl font-bold text-white mb-8 leading-tight tracking-tight">
@@ -115,7 +115,7 @@ export default function Landing() {
             </h1>
             
             <p className="text-lg md:text-xl text-text-muted max-w-3xl mx-auto mb-12 leading-relaxed">
-              CircuitPal.AI is your intelligent hardware companion. Describe what you want to build, and our AI will generate a precise Bill of Materials from the CircuitRocks catalog, check your existing inventory, and provide an interactive step-by-step assembly roadmap.
+              CircuitPal helps you map out your electronics projects before you buy a single wire. Describe what you want to build, and our AI will generate a realistic Bill of Materials, check your existing inventory, and provide a clear assembly roadmap.
             </p>
             
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -150,24 +150,24 @@ export default function Landing() {
              <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                <div className="reveal-on-scroll opacity-0 translate-y-8">
                  <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-                   Seamless Sourcing with <span className="text-primary">CircuitRocks</span>
+                   Seamless Purchasing with <span className="text-primary">CircuitRocks</span>
                  </h2>
                  <p className="text-text-muted text-lg leading-relaxed mb-6">
-                   Finding the right components is often the most frustrating part of hardware development. We've solved this by building CircuitPal.AI directly on top of the <strong>CircuitRocks</strong> catalog—the Philippines' premier electronics shop.
+                   Sourcing components is often the most frustrating part of hardware development. We've solved this by natively integrating with <strong>CircuitRocks</strong>, a trusted and legitimate electronics shop.
                  </p>
                  <ul className="space-y-4 mb-8">
                    <li className="flex items-start gap-3">
                      <div className="mt-1 p-1 bg-green-500/20 rounded text-green-400"><ShieldCheck size={16} /></div>
                      <div>
-                       <strong className="text-white block">Verified Components</strong>
-                       <span className="text-text-muted text-sm">No more guessing if parts will work together. Every suggested component maps directly to genuine stock from the CircuitRocks store.</span>
+                       <strong className="text-white block">Legitimate Components</strong>
+                       <span className="text-text-muted text-sm">No more counterfeit parts. Every suggested component maps directly to genuine stock from CircuitRocks.</span>
                      </div>
                    </li>
                    <li className="flex items-start gap-3">
                      <div className="mt-1 p-1 bg-blue-500/20 rounded text-blue-400"><ShoppingCart size={16} /></div>
                      <div>
-                       <strong className="text-white block">Accurate BOM Generation</strong>
-                       <span className="text-text-muted text-sm">The AI builds your Bill of Materials specifically using available CircuitRocks inventory, giving you accurate prices and availability.</span>
+                       <strong className="text-white block">One-Click BOM Checkout</strong>
+                       <span className="text-text-muted text-sm">The AI builds your Bill of Materials specifically using available CircuitRocks inventory, giving you real-time prices and stock availability.</span>
                      </div>
                    </li>
                  </ul>
@@ -228,9 +228,9 @@ export default function Landing() {
                 <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:bg-primary/20 group-hover:scale-110 transition-all">
                   <Activity size={28} />
                 </div>
-                <h3 className="text-xl font-bold text-white mb-3">Interactive Project Roadmaps</h3>
+                <h3 className="text-xl font-bold text-white mb-3">Step-by-Step Roadmaps</h3>
                 <p className="text-text-muted leading-relaxed">
-                  Never get lost during assembly. The AI generates a phased project plan with interactive checkboxes covering hardware acquisition, circuit wiring, programming, and testing tailored specifically to your build.
+                  Never get lost during assembly. The AI generates a phased project plan covering hardware acquisition, circuit wiring, programming, and testing tailored specifically to your build.
                 </p>
               </div>
 
@@ -264,7 +264,7 @@ export default function Landing() {
                   </div>
                   <h3 className="text-xl font-bold text-white mb-3">Dynamic Bill of Materials (BOM)</h3>
                   <p className="text-text-muted leading-relaxed max-w-xl">
-                    Every project automatically generates a detailed BOM. It intelligently separates parts you already own from purchasable parts sourced directly from the CircuitRocks catalog, alongside helpful links for any external components.
+                    Every project automatically generates a detailed BOM. It intelligently separates parts you already own from "Purchasable Parts" sourced directly from the CircuitRocks catalog, complete with live pricing and SKU tracking.
                   </p>
                 </div>
               </div>
@@ -293,13 +293,7 @@ export default function Landing() {
       
       {/* Footer */}
       <footer className="py-8 border-t border-border-dark text-center text-sm text-text-muted">
-        <p className="mb-2">© 2026 CircuitPal.AI. Built for hardware enthusiasts.</p>
-        <p className="flex items-center justify-center gap-2">
-          <span>Powered by</span>
-          <a href="https://circuit.rocks/" target="_blank" rel="noreferrer" className="text-primary hover:text-primary-light transition-colors font-medium">
-            CircuitRocks
-          </a>
-        </p>
+        <p>© 2026 CircuitPal.AI. Built for hardware enthusiasts.</p>
       </footer>
     </div>
   );
