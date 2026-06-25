@@ -25,3 +25,10 @@ export interface InventoryItem {
   name: string;
   quantity: number;
 }
+
+export interface ProjectRecommendation {
+  name: string;
+  description: string;
+  missing_count: number;
+  missing_parts: string[];
+}

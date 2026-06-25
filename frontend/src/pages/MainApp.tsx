@@ -1,8 +1,8 @@
 import React, { useState, useMemo } from 'react';
-import { Bot, CircuitBoard, ShoppingCart, List, Zap, Cpu, Settings, MessageSquare, Send, Activity, Info, Folder, Archive, Plus, ArrowLeft, Trash2, Box, PanelLeftClose, PanelLeft, ExternalLink } from 'lucide-react';
+import { Bot, CircuitBoard, ShoppingCart, List, Zap, Cpu, Settings, MessageSquare, Send, Activity, Info, Folder, Archive, Plus, ArrowLeft, Trash2, Box, PanelLeftClose, PanelLeft, ExternalLink, Sparkles, RefreshCw } from 'lucide-react';
 import { cn } from '../utils/cn';
 import { API_BASE_URL } from '../config';
-import type { Message, Project, InventoryItem } from '../types';
+import type { Message, Project, InventoryItem, ProjectRecommendation } from '../types';
 import { SidebarItem } from '../components/SidebarItem';
 import { InventoryView } from '../components/InventoryView';
 import { CatalogView } from '../components/CatalogView';
@@ -13,6 +13,9 @@ export default function MainApp() {
   const [globalView, setGlobalView] = useState<'projects' | 'inventory' | 'catalog'>('projects');
   
   const [inventory, setInventory] = useState<InventoryItem[]>([]);
+  const [recommendations, setRecommendations] = useState<ProjectRecommendation[]>([]);
+  const [loadingRecs, setLoadingRecs] = useState(false);
+
   const [projectTab, setProjectTab] = useState<'chat' | 'plan'>('chat');
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -31,6 +34,117 @@ export default function MainApp() {
   const recentProjects = useMemo(() => {
     return [...projects].reverse().slice(0, 5);
   }, [projects]);
+
+  const generateRecommendations = async () => {
+    if (inventory.length === 0) return;
+    setLoadingRecs(true);
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/recommend`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ inventory })
+      });
+      const data = await res.json();
+      setRecommendations(data);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setLoadingRecs(false);
+    }
+  };
+
+  const handleCreateFromRecommendation = async (rec: ProjectRecommendation) => {
+    const newProjId = Date.now().toString();
+    const initMessage = `Project "${rec.name}" initialized! Based on your inventory, you can build this, but you might need ${rec.missing_count > 0 ? `${rec.missing_count} more parts (${rec.missing_parts.join(', ')})` : 'no additional parts'}. Generating your Bill of Materials and step-by-step plan...`;
+    
+    const newProj: Project = {
+      id: newProjId,
+      name: rec.name,
+      description: rec.description,
+      messages: [
+        {
+          id: '1',
+          role: 'assistant',
+          content: initMessage
+        }
+      ],
+      bom: [],
+      missing_components: [],
+      plan: []
+    };
+    
+    setProjects(prev => [newProj, ...prev]);
+    setActiveProjectId(newProj.id);
+    setProjectTab('chat');
+    
+    // Remove the selected recommendation from the list
+    setRecommendations(prev => prev.filter(r => r.name !== rec.name));
+
+    // Auto-trigger generation for BOM and Plan
+    setIsLoading(true);
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/chat`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: `I want to build a ${rec.name}. ${rec.description}`, inventory })
+      });
+      const data = await res.json();
+      
+      setProjects(prev => prev.map(p => {
+        if (p.id === newProjId) {
+          const hasNewBom = data.matched_components && data.matched_components.length > 0;
+          const hasNewPlan = data.plan && data.plan.length > 0;
+          
+          const assistantMessage: Message = {
+            id: (Date.now() + 1).toString(),
+            role: 'assistant',
+            content: data.reply,
+            bom: data.matched_components,
+            missing_components: data.missing_components,
+            plan: data.plan,
+            hasProposedChanges: hasNewBom || hasNewPlan,
+            isApplied: true, // Auto-apply for recommended projects
+            isRejected: false
+          };
+
+          if (hasNewBom) {
+            setSelectedBomItems(prevSelected => {
+              const projectSelections = new Set(prevSelected[newProjId] || []);
+              data.matched_components.forEach((item: any, idx: number) => {
+                const inInv = findInInventory(item.name);
+                if (!inInv) {
+                  projectSelections.add(idx);
+                }
+              });
+              return { ...prevSelected, [newProjId]: projectSelections };
+            });
+          }
+
+          return {
+            ...p,
+            messages: [...p.messages, assistantMessage],
+            bom: hasNewBom ? data.matched_components : p.bom,
+            missing_components: data.missing_components && data.missing_components.length > 0 ? data.missing_components : p.missing_components,
+            plan: hasNewPlan ? data.plan : p.plan
+          };
+        }
+        return p;
+      }));
+    } catch (error) {
+      console.error('Error fetching auto-response:', error);
+      setProjects(prev => prev.map(p => {
+        if (p.id === newProjId) {
+          return {
+            ...p,
+            messages: [...p.messages, { id: Date.now().toString(), role: 'assistant', content: 'Error: Could not automatically generate the BOM and Plan.' }]
+          };
+        }
+        return p;
+      }));
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const handleCreateProject = (e: React.FormEvent) => {
     e.preventDefault();
@@ -765,6 +879,75 @@ export default function MainApp() {
                   </button>
                 </div>
 
+                {/* Recommended Projects Section */}
+                <div className="mb-12">
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-lg font-bold text-white flex items-center gap-2">
+                      <Sparkles className="text-primary" size={20} /> 
+                      Recommended Projects
+                    </h3>
+                    {inventory.length > 0 && recommendations.length > 0 && (
+                      <button onClick={generateRecommendations} disabled={loadingRecs} className="text-xs text-primary hover:text-primary-light flex items-center gap-1.5 transition-colors">
+                        <RefreshCw size={14} className={cn(loadingRecs && "animate-spin")} /> Refresh Ideas
+                      </button>
+                    )}
+                  </div>
+
+                  {inventory.length === 0 ? (
+                    <div className="bg-bg-panel border border-border-dark rounded-xl p-6 text-center shadow-sm">
+                      <Archive className="mx-auto text-text-muted mb-3 opacity-50" size={24} />
+                      <p className="text-sm text-text-muted">Add components to your inventory to get AI-powered project recommendations.</p>
+                      <button onClick={() => setGlobalView('inventory')} className="mt-3 text-sm text-primary hover:underline font-medium">Go to Inventory</button>
+                    </div>
+                  ) : recommendations.length === 0 ? (
+                    <div className="bg-bg-panel border border-border-dark rounded-xl p-8 text-center shadow-sm flex flex-col items-center justify-center">
+                      <Bot className="text-primary mb-3 opacity-80" size={32} />
+                      <p className="text-sm text-text-muted mb-4 max-w-md">You have {inventory.length} items in your inventory. Let AI suggest projects you can build right now.</p>
+                      <button 
+                        onClick={generateRecommendations} 
+                        disabled={loadingRecs}
+                        className="bg-primary hover:bg-primary-dark text-white px-5 py-2.5 rounded-lg text-sm font-medium transition-colors flex items-center gap-2"
+                      >
+                        {loadingRecs ? <RefreshCw size={16} className="animate-spin" /> : <Sparkles size={16} />}
+                        {loadingRecs ? 'Generating Ideas...' : 'Generate Ideas'}
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                      {recommendations.map((rec, idx) => (
+                        <div key={idx} className="bg-bg-panel border border-border-dark rounded-xl p-5 hover:border-primary/50 transition-colors flex flex-col h-full group shadow-sm">
+                          <div className="flex justify-between items-start mb-3">
+                            <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary/20 transition-colors">
+                              <Zap size={20} />
+                            </div>
+                            {rec.missing_count === 0 ? (
+                              <span className="text-[10px] font-bold px-2 py-1 rounded bg-green-500/10 text-green-400 border border-green-500/20">
+                                Ready to Build
+                              </span>
+                            ) : (
+                              <span className="text-[10px] font-bold px-2 py-1 rounded bg-orange-500/10 text-orange-400 border border-orange-500/20" title={rec.missing_parts.join(', ')}>
+                                Missing {rec.missing_count} parts
+                              </span>
+                            )}
+                          </div>
+                          <h4 className="font-bold text-white mb-2 line-clamp-1" title={rec.name}>{rec.name}</h4>
+                          <p className="text-xs text-text-muted mb-4 flex-1 line-clamp-3">{rec.description}</p>
+                          <button 
+                            onClick={() => handleCreateFromRecommendation(rec)}
+                            className="w-full py-2 bg-bg-dark border border-border-dark rounded-lg text-xs font-medium text-white hover:border-primary/50 hover:text-primary transition-colors mt-auto"
+                          >
+                            Start Project
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                <div className="mb-4">
+                  <h3 className="text-xl font-bold text-white mb-1">Your Projects</h3>
+                </div>
+
                 {projects.length === 0 ? (
                   <div className="min-h-full">
                     {/* Hero Section */}
@@ -861,7 +1044,10 @@ export default function MainApp() {
                   </div>
                 ) : (
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                    {projects.map(p => (
+                    {projects.map(p => {
+                      const purchasablePartsCount = p.bom.filter(item => !findInInventory(item.name)).length + p.missing_components.length;
+                      
+                      return (
                       <div 
                         key={p.id} 
                         onClick={() => { setActiveProjectId(p.id); setProjectTab('chat'); }}
@@ -881,11 +1067,11 @@ export default function MainApp() {
                         <h3 className="font-bold text-lg text-white mb-1 line-clamp-1">{p.name}</h3>
                         <p className="text-sm text-text-muted line-clamp-2 mb-4 flex-1">{p.description}</p>
                         <div className="flex items-center gap-3 text-xs font-medium text-text-muted pt-4 border-t border-border-dark/50">
-                          <div className="flex items-center gap-1.5"><List size={14}/> {p.bom.length} Parts</div>
+                          <div className="flex items-center gap-1.5"><ShoppingCart size={14}/> {purchasablePartsCount} Purchasable Parts</div>
                           <div className="flex items-center gap-1.5"><Activity size={14}/> {p.plan.length} Steps</div>
                         </div>
                       </div>
-                    ))}
+                    )})}
                   </div>
                 )}
               </div>

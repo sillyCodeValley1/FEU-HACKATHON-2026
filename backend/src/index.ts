@@ -170,6 +170,69 @@ app.get('/api/catalog', (req, res) => {
   }
 });
 
+// Endpoint to generate project recommendations based on inventory
+app.post('/api/recommend', async (req, res) => {
+  const { inventory } = req.body;
+  
+  if (!process.env.GEMINI_API_KEY) {
+    return res.json(getMockRecommendations(inventory));
+  }
+
+  try {
+    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+    const prompt = `
+    You are an electronics project assistant. The user has the following components in their inventory:
+    ${JSON.stringify(inventory, null, 2)}
+
+    Suggest 3 creative electronics projects they can build mostly using what they have. It's okay if a project is missing 1 to 3 components, but try to maximize the use of their current inventory.
+    
+    Return ONLY a valid JSON array matching this exact structure, with no markdown formatting around it:
+    [
+      {
+        "name": "Smart Plant Monitor",
+        "description": "Monitors soil moisture and alerts you via Wi-Fi.",
+        "missing_count": 1,
+        "missing_parts": ["Water Pump"]
+      }
+    ]
+    `;
+
+    const result = await model.generateContent(prompt);
+    let text = result.response.text().trim();
+    if (text.startsWith('```json')) text = text.substring(7);
+    else if (text.startsWith('```')) text = text.substring(3);
+    if (text.endsWith('```')) text = text.substring(0, text.length - 3);
+
+    res.json(JSON.parse(text));
+  } catch (e) {
+    console.error("Gemini API Error in recommendations:", e);
+    res.json(getMockRecommendations(inventory));
+  }
+});
+
+function getMockRecommendations(inventory: any[]) {
+  return [
+    {
+      name: "Smart Plant Monitor",
+      description: "Monitors soil moisture and alerts you via Wi-Fi.",
+      missing_count: 1,
+      missing_parts: ["Water Pump"]
+    },
+    {
+      name: "Automated Desk Fan",
+      description: "A small fan that turns on when the temperature gets too high.",
+      missing_count: 2,
+      missing_parts: ["DC Motor", "Temperature Sensor"]
+    },
+    {
+      name: "Inventory Tester",
+      description: "A basic circuit to test the components you have.",
+      missing_count: 0,
+      missing_parts: []
+    }
+  ];
+}
+
 // Endpoint to handle chat requests and generate project plans
 app.post('/api/chat', async (req, res) => {
   const { message, inventory } = req.body;

@@ -40,7 +40,9 @@ document.addEventListener('click', function(event) {
   }
 
   var trimmedText = formattedBomString.trim();
+  console.log(trimmedText);
   var enc = btoa(unescape(encodeURIComponent(trimmedText)));
+  console.log(enc);
   var targetUrl = 'https://circuit.rocks/pages/bom-builder?bom=' + enc;
 
   window.open(targetUrl, '_blank');
