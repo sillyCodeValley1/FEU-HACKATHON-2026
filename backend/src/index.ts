@@ -13,6 +13,10 @@ const port = 4000;
 app.use(cors());
 app.use(express.json());
 
+// Serve static files from frontend dist folder
+const distPath = path.join(__dirname, '../../frontend/dist');
+app.use(express.static(distPath));
+
 // Initialize Gemini API
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || 'dummy-key');
 
@@ -414,7 +418,18 @@ function getMockResponse(message: string) {
   return { reply, required_components, matched_components, missing_components, project_readiness, plan };
 }
 
+// Catch-all route to serve index.html for client-side routing
+app.get('*', (req, res) => {
+  // Check if the request is for an API endpoint first
+  if (req.path.startsWith('/api/')) {
+    return res.status(404).json({ error: 'API endpoint not found' });
+  }
+  // Otherwise serve the frontend
+  res.sendFile(path.join(distPath, 'index.html'));
+});
+
 // Start the server
 app.listen(port, () => {
   console.log(`Server is successfully running on port ${port}`);
+  console.log(`Serving frontend from: ${distPath}`);
 });
