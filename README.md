@@ -60,7 +60,7 @@ npm run dev
 ```
 
 - The **Frontend** will be available at `http://localhost:5173`
-- The **Backend API** will be running at `http://localhost:3001`
+- The **Backend API** will be running at `http://localhost:4000`
 
 ## Project Structure
 
