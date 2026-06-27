@@ -11,7 +11,9 @@ export default function MainApp() {
   // Load from localStorage on mount
   const [projects, setProjects] = useState<Project[]>(() => {
     const saved = localStorage.getItem('circuitpal-projects');
-    return saved ? JSON.parse(saved) : [];
+    const parsed = saved ? JSON.parse(saved) : [];
+    console.log('Loaded projects from localStorage:', parsed);
+    return parsed;
   });
   const [activeProjectId, setActiveProjectId] = useState<string | null>(() => {
     const saved = localStorage.getItem('circuitpal-active-project');
@@ -64,6 +66,11 @@ export default function MainApp() {
     const saved = localStorage.getItem('circuitpal-collapsed-bom-sections');
     return saved ? JSON.parse(saved) : {};
   });
+  // Track if BOM panel is folded
+  const [isBomPanelFolded, setIsBomPanelFolded] = useState<boolean>(() => {
+    const saved = localStorage.getItem('circuitpal-bom-panel-folded');
+    return saved ? JSON.parse(saved) : false;
+  });
 
   // Theme state
   const [isDarkMode, setIsDarkMode] = useState(() => {
@@ -115,6 +122,10 @@ export default function MainApp() {
   useEffect(() => {
     localStorage.setItem('circuitpal-collapsed-bom-sections', JSON.stringify(collapsedBomSections));
   }, [collapsedBomSections]);
+  // Save BOM panel folded state to localStorage
+  useEffect(() => {
+    localStorage.setItem('circuitpal-bom-panel-folded', JSON.stringify(isBomPanelFolded));
+  }, [isBomPanelFolded]);
 
   // Apply theme
   useEffect(() => {
@@ -371,6 +382,7 @@ export default function MainApp() {
         body: JSON.stringify({ message: sentInput, inventory })
       });
       const data = await res.json();
+      console.log('Backend response:', data);
       
       setProjects(prev => prev.map(p => {
         if (p.id === activeProjectId) {
@@ -800,15 +812,21 @@ export default function MainApp() {
                 </div>
 
                 {/* BOM Side Panel */}
-                <div className="w-80 bg-bg-sidebar border-l border-border-dark flex flex-col shrink-0">
-                  <div className="p-4 border-b border-border-dark flex items-center gap-2 bg-bg-dark/50">
+                <div className={cn(
+                  "bg-bg-sidebar border-l border-border-dark flex flex-col shrink-0 transition-all duration-300 ease-in-out overflow-hidden",
+                  isBomPanelFolded ? "w-12" : "w-80"
+                )}>
+                  <div className="p-4 border-b border-border-dark flex items-center justify-center gap-2 bg-bg-dark/50 cursor-pointer hover:bg-bg-dark transition-colors" onClick={() => setIsBomPanelFolded(!isBomPanelFolded)}>
                     <List size={18} className="text-primary"/>
-                    <h3 className="font-semibold text-white">Bill of Materials</h3>
-                    <div className="ml-auto bg-primary/20 text-primary text-xs px-2 py-0.5 rounded-full font-bold">
-                      {currentProject.bom.length + (currentProject.missing_components?.length || 0)} items
-                    </div>
+                    {!isBomPanelFolded && <h3 className="font-semibold text-white">Bill of Materials</h3>}
+                    {!isBomPanelFolded && (
+                      <div className="ml-auto bg-primary/20 text-primary text-xs px-2 py-0.5 rounded-full font-bold">
+                        {currentProject.bom.length + (currentProject.missing_components?.length || 0)} items
+                      </div>
+                    )}
                   </div>
-                  <div className="flex-1 overflow-y-auto p-4 space-y-3">
+                  {!isBomPanelFolded && (
+                    <div className="flex-1 overflow-y-auto p-4 space-y-3">
                     {currentProject.bom.length === 0 && (!currentProject.missing_components || currentProject.missing_components.length === 0) ? (
                       <div className="text-center mt-10">
                         <Box className="mx-auto text-text-muted mb-3 opacity-50" size={32} />
@@ -849,6 +867,10 @@ export default function MainApp() {
                                       href={item.url} 
                                       target="_blank" 
                                       rel="noreferrer"
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                        console.log('Clicked owned item:', item);
+                                      }}
                                       className="block bg-bg-panel border border-green-500/30 rounded-lg p-3 shadow-sm relative overflow-hidden transition-all opacity-80 hover:opacity-100 hover:border-green-400/50 cursor-pointer"
                                     >
                                       <div className="absolute top-0 right-0 bg-green-500/20 text-green-400 text-[9px] font-bold px-2 py-0.5 rounded-bl-lg">
@@ -928,6 +950,10 @@ export default function MainApp() {
                                       href={item.url} 
                                       target="_blank" 
                                       rel="noreferrer"
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                        console.log('Clicked purchase item:', item);
+                                      }}
                                       className={cn(
                                         "block bg-bg-panel border rounded-lg p-3 shadow-sm relative overflow-hidden transition-all cursor-pointer",
                                         isSelected ? "border-primary/50 hover:border-primary" : "border-border-dark opacity-60 hover:opacity-80"
@@ -1020,8 +1046,9 @@ export default function MainApp() {
                         )}
                       </>
                     )}
-                  </div>
-                  {currentProject.bom.length > 0 && (
+                    </div>
+                  )}
+                  {!isBomPanelFolded && currentProject.bom.length > 0 && (
                     <div className="p-4 border-t border-border-dark bg-bg-panel shrink-0">
                       <div className="flex justify-between items-center mb-4">
                         <span className="text-sm text-text-muted font-medium">

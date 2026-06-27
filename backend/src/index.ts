@@ -38,16 +38,16 @@ try {
 } catch (e) {
   console.warn('Failed to load catalog.json, using fallback mock data.');
   mockCatalog = [
-    { id: '1', name: 'Arduino Uno R3', category: 'Microcontroller', price: 1450.00, stock: 50, description: 'Standard microcontroller board for beginners.' },
-    { id: '2', name: 'ESP32 Development Board', category: 'Microcontroller', price: 580.00, stock: 120, description: 'Wi-Fi & Bluetooth MCU, great for IoT.' },
-    { id: '3', name: 'Ultrasonic Sensor HC-SR04', category: 'Sensor', price: 230.00, stock: 300, description: 'Distance measuring sensor.' },
-    { id: '4', name: 'L298N Motor Driver', category: 'Module', price: 320.00, stock: 85, description: 'Dual H-bridge motor driver.' },
-    { id: '5', name: '18650 Li-ion Battery 3000mAh', category: 'Power', price: 405.00, stock: 200, description: 'Rechargeable power source.' },
-    { id: '6', name: 'Soil Moisture Sensor', category: 'Sensor', price: 145.00, stock: 150, description: 'Analog soil moisture sensor for plants.' },
-    { id: '7', name: '5V Relay Module', category: 'Module', price: 205.00, stock: 200, description: '1-channel relay module for switching high power.' },
-    { id: '8', name: 'Mini Water Pump 5V', category: 'Actuator', price: 290.00, stock: 90, description: 'Submersible water pump.' },
-    { id: '9', name: 'Jumper Wires (M-M) x40', category: 'Wiring', price: 175.00, stock: 500, description: 'Male to male jumper wires for breadboards.' },
-    { id: '10', name: 'Half-Size Breadboard', category: 'Prototyping', price: 260.00, stock: 150, description: 'Standard 400 tie-point breadboard.' }
+    { id: '1', name: 'Arduino Uno R3', category: 'Microcontroller', price: 1450.00, stock: 50, description: 'Standard microcontroller board for beginners.', url: 'https://circuit.rocks/' },
+    { id: '2', name: 'ESP32 Development Board', category: 'Microcontroller', price: 580.00, stock: 120, description: 'Wi-Fi & Bluetooth MCU, great for IoT.', url: 'https://circuit.rocks/' },
+    { id: '3', name: 'Ultrasonic Sensor HC-SR04', category: 'Sensor', price: 230.00, stock: 300, description: 'Distance measuring sensor.', url: 'https://circuit.rocks/' },
+    { id: '4', name: 'L298N Motor Driver', category: 'Module', price: 320.00, stock: 85, description: 'Dual H-bridge motor driver.', url: 'https://circuit.rocks/' },
+    { id: '5', name: '18650 Li-ion Battery 3000mAh', category: 'Power', price: 405.00, stock: 200, description: 'Rechargeable power source.', url: 'https://circuit.rocks/' },
+    { id: '6', name: 'Soil Moisture Sensor', category: 'Sensor', price: 145.00, stock: 150, description: 'Analog soil moisture sensor for plants.', url: 'https://circuit.rocks/' },
+    { id: '7', name: '5V Relay Module', category: 'Module', price: 205.00, stock: 200, description: '1-channel relay module for switching high power.', url: 'https://circuit.rocks/' },
+    { id: '8', name: 'Mini Water Pump 5V', category: 'Actuator', price: 290.00, stock: 90, description: 'Submersible water pump.', url: 'https://circuit.rocks/' },
+    { id: '9', name: 'Jumper Wires (M-M) x40', category: 'Wiring', price: 175.00, stock: 500, description: 'Male to male jumper wires for breadboards.', url: 'https://circuit.rocks/' },
+    { id: '10', name: 'Half-Size Breadboard', category: 'Prototyping', price: 260.00, stock: 150, description: 'Standard 400 tie-point breadboard.', url: 'https://circuit.rocks/' }
   ];
 }
 
@@ -82,7 +82,7 @@ After generating the ideal BOM:
 Compare every required component against CircuitRocks's Available Components. 
 For each component: 
 * If a suitable item exists in CircuitRocks's available components: 
-  * Add it to "matched_components". Ensure you include the "stock", and "sku" properties from CircuitRocks's data. 
+  * Add it to "matched_components". Ensure you include the "stock", "sku", and "url" properties from CircuitRocks's data. 
 * If no suitable item exists: 
   * Add it to "missing_components" and include a "purchase_link" to an external site (e.g. Shopee, Lazada, Amazon, Adafruit) where it can be bought.
 
@@ -320,6 +320,24 @@ app.post('/api/chat', async (req, res) => {
     }
     
     const parsedResponse = JSON.parse(cleanJsonStr);
+    
+    // Make sure all matched components have url and url from mockCatalog
+    if (parsedResponse.matched_components) {
+      parsedResponse.matched_components = parsedResponse.matched_components.map((item: any) => {
+        // Find matching item in mockCatalog by name or sku
+        const catalogItem = mockCatalog.find(catItem => 
+          catItem.name.toLowerCase().includes(item.name.toLowerCase()) || 
+          catItem.sku === item.sku ||
+          item.name.toLowerCase().includes(catItem.name.toLowerCase())
+        );
+        
+        if (catalogItem) {
+          return { ...item, ...catalogItem };
+        }
+        return { ...item, url: item.url || 'https://circuit.rocks/' };
+      });
+    }
+    
     res.json(parsedResponse);
     
   } catch (error: any) {
@@ -358,6 +376,11 @@ function getMockResponse(message: string) {
   let project_readiness = { matched: 0, missing: 0, percentage: 0 };
   let plan: any[] = [];
   
+  // Pick actual items from mockCatalog instead of hardcoded indices
+  const findItem = (keyword: string) => mockCatalog.find(item => 
+    item.name.toLowerCase().includes(keyword.toLowerCase())
+  ) || mockCatalog[0];
+  
   if (message.toLowerCase().includes('plant') || message.toLowerCase().includes('water')) {
     required_components = [
       { name: 'Microcontroller with Wi-Fi', purpose: 'Main controller and IoT connectivity' },
@@ -368,11 +391,18 @@ function getMockResponse(message: string) {
       { name: 'Jumper Wires', purpose: 'Connect components' },
       { name: 'Breadboard', purpose: 'Prototyping circuit' }
     ];
-    matched_components = [mockCatalog[1], mockCatalog[5], mockCatalog[6], mockCatalog[7], mockCatalog[8], mockCatalog[9]];
+    matched_components = [
+      findItem('ESP32'),
+      findItem('moisture'),
+      findItem('relay'),
+      findItem('pump'),
+      findItem('jumper'),
+      findItem('breadboard')
+    ].filter(Boolean);
     missing_components = [
       { name: 'Tubing', reason: 'No water tubing available in catalog', purchase_link: 'https://www.amazon.com/s?k=silicone+water+tubing' }
     ];
-    project_readiness = { matched: 6, missing: 1, percentage: 85 };
+    project_readiness = { matched: matched_components.length, missing: 1, percentage: 85 };
     plan = [
       { phase: 'Hardware acquisition', details: 'Order ESP32, Moisture Sensor, Relay, Water Pump, Wires, and Breadboard. Source tubing locally.' },
       { phase: 'Circuit assembly', details: 'Connect Moisture Sensor to ESP32 analog pin. Connect Relay to digital pin to control the pump.' },
@@ -389,12 +419,18 @@ function getMockResponse(message: string) {
       { name: 'Battery Pack', purpose: 'Power source' },
       { name: 'Jumper Wires', purpose: 'Connections' }
     ];
-    matched_components = [mockCatalog[0], mockCatalog[3], mockCatalog[4], mockCatalog[2], mockCatalog[8]];
+    matched_components = [
+      findItem('Arduino'),
+      findItem('motor'),
+      findItem('ultrasonic'),
+      findItem('battery'),
+      findItem('jumper')
+    ].filter(Boolean);
     missing_components = [
       { name: 'DC Gear Motors (x2)', reason: 'Not available in current catalog', purchase_link: 'https://www.adafruit.com/product/3777' },
       { name: 'Robot Chassis', reason: 'Not available in current catalog', purchase_link: 'https://www.amazon.com/s?k=robot+car+chassis' }
     ];
-    project_readiness = { matched: 5, missing: 2, percentage: 71 };
+    project_readiness = { matched: matched_components.length, missing: 2, percentage: 71 };
     plan = [
       { phase: 'Hardware acquisition', details: 'Order Arduino, Motor Driver, Battery, Sensor, and Wires. Need to find motors and chassis elsewhere.' },
       { phase: 'Circuit assembly', details: 'Connect motors to L298N. Connect Arduino PWM pins to L298N IN pins. Wire battery to driver.' },
@@ -406,9 +442,12 @@ function getMockResponse(message: string) {
       { name: 'Microcontroller', purpose: 'Base logic' },
       { name: 'Breadboard', purpose: 'Prototyping' }
     ];
-    matched_components = [mockCatalog[0], mockCatalog[9]];
+    matched_components = [
+      findItem('Arduino'),
+      findItem('breadboard')
+    ].filter(Boolean);
     missing_components = [];
-    project_readiness = { matched: 2, missing: 0, percentage: 100 };
+    project_readiness = { matched: matched_components.length, missing: 0, percentage: 100 };
     plan = [
       { phase: 'Planning', details: 'Define the exact requirements for your custom project.' },
       { phase: 'Hardware acquisition', details: 'Order the base microcontroller and breadboard to get started.' }
